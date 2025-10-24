@@ -1,0 +1,20 @@
+site_name: LLM RL Fine-tuning
+site_description: Technical documentation and notes on PPO, DPO, and other RL methods for LLM fine-tuning
+site_author: Saurabh Goyal
+theme:
+  name: material
+
+nav:
+  - Home: index.md
+  - Getting Started: getting_started.md
+  - Methods:
+      - PPO: methods/ppo.md
+      - DPO: methods/dpo.md
+      - DRPO: methods/drpo.md
+      - G(uided)RPO: methods/g(uided)rpo.md
+      - Comparison: methods/comparison.md
+  - Advanced Topics:
+      - KL Penalty: advanced_topics/kl_penalty.md
+      - Deepseek RL Fine-tuning: advanced_topics/deepseek_rl_finetuning.md
+      - Rewards Hacking: advanced_topics/rewards_hacking.md
+  - References: references.md
