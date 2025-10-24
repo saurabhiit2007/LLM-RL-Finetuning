@@ -983,13 +983,13 @@
 </ol>
 <hr />
 <h2 id="5-ppo-objective-function">5. PPO Objective Function</h2>
-<p>[
+<div class="arithmatex">\[
 L^{PPO}(\theta) = \mathbb{E}_t \left[\min\left(r_t(\theta) A_t, \text{clip}(r_t(\theta), 1-\epsilon, 1+\epsilon) A_t\right)\right]
-]</p>
+\]</div>
 <p>Where:
-- (r_t(\theta)) = ratio between new and old policy probabilities.
-- (A_t) = advantage function (how much better an action is than expected).
-- (\epsilon) = clipping threshold (often 0.1–0.3).</p>
+- <span class="arithmatex">\(r_t(\theta)\)</span> = ratio between new and old policy probabilities.
+- <span class="arithmatex">\(A_t\)</span> = advantage function (how much better an action is than expected).
+- <span class="arithmatex">\(\epsilon\)</span> = clipping threshold (often 0.1–0.3).</p>
 <p>This ensures <strong>small but stable</strong> improvements.</p>
 <hr />
 <h2 id="6-example-of-ppo-in-practice">6. Example of PPO in Practice</h2>
@@ -1028,7 +1028,7 @@ L^{PPO}(\theta) = \mathbb{E}_t \left[\min\left(r_t(\theta) A_t, \text{clip}(r_t(
 L = L^{PPO} - \beta D_{KL}(\pi_{\theta} || \pi_{\text{ref}})
 ]
 However:
-- Choosing the right KL coefficient ((\beta)) is tricky.<br />
+- Choosing the right KL coefficient (<span class="arithmatex">\(\beta\)</span>) is tricky.<br />
 - Too small → model diverges, harming coherence/safety.<br />
 - Too large → model learns too little (under-updates).</p>
 <p>Modern techniques (e.g., <strong>adaptive KL control</strong>) try to auto-adjust this balance.</p>
@@ -1156,10 +1156,12 @@ If the reward model is imperfect, the LLM can <strong>“game”</strong> it by 
     
     
       
-      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "..", "features": ["mathjax"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
       
     
   </body>

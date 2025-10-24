@@ -902,8 +902,8 @@
 <p>GRPO is the core RL optimization algorithm used in DeepSeek-R1. It adapts traditional PPO to work with multiple outputs per prompt and relative ranking of outputs.</p>
 <h3 id="key-features">Key Features</h3>
 <ul>
-<li><strong>Group-based ranking</strong>: For each prompt (q), sample a group of outputs ({o_i}_{i=1}^G) from the current policy.</li>
-<li><strong>Advantage computation</strong>: Compute an advantage score (A_i) for each output.</li>
+<li><strong>Group-based ranking</strong>: For each prompt <span class="arithmatex">\(q\)</span>, sample a group of outputs <span class="arithmatex">\(\{o_i\}_{i=1}^G\)</span> from the current policy.</li>
+<li><strong>Advantage computation</strong>: Compute an advantage score <span class="arithmatex">\(A_i\)</span> for each output.</li>
 <li><strong>Clipped-ratio objective</strong>: Optimizes the policy using a PPO-style clipped ratio but applied to each output in the group, using relative ranks rather than absolute rewards.</li>
 <li><strong>KL penalty</strong>: Ensures the new policy does not deviate significantly from a reference policy.</li>
 </ul>
@@ -1054,10 +1054,12 @@ where r_i = π_θ(o_i|q) / π_{θ_old}(o_i|q)
     
     
       
-      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "../..", "features": ["mathjax"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
       
     
   </body>

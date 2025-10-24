@@ -929,14 +929,14 @@
 <li>Fine-tune the model using a <strong>weighted log-likelihood loss</strong>, encouraging high-reward responses while applying a <strong>KL penalty</strong> to maintain closeness to the base model.</li>
 </ul>
 <p><strong>DRPO Loss Function</strong>:</p>
-<p>[
+<div class="arithmatex">\[
 L(\pi) = - \mathbb{E}_{(x, y)} [ r(x, y) \cdot \log \pi(y|x) ] + \beta KL(\pi || \pi_0)
-]</p>
+\]</div>
 <p>Where:<br />
-- (r(x, y)) = reward score from the reward model<br />
-- (\pi) = fine-tuned model<br />
-- (\pi_0) = base (SFT) model<br />
-- (\beta) = KL coefficient</p>
+- <span class="arithmatex">\(r(x, y)\)</span> = reward score from the reward model<br />
+- <span class="arithmatex">\(\pi\)</span> = fine-tuned model<br />
+- <span class="arithmatex">\(\pi_0\)</span> = base (SFT) model<br />
+- <span class="arithmatex">\(\beta\)</span> = KL coefficient</p>
 <hr />
 <h2 id="training-workflow">Training Workflow</h2>
 <h3 id="drpo-offline">DRPO (Offline)</h3>
@@ -1198,10 +1198,12 @@ Stable &amp; fast             Slower, high cost, slightly higher alignment
     
     
       
-      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "../..", "features": ["mathjax"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
       
     
   </body>
