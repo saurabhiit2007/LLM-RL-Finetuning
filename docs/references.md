@@ -11,3 +11,6 @@
   [[Nature link]](https://www.nature.com/articles/s41586-025-09422-z)
 * Samia Sahin, *The Math Behind DeepSeek — GRPO Explained*, Medium (2025).  
   [[Medium Article]](https://medium.com/@sahin.samia/the-math-behind-deepseek-a-deep-dive-into-group-relative-policy-optimization-grpo-8a75007491ba)
+* Guo D., Yang D., Zhang H., Song J., et al. “DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning.” arXiv preprint arXiv:2501.12948 (2025).  
+* DeepSeek-R1 repository on Hugging Face / GitHub.  
+* Blog posts / reviews for distillation and training — e.g., Fireworks AI deep dive, Medium articles.
