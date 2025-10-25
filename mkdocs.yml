@@ -26,7 +26,7 @@ nav:
       - PPO: methods/ppo.md
       - DPO: methods/dpo.md
       - DRPO: methods/drpo.md
-      - G(uided)RPO: methods/g(uided)rpo.md
+      - G(uided)RPO: methods/guided_rpo.md
       - Comparison: methods/comparison.md
   - Advanced Topics:
       - KL Penalty: advanced_topics/kl_penalty.md
