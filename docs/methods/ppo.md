@@ -1,7 +1,7 @@
 
 # 🧠 PPO and Reward Models in LLM Training
 
-## 1. Overview
+### 1. Overview
 Proximal Policy Optimization (PPO) is a reinforcement learning algorithm widely used in **fine-tuning Large Language Models (LLMs)** under the Reinforcement Learning from Human Feedback (RLHF) framework. It helps bridge the gap between **human preferences** and **LLM outputs** by optimizing the model’s responses to align with what humans find helpful, safe, or relevant.
 
 ---
@@ -22,7 +22,7 @@ RLHF typically consists of three stages:
 
 ---
 
-## 3. Why PPO instead of Direct Human Feedback?
+### 3. Why PPO instead of Direct Human Feedback?
 Direct human labeling for all outputs is **impractical and noisy**. PPO helps by:
 
 - **Scaling feedback:** Reward models generalize human preferences to unseen outputs.
@@ -31,9 +31,9 @@ Direct human labeling for all outputs is **impractical and noisy**. PPO helps by
 
 ---
 
-## 4. PPO Key Concepts
+### 4. PPO Key Concepts
 
-### 4.1 Components
+#### 4.1 Components
 
 | Component | Description |
 |-----------|-------------|
@@ -43,7 +43,7 @@ Direct human labeling for all outputs is **impractical and noisy**. PPO helps by
 | **Value Function (V_θ)** | Estimates expected reward for a given prompt. |
 | **Advantage (A_t)** | Measures how much better an action is than expected: `A = R - V_θ(s)` |
 
-### 4.2 Intuition
+#### 4.2 Intuition
 PPO adjusts the LLM to improve rewards **without drastic changes**:
 
 - Generates outputs → reward model evaluates → advantage guides update.
@@ -52,12 +52,12 @@ PPO adjusts the LLM to improve rewards **without drastic changes**:
 ---
 
 
-## 5. PPO Objective Function
+### 5. PPO Objective Function
 
 The **Proximal Policy Optimization (PPO)** algorithm optimizes a policy model \(π_θ\) while constraining how much it can diverge from a reference (old) policy \(π_{θ_{old}}\).
 
 !!! example "📘 PPO Mathematical Formulation"
-    ### 5.1. Probability Ratio
+    #### 5.1. Probability Ratio
 
     $$
     r_t(\theta) = \frac{π_θ(a_t | s_t)}{π_{θ_{old}}(a_t | s_t)}
@@ -85,13 +85,13 @@ The **Proximal Policy Optimization (PPO)** algorithm optimizes a policy model \(
 
 ---
 
-## 6. Value Function, Advantage, and Reward Computation
+### 6. Value Function, Advantage, and Reward Computation
 
 The PPO algorithm relies on several auxiliary components — **value function**, **advantage estimation**, and **entropy regularization** — that ensure stable and meaningful policy updates.
 
 !!! example "📗 Supporting Mathematical Components"
 
-    ### 6.1. Cumulative Reward (Return)
+    #### 6.1. Cumulative Reward (Return)
 
     The **cumulative reward** (or *return*) represents the total discounted reward starting from time \(t\):
 
@@ -122,7 +122,7 @@ The PPO algorithm relies on several auxiliary components — **value function**,
 
     ---
 
-    ### 6.2. Value Function
+    #### 6.2. Value Function
 
     The **value function** estimates the expected return given a state (or prompt context):
 
@@ -162,7 +162,7 @@ The PPO algorithm relies on several auxiliary components — **value function**,
 
     ---
 
-    ### 6.3. Advantage Function
+    #### 6.3. Advantage Function
 
     The **advantage** quantifies how much better an action \(a_t\) was compared to the expected baseline:
    
@@ -210,7 +210,7 @@ The PPO algorithm relies on several auxiliary components — **value function**,
    
         Overall, the advantage serves as the **direction and strength** of the policy gradient update — guiding PPO to reinforce actions that outperform the model’s baseline expectations.
         
-    ### 6.4. Entropy Bonus (Exploration Term)
+    #### 6.4. Entropy Bonus (Exploration Term)
 
     The **entropy loss** encourages the policy to explore rather than prematurely converge:
 
@@ -222,7 +222,7 @@ The PPO algorithm relies on several auxiliary components — **value function**,
 
     ---
 
-    ### 6.5. Combined PPO Loss
+    #### 6.5. Combined PPO Loss
 
     The full training objective combines all three components — PPO loss, value loss, and entropy term:
 
@@ -237,7 +237,7 @@ The PPO algorithm relies on several auxiliary components — **value function**,
 
     This total loss balances **policy improvement**, **value estimation accuracy**, and **exploration**.
 
-## 7. Iterative PPO Update
+### 7. Iterative PPO Update
 1. Generate response with policy model.
 2. Compute reward using reward model.
 3. Compute log probabilities (old vs new policy).
@@ -252,7 +252,7 @@ The PPO algorithm relies on several auxiliary components — **value function**,
 
 ---
 
-## 8. Pseudo-code example of PPO in Practice
+### 8. Pseudo-code example of PPO in Practice
 
 ```python
 
@@ -300,9 +300,9 @@ for prompt in prompts:
 ```
 
 
-## 9. Limitations and Challenges of PPO in LLM Training
+### 9. Limitations and Challenges of PPO in LLM Training
 
-### 🧩 1. KL Divergence Sensitivity
+#### 🧩 1. KL Divergence Sensitivity
 PPO adds a **KL penalty** to prevent the model from drifting too far:
 $$
 L = L^{PPO} - \beta D_{KL}(\pi_{\theta} || \pi_{\text{ref}})
@@ -314,42 +314,42 @@ $$
 
 ---
 
-### ⏳ 2. High Training Cost
+#### ⏳ 2. High Training Cost
 - Multiple models (policy, reference, reward, value) increase compute.
 - Fine-tuning large LLMs can require **thousands of GPU-hours**.
 
 ---
 
-### ⚠️ 3. Reward Hacking
+#### ⚠️ 3. Reward Hacking
 - LLM may over-optimize for the reward model instead of true human preference.
 - Can result in overly polite, verbose, or misleading responses.
 
 ---
 
-### 🧮 4. Sparse or Noisy Rewards
+#### 🧮 4. Sparse or Noisy Rewards
 - **Sparse:** One reward per sequence makes credit assignment harder.
 - **Noisy:** Subjective or inconsistent human preferences can lead to unstable updates.
 > 💡 Sparse/noisy rewards increase variance and slow learning.
 
 ---
 
-### 🔁 5. Credit Assignment
+#### 🔁 5. Credit Assignment
 - Per-token updates but per-sequence rewards create ambiguity about which tokens contributed most.
 
 ---
 
-### ⚖️ 6. Exploration vs Alignment
+#### ⚖️ 6. Exploration vs Alignment
 - Encouraging exploration may generate unsafe outputs.
 - Balancing diversity and alignment is challenging.
 
 ---
 
-### 🔍 7. Implementation Complexity
+#### 🔍 7. Implementation Complexity
 - Multiple models and careful hyperparameter tuning required.
 - Can be unstable if any component is suboptimal.
 
 
-## 10. Summary
+### 10. Summary
 
 | Component | Role | Example |
 |------------|------|----------|
