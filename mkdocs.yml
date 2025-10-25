@@ -1,5 +1,5 @@
 site_name: LLM RL Fine-tuning
-site_description: Technical documentation and notes on PPO, DPO, and other RL methods for LLM fine-tuning
+site_description: Technical documentation and notes on RL methods for LLM fine-tuning
 site_author: Saurabh Goyal
 theme:
   name: material
@@ -27,7 +27,7 @@ nav:
       - DPO: methods/dpo.md
       - DRPO: methods/drpo.md
       - G(uided)RPO: methods/guided_rpo.md
-      - Comparison: methods/comparison.md
+      - Grouped Relative PO (Deepseek): methods/grouped_relative_po_deepseek.md
   - Advanced Topics:
       - KL Penalty: advanced_topics/kl_penalty.md
       - Deepseek RL Fine-tuning: advanced_topics/deepseek_rl_finetuning.md
