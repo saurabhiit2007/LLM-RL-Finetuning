@@ -14,3 +14,6 @@
 * Guo D., Yang D., Zhang H., Song J., et al. “DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning.” arXiv preprint arXiv:2501.12948 (2025).  
 * DeepSeek-R1 repository on Hugging Face / GitHub.  
 * Blog posts / reviews for distillation and training — e.g., Fireworks AI deep dive, Medium articles.
+* Schulman et al., *Proximal Policy Optimization Algorithms*, arXiv:1707.06347
+* Rafailov et al., *Direct Preference Optimization: Your Language Model is Secretly a Reward Model*, 2023
+* DeepSeek-RLHF Technical Report, 2024
