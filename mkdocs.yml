@@ -21,14 +21,13 @@ extra_javascript:
 
 nav:
   - Home: index.md
-  - Getting Started: getting_started.md
   - Methods:
-      - PPO: methods/ppo.md
-      - DPO: methods/dpo.md
-      - D(irect)RPO: methods/drpo.md
-      - D(ecoupled)RPO: methods/decoupledrpo.md
-      - G(uided)RPO: methods/guided_rpo.md
-      - Grouped Relative PO (Deepseek): methods/grouped_relative_po_deepseek.md
+      - Proximal Policy Optimization (PPO): methods/ppo.md
+      - Direct Policy Optimization (DPO): methods/dpo.md
+      - Direct Rewards Policy Optimization (DRPO Offline): methods/drpo.md
+      - Decoupled Rewards Policy Optimization (DRPO): methods/decoupled_rpo.md
+      - Guided Rewards Policy Optimization (GRPO): methods/guided_rpo.md
+      - Grouped Relative Policy Optimization (Deepseek GRPO): methods/grouped_relative_po_deepseek.md
   - Advanced Topics:
       - KL Penalty: advanced_topics/kl_penalty.md
       - Deepseek RL Fine-tuning: advanced_topics/deepseek_rl_finetuning.md
