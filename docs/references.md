@@ -17,3 +17,6 @@
 * Schulman et al., *Proximal Policy Optimization Algorithms*, arXiv:1707.06347
 * Rafailov et al., *Direct Preference Optimization: Your Language Model is Secretly a Reward Model*, 2023
 * DeepSeek-RLHF Technical Report, 2024
+* RLHF and policy optimization papers (InstructGPT, ChatGPT).
+* Specification gaming in RL literature.
+* Conservative/offline RL methods (CQL, CRR) and uncertainty-aware modeling.
