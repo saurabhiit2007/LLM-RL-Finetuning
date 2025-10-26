@@ -6,14 +6,14 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Technical documentation and notes on PPO, DPO, and other RL methods for LLM fine-tuning">
+        <meta name="description" content="Technical documentation and notes on RL methods for LLM fine-tuning">
       
       
         <meta name="author" content="Saurabh Goyal">
       
       
       
-        <link rel="prev" href="../../methods/g%28uided%29rpo/">
+        <link rel="prev" href="../../methods/grouped_relative_po_deepseek/">
       
       
         <link rel="next" href="../deepseek_rl_finetuning/">
@@ -64,6 +64,11 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
+      
+        
+        <a href="#kl-penalty-in-policy-optimization-po-algorithms" class="md-skip">
+          Skip to content
+        </a>
       
     </div>
     <div data-md-component="announce">
@@ -326,7 +331,7 @@
   
   
   <span class="md-ellipsis">
-    DRPO
+    D(irect)RPO
     
   </span>
   
@@ -344,7 +349,30 @@
   
   
     <li class="md-nav__item">
-      <a href="../../methods/g%28uided%29rpo/" class="md-nav__link">
+      <a href="../../methods/decoupledrpo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    D(ecoupled)RPO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../methods/guided_rpo/" class="md-nav__link">
         
   
   
@@ -367,12 +395,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../../methods/comparison.md" class="md-nav__link">
+      <a href="../../methods/grouped_relative_po_deepseek/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Comparison
+    Grouped Relative PO (Deepseek)
     
   </span>
   
@@ -443,6 +471,21 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    KL Penalty
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
@@ -455,6 +498,97 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-what-is-kl-divergence" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. What is KL Divergence?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-kl-penalty-in-the-optimization-objective" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. KL Penalty in the Optimization Objective
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-computing-the-kl-penalty-in-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Computing the KL Penalty in Practice
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-adaptive-kl-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Adaptive KL Control
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-connection-to-ppo-dpo-and-grpo" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Connection to PPO, DPO, and GRPO
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-implementation-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Implementation Example
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-intuition-and-practical-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Intuition and Practical Notes
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -553,6 +687,88 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-what-is-kl-divergence" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. What is KL Divergence?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-kl-penalty-in-the-optimization-objective" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. KL Penalty in the Optimization Objective
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-computing-the-kl-penalty-in-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Computing the KL Penalty in Practice
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-adaptive-kl-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Adaptive KL Control
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-connection-to-ppo-dpo-and-grpo" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Connection to PPO, DPO, and GRPO
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-implementation-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Implementation Example
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-intuition-and-practical-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Intuition and Practical Notes
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -568,9 +784,118 @@
 
 
 
-  <h1>KL Penalty</h1>
+<h1 id="kl-penalty-in-policy-optimization-po-algorithms">🧩 KL Penalty in Policy Optimization (PO) Algorithms<a class="headerlink" href="#kl-penalty-in-policy-optimization-po-algorithms" title="Permanent link">&para;</a></h1>
+<h3 id="1-overview">1. Overview<a class="headerlink" href="#1-overview" title="Permanent link">&para;</a></h3>
+<p>In <strong>policy optimization (PO)</strong> algorithms such as <strong>PPO</strong>, <strong>DPO</strong>, <strong>GRPO</strong>, and other RL- or preference-based fine-tuning methods, the <strong>KL penalty</strong> (Kullback–Leibler divergence penalty) acts as a <strong>regularization mechanism</strong> that prevents the updated policy from drifting too far from the <strong>reference policy</strong>.</p>
+<p>This constraint stabilizes training and maintains the linguistic and factual integrity of the base model.</p>
+<hr />
+<h3 id="2-what-is-kl-divergence">2. What is KL Divergence?<a class="headerlink" href="#2-what-is-kl-divergence" title="Permanent link">&para;</a></h3>
+<p>The <strong>Kullback–Leibler divergence</strong> measures how one probability distribution diverges from another.
+For two distributions <span class="arithmatex">\(P\)</span> and <span class="arithmatex">\(Q\)</span>:</p>
+<div class="arithmatex">\[
+D_{KL}(P \parallel Q) = \mathbb{E}_{x \sim P} \left[ \log \frac{P(x)}{Q(x)} \right]
+\]</div>
+<p>In PO contexts:</p>
+<ul>
+<li><span class="arithmatex">\(P = \pi_\theta(\cdot | x)\)</span>: the current fine-tuned policy,</li>
+<li><span class="arithmatex">\(Q = \pi_{\text{ref}}(\cdot | x)\)</span>: the reference or base policy.</li>
+</ul>
+<p>It quantifies how much the fine-tuned model’s output probabilities deviate from the reference model.</p>
+<hr />
+<h3 id="3-kl-penalty-in-the-optimization-objective">3. KL Penalty in the Optimization Objective<a class="headerlink" href="#3-kl-penalty-in-the-optimization-objective" title="Permanent link">&para;</a></h3>
+<p>To enforce stability, a KL penalty term is added to the training objective:</p>
+<div class="arithmatex">\[
+\mathcal{L}(\pi_\theta) = \mathbb{E}*{(x, y)} \left[ r(x, y) - \beta , D*{KL}(\pi_\theta(\cdot|x) \parallel \pi_{\text{ref}}(\cdot|x)) \right]
+\]</div>
+<p>where:</p>
+<ul>
+<li><span class="arithmatex">\(r(x, y)\)</span>: reward or preference-derived score,</li>
+<li><span class="arithmatex">\(\beta\)</span>: KL coefficient controlling penalty strength.</li>
+</ul>
+<p>The higher the KL divergence, the stronger the penalty. A well-tuned <span class="arithmatex">\(\beta\)</span> balances exploration and stability.</p>
+<hr />
+<h3 id="4-computing-the-kl-penalty-in-practice">4. Computing the KL Penalty in Practice<a class="headerlink" href="#4-computing-the-kl-penalty-in-practice" title="Permanent link">&para;</a></h3>
+<p>For token-level language models, the KL divergence is computed over the token distributions of the current and reference policies.</p>
+<div class="arithmatex">\[
+D_{KL}(\pi_\theta \parallel \pi_{\text{ref}}) = \sum_t \pi_\theta(y_t | x, y_{&lt;t}) \left[ \log \pi_\theta(y_t | x, y_{&lt;t}) - \log \pi_{\text{ref}}(y_t | x, y_{&lt;t}) \right]
+\]</div>
+<p>In implementation, we approximate this using sampled sequences:</p>
+<div class="arithmatex">\[
+D_{KL} \approx \frac{1}{T} \sum_{t=1}^{T} \left( \log \pi_\theta(y_t|x, y_{&lt;t}) - \log \pi_{\text{ref}}(y_t|x, y_{&lt;t}) \right)
+\]</div>
+<p>This can be computed efficiently by comparing <strong>log-probabilities</strong> from both models on the same batch of samples.</p>
+<hr />
+<h3 id="5-adaptive-kl-control">5. Adaptive KL Control<a class="headerlink" href="#5-adaptive-kl-control" title="Permanent link">&para;</a></h3>
+<p>Instead of fixing <span class="arithmatex">\(\beta\)</span>, some implementations <strong>adapt it dynamically</strong> to maintain a target divergence <span class="arithmatex">\(D_{KL}^{\text{target}}\)</span>.</p>
+<div class="arithmatex">\[
+\beta \leftarrow \beta \times
+\begin{cases}
+1.1 &amp; \text{if } D_{KL} &gt; 1.5 \times D_{KL}^{\text{target}} \\
+0.9 &amp; \text{if } D_{KL} &lt; 0.5 \times D_{KL}^{\text{target}} \\
+1.0 &amp; \text{otherwise}
+\end{cases}
+\]</div>
+<p>This <strong>adaptive KL control</strong> ensures that:</p>
+<ul>
+<li>When the policy diverges too much, the penalty increases.</li>
+<li>When it remains too conservative, the penalty relaxes.</li>
+</ul>
+<hr />
+<h3 id="6-connection-to-ppo-dpo-and-grpo">6. Connection to PPO, DPO, and GRPO<a class="headerlink" href="#6-connection-to-ppo-dpo-and-grpo" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>KL Penalty Usage</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PPO</strong></td>
+<td>Implicitly via clipped objective</td>
+<td>Controls update step size between policies</td>
+</tr>
+<tr>
+<td><strong>DPO</strong></td>
+<td>Explicitly through log-prob differences</td>
+<td>Aligns with preferences without explicit RL</td>
+</tr>
+<tr>
+<td><strong>GRPO</strong></td>
+<td>Similar to DPO but on grouped preference sets</td>
+<td>Maintains stable relative alignment</td>
+</tr>
+</tbody>
+</table>
+<p>In all cases, the KL term acts as a <strong>trust-region constraint</strong>, ensuring that optimization remains close to a known and stable distribution.</p>
+<hr />
+<h3 id="7-implementation-example">7. Implementation Example<a class="headerlink" href="#7-implementation-example" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># policy and reference models output log-probabilities</span>
+<span class="n">logprobs</span> <span class="o">=</span> <span class="n">policy_model</span><span class="o">.</span><span class="n">log_prob</span><span class="p">(</span><span class="n">actions</span><span class="p">)</span>
+<span class="n">ref_logprobs</span> <span class="o">=</span> <span class="n">ref_model</span><span class="o">.</span><span class="n">log_prob</span><span class="p">(</span><span class="n">actions</span><span class="p">)</span>
 
+<span class="c1"># compute mean KL divergence</span>
+<span class="n">kl_div</span> <span class="o">=</span> <span class="p">(</span><span class="n">logprobs</span> <span class="o">-</span> <span class="n">ref_logprobs</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 
+<span class="c1"># apply KL penalty</span>
+<span class="n">loss</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">rewards</span> <span class="o">-</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">kl_div</span><span class="p">)</span>
+<span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+</code></pre></div>
+<p>In language-model fine-tuning, <code>logprobs</code> are computed per token, and the mean or sequence-level KL is used for the penalty term.</p>
+<hr />
+<h3 id="8-intuition-and-practical-notes">8. Intuition and Practical Notes<a class="headerlink" href="#8-intuition-and-practical-notes" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Why it matters:</strong> The KL penalty prevents over-fitting to noisy or narrow reward signals.</li>
+<li><strong>Relation to trust regions:</strong> Functions like a constraint on how far the new policy can move from the old one.</li>
+<li><strong>Tuning <span class="arithmatex">\(\beta\)</span>:</strong><ul>
+<li>Too small → Model diverges, instability.</li>
+<li>Too large → Model under-fits, limited learning.</li>
+</ul>
+</li>
+<li><strong>Monitoring:</strong> During training, plotting the KL divergence curve helps ensure stable updates.</li>
+</ul>
+<hr />
 
 
 
@@ -624,7 +949,9 @@
     
       <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
       
-        <script src="../../javascripts/mathjax.js"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

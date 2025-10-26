@@ -13,10 +13,10 @@
       
       
       
-        <link rel="prev" href="../..">
+        <link rel="prev" href="../drpo/">
       
       
-        <link rel="next" href="../dpo/">
+        <link rel="next" href="../guided_rpo/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -24,7 +24,7 @@
     
     
       
-        <title>PPO - LLM RL Fine-tuning</title>
+        <title>D(ecoupled)RPO - LLM RL Fine-tuning</title>
       
     
     
@@ -66,7 +66,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#ppo-and-reward-models-in-llm-training" class="md-skip">
+        <a href="#decoupled-reward-policy-optimization-drpo" class="md-skip">
           Skip to content
         </a>
       
@@ -102,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              PPO
+              D(ecoupled)RPO
             
           </span>
         </div>
@@ -279,32 +279,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    PPO
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../ppo/" class="md-nav__link">
         
   
   
@@ -315,311 +293,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-overview" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. Overview
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-rlhf-pipeline" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. RLHF Pipeline
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-why-ppo-instead-of-direct-human-feedback" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. Why PPO instead of Direct Human Feedback?
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-ppo-key-concepts" class="md-nav__link">
-    <span class="md-ellipsis">
-      4. PPO Key Concepts
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="4. PPO Key Concepts">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#41-components" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.1 Components
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#42-intuition" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.2 Intuition
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-ppo-objective-function" class="md-nav__link">
-    <span class="md-ellipsis">
-      5. PPO Objective Function
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="5. PPO Objective Function">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#51-probability-ratio" class="md-nav__link">
-    <span class="md-ellipsis">
-      5.1. Probability Ratio
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#52-clipped-ppo-objective" class="md-nav__link">
-    <span class="md-ellipsis">
-      5.2. Clipped PPO Objective
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-value-function-advantage-and-reward-computation" class="md-nav__link">
-    <span class="md-ellipsis">
-      6. Value Function, Advantage, and Reward Computation
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="6. Value Function, Advantage, and Reward Computation">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#61-cumulative-reward-return" class="md-nav__link">
-    <span class="md-ellipsis">
-      6.1. Cumulative Reward (Return)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#62-value-function" class="md-nav__link">
-    <span class="md-ellipsis">
-      6.2. Value Function
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#63-advantage-function" class="md-nav__link">
-    <span class="md-ellipsis">
-      6.3. Advantage Function
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#practical-computation-steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      🧩 Practical Computation Steps
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#when-token-level-advantages-are-used" class="md-nav__link">
-    <span class="md-ellipsis">
-      🧮 When Token-Level Advantages Are Used
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      ⚖️ Summary
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#64-entropy-bonus-exploration-term" class="md-nav__link">
-    <span class="md-ellipsis">
-      6.4. Entropy Bonus (Exploration Term)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#65-combined-ppo-loss" class="md-nav__link">
-    <span class="md-ellipsis">
-      6.5. Combined PPO Loss
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#7-iterative-ppo-update" class="md-nav__link">
-    <span class="md-ellipsis">
-      7. Iterative PPO Update
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#8-implementation-example-pseudocode" class="md-nav__link">
-    <span class="md-ellipsis">
-      8. Implementation Example (Pseudocode)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#9-limitations-and-challenges-of-ppo-in-llm-training" class="md-nav__link">
-    <span class="md-ellipsis">
-      9. Limitations and Challenges of PPO in LLM Training
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="9. Limitations and Challenges of PPO in LLM Training">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-kl-divergence-sensitivity" class="md-nav__link">
-    <span class="md-ellipsis">
-      🧩 1. KL Divergence Sensitivity
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-high-training-cost" class="md-nav__link">
-    <span class="md-ellipsis">
-      ⏳ 2. High Training Cost
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-reward-hacking" class="md-nav__link">
-    <span class="md-ellipsis">
-      ⚠️ 3. Reward Hacking
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-sparse-or-noisy-rewards" class="md-nav__link">
-    <span class="md-ellipsis">
-      🧮 4. Sparse or Noisy Rewards
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-credit-assignment" class="md-nav__link">
-    <span class="md-ellipsis">
-      🔁 5. Credit Assignment
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#6-exploration-vs-alignment" class="md-nav__link">
-    <span class="md-ellipsis">
-      ⚖️ 6. Exploration vs Alignment
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#7-implementation-complexity" class="md-nav__link">
-    <span class="md-ellipsis">
-      🔍 7. Implementation Complexity
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#10-summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      10. Summary
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -675,10 +348,32 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../decoupledrpo/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    D(ecoupled)RPO
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -689,6 +384,215 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-drpo-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. DRPO Pipeline
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-why-drpo-instead-of-traditional-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Why DRPO Instead of Traditional Methods?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-drpo-key-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. DRPO Key Concepts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. DRPO Key Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Components
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-intuition" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Intuition
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-drpo-objective-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. DRPO Objective Function
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. DRPO Objective Function">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-probability-ratio" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Probability Ratio
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-decoupled-surrogate-loss" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 Decoupled Surrogate Loss
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-value-function-advantage-and-reward-computation" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Value Function, Advantage, and Reward Computation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Value Function, Advantage, and Reward Computation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-cumulative-reward-return" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 Cumulative Reward (Return)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-value-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2 Value Function
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-advantage-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3 Advantage Function
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-entropy-bonus" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.4 Entropy Bonus
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65-combined-drpo-loss" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.5 Combined DRPO Loss
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-iterative-drpo-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Iterative DRPO Update
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-implementation-example-pseudocode" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Implementation Example (Pseudocode)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-limitations-and-challenges" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Limitations and Challenges
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -919,31 +823,31 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-rlhf-pipeline" class="md-nav__link">
+  <a href="#2-drpo-pipeline" class="md-nav__link">
     <span class="md-ellipsis">
-      2. RLHF Pipeline
+      2. DRPO Pipeline
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-why-ppo-instead-of-direct-human-feedback" class="md-nav__link">
+  <a href="#3-why-drpo-instead-of-traditional-methods" class="md-nav__link">
     <span class="md-ellipsis">
-      3. Why PPO instead of Direct Human Feedback?
+      3. Why DRPO Instead of Traditional Methods?
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-ppo-key-concepts" class="md-nav__link">
+  <a href="#4-drpo-key-concepts" class="md-nav__link">
     <span class="md-ellipsis">
-      4. PPO Key Concepts
+      4. DRPO Key Concepts
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="4. PPO Key Concepts">
+    <nav class="md-nav" aria-label="4. DRPO Key Concepts">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -970,19 +874,28 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-ppo-objective-function" class="md-nav__link">
+  <a href="#5-drpo-objective-function" class="md-nav__link">
     <span class="md-ellipsis">
-      5. PPO Objective Function
+      5. DRPO Objective Function
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="5. PPO Objective Function">
+    <nav class="md-nav" aria-label="5. DRPO Objective Function">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#51-probability-ratio" class="md-nav__link">
     <span class="md-ellipsis">
-      5.1. Probability Ratio
+      5.1 Probability Ratio
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-decoupled-surrogate-loss" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 Decoupled Surrogate Loss
     </span>
   </a>
   
@@ -990,15 +903,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#52-clipped-ppo-objective" class="md-nav__link">
-    <span class="md-ellipsis">
-      5.2. Clipped PPO Objective
-    </span>
-  </a>
   
 </li>
       
@@ -1015,7 +919,7 @@
           <li class="md-nav__item">
   <a href="#61-cumulative-reward-return" class="md-nav__link">
     <span class="md-ellipsis">
-      6.1. Cumulative Reward (Return)
+      6.1 Cumulative Reward (Return)
     </span>
   </a>
   
@@ -1024,7 +928,7 @@
           <li class="md-nav__item">
   <a href="#62-value-function" class="md-nav__link">
     <span class="md-ellipsis">
-      6.2. Value Function
+      6.2 Value Function
     </span>
   </a>
   
@@ -1033,52 +937,25 @@
           <li class="md-nav__item">
   <a href="#63-advantage-function" class="md-nav__link">
     <span class="md-ellipsis">
-      6.3. Advantage Function
+      6.3 Advantage Function
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#practical-computation-steps" class="md-nav__link">
+  <a href="#64-entropy-bonus" class="md-nav__link">
     <span class="md-ellipsis">
-      🧩 Practical Computation Steps
+      6.4 Entropy Bonus
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#when-token-level-advantages-are-used" class="md-nav__link">
+  <a href="#65-combined-drpo-loss" class="md-nav__link">
     <span class="md-ellipsis">
-      🧮 When Token-Level Advantages Are Used
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      ⚖️ Summary
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#64-entropy-bonus-exploration-term" class="md-nav__link">
-    <span class="md-ellipsis">
-      6.4. Entropy Bonus (Exploration Term)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#65-combined-ppo-loss" class="md-nav__link">
-    <span class="md-ellipsis">
-      6.5. Combined PPO Loss
+      6.5 Combined DRPO Loss
     </span>
   </a>
   
@@ -1090,9 +967,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#7-iterative-ppo-update" class="md-nav__link">
+  <a href="#7-iterative-drpo-update" class="md-nav__link">
     <span class="md-ellipsis">
-      7. Iterative PPO Update
+      7. Iterative DRPO Update
     </span>
   </a>
   
@@ -1108,80 +985,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#9-limitations-and-challenges-of-ppo-in-llm-training" class="md-nav__link">
+  <a href="#9-limitations-and-challenges" class="md-nav__link">
     <span class="md-ellipsis">
-      9. Limitations and Challenges of PPO in LLM Training
+      9. Limitations and Challenges
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="9. Limitations and Challenges of PPO in LLM Training">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-kl-divergence-sensitivity" class="md-nav__link">
-    <span class="md-ellipsis">
-      🧩 1. KL Divergence Sensitivity
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-high-training-cost" class="md-nav__link">
-    <span class="md-ellipsis">
-      ⏳ 2. High Training Cost
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-reward-hacking" class="md-nav__link">
-    <span class="md-ellipsis">
-      ⚠️ 3. Reward Hacking
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-sparse-or-noisy-rewards" class="md-nav__link">
-    <span class="md-ellipsis">
-      🧮 4. Sparse or Noisy Rewards
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-credit-assignment" class="md-nav__link">
-    <span class="md-ellipsis">
-      🔁 5. Credit Assignment
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#6-exploration-vs-alignment" class="md-nav__link">
-    <span class="md-ellipsis">
-      ⚖️ 6. Exploration vs Alignment
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#7-implementation-complexity" class="md-nav__link">
-    <span class="md-ellipsis">
-      🔍 7. Implementation Complexity
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1210,45 +1018,45 @@
 
 
 
-<h1 id="ppo-and-reward-models-in-llm-training">🧠 PPO and Reward Models in LLM Training<a class="headerlink" href="#ppo-and-reward-models-in-llm-training" title="Permanent link">&para;</a></h1>
+<h1 id="decoupled-reward-policy-optimization-drpo">🧠 Decoupled Reward Policy Optimization (DRPO)<a class="headerlink" href="#decoupled-reward-policy-optimization-drpo" title="Permanent link">&para;</a></h1>
 <h3 id="1-overview">1. Overview<a class="headerlink" href="#1-overview" title="Permanent link">&para;</a></h3>
-<p>Proximal Policy Optimization (PPO) is a reinforcement learning algorithm widely used in <strong>fine-tuning Large Language Models (LLMs)</strong> under the Reinforcement Learning from Human Feedback (RLHF) framework. It helps bridge the gap between <strong>human preferences</strong> and <strong>LLM outputs</strong> by optimizing the model’s responses to align with what humans find helpful, safe, or relevant.</p>
+<p>Decoupled Reward Policy Optimization (DRPO) is a reinforcement learning algorithm designed to enhance the reasoning capabilities of Large Language Models (LLMs).<br />
+It addresses limitations in traditional reinforcement learning methods by <strong>decoupling the length-based learning signal</strong> of correct rollouts from incorrect ones, preventing penalization of correct but lengthy reasoning processes.<br />
+This is particularly beneficial for tasks requiring complex reasoning and long-form outputs.</p>
 <hr />
-<h3 id="2-rlhf-pipeline">2. RLHF Pipeline<a class="headerlink" href="#2-rlhf-pipeline" title="Permanent link">&para;</a></h3>
-<p>RLHF typically consists of three stages:</p>
+<h3 id="2-drpo-pipeline">2. DRPO Pipeline<a class="headerlink" href="#2-drpo-pipeline" title="Permanent link">&para;</a></h3>
+<p>The DRPO framework follows the typical RLHF pipeline with key modifications:</p>
 <ol>
 <li>
-<p><strong>Supervised Fine-Tuning (SFT)</strong></p>
+<p><strong>Supervised Fine-Tuning (SFT)</strong>  </p>
 <ul>
 <li>Train a base LLM on high-quality human demonstration data (prompt–response pairs).</li>
 </ul>
 </li>
 <li>
-<p><strong>Reward Model (RM) Training</strong></p>
+<p><strong>Reward Model (RM) Training</strong>  </p>
 <ul>
-<li>Train a model to assign <strong>scalar rewards</strong> to outputs based on human preferences.</li>
+<li>Train a model to assign scalar rewards to outputs based on human preferences.</li>
 </ul>
 </li>
 <li>
-<p><strong>Reinforcement Learning (PPO)</strong></p>
+<p><strong>Reinforcement Learning (DRPO)</strong>  </p>
 <ul>
-<li>Fine-tune the policy (SFT model) to maximize predicted rewards from the RM.</li>
+<li>Fine-tune the policy (SFT model) to maximize predicted rewards from the RM, with decoupled reasoning length consideration.</li>
 </ul>
 </li>
 </ol>
 <blockquote>
-<p>💡 <strong>Intuition:</strong> PPO teaches the LLM to generate preferred responses indirectly, using the reward model as scalable feedback.</p>
+<p>💡 <strong>Intuition:</strong> DRPO ensures that correct but lengthy responses are appropriately rewarded, allowing the model to generate more complex and accurate outputs.</p>
 </blockquote>
 <hr />
-<h3 id="3-why-ppo-instead-of-direct-human-feedback">3. Why PPO instead of Direct Human Feedback?<a class="headerlink" href="#3-why-ppo-instead-of-direct-human-feedback" title="Permanent link">&para;</a></h3>
-<p>Direct human labeling for all outputs is <strong>impractical and noisy</strong>. PPO helps by:</p>
+<h3 id="3-why-drpo-instead-of-traditional-methods">3. Why DRPO Instead of Traditional Methods?<a class="headerlink" href="#3-why-drpo-instead-of-traditional-methods" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>Scaling feedback:</strong> Reward models generalize human preferences to unseen outputs.</li>
-<li><strong>Credit assignment:</strong> Uses value function and advantage to propagate sequence-level rewards to tokens.</li>
-<li><strong>Stable updates:</strong> Ensures the model does not deviate too far from its original behavior.</li>
+<li>Traditional RL methods can <strong>penalize correct but long reasoning processes</strong> due to group-relative advantage functions.  </li>
+<li>DRPO <strong>decouples the length-based learning signal</strong> of correct rollouts from incorrect ones, ensuring valid reasoning is reinforced.  </li>
 </ul>
 <hr />
-<h3 id="4-ppo-key-concepts">4. PPO Key Concepts<a class="headerlink" href="#4-ppo-key-concepts" title="Permanent link">&para;</a></h3>
+<h3 id="4-drpo-key-concepts">4. DRPO Key Concepts<a class="headerlink" href="#4-drpo-key-concepts" title="Permanent link">&para;</a></h3>
 <h4 id="41-components">4.1 Components<a class="headerlink" href="#41-components" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
@@ -1259,296 +1067,155 @@
 </thead>
 <tbody>
 <tr>
-<td><strong>Policy Model (π_θ)</strong></td>
+<td><strong>Policy Model (πₜ)</strong></td>
 <td>The trainable LLM generating responses.</td>
 </tr>
 <tr>
-<td><strong>Reward Model (R_ϕ)</strong></td>
+<td><strong>Reward Model (Rₘ)</strong></td>
 <td>Evaluates outputs, providing scalar rewards.</td>
 </tr>
 <tr>
-<td><strong>Reference Model (π_θ_old)</strong></td>
-<td>Snapshot of policy before update, used for stable updates.</td>
+<td><strong>Reference Model (πₜₒₗᵈ)</strong></td>
+<td>Snapshot of policy before update, for stability.</td>
 </tr>
 <tr>
-<td><strong>Value Function (V_θ)</strong></td>
+<td><strong>Value Function (Vₜ)</strong></td>
 <td>Estimates expected reward for a given prompt.</td>
 </tr>
 <tr>
-<td><strong>Advantage (A_t)</strong></td>
-<td>Measures how much better an action is than expected: <code>A = R - V_θ(s)</code></td>
+<td><strong>Advantage (Aₜ)</strong></td>
+<td>Measures how much better an action is than expected: <code>Aₜ = Rₘ - Vₜ(sₜ)</code></td>
 </tr>
 </tbody>
 </table>
 <h4 id="42-intuition">4.2 Intuition<a class="headerlink" href="#42-intuition" title="Permanent link">&para;</a></h4>
-<p>PPO adjusts the LLM to improve rewards <strong>without drastic changes</strong>:</p>
 <ul>
-<li>Generates outputs → reward model evaluates → advantage guides update.</li>
-<li>The <strong>clipped objective</strong> prevents extreme updates and maintains stability.</li>
+<li>Generates outputs → reward model evaluates → advantage guides update.  </li>
+<li>Decoupled objective ensures correct but lengthy reasoning is rewarded.</li>
 </ul>
 <hr />
-<h3 id="5-ppo-objective-function">5. PPO Objective Function<a class="headerlink" href="#5-ppo-objective-function" title="Permanent link">&para;</a></h3>
-<p>The <strong>Proximal Policy Optimization (PPO)</strong> algorithm optimizes a policy model <span class="arithmatex">\(π_θ\)</span> while constraining how much it can diverge from a reference (old) policy <span class="arithmatex">\(π_{θ_{old}}\)</span>.</p>
+<h3 id="5-drpo-objective-function">5. DRPO Objective Function<a class="headerlink" href="#5-drpo-objective-function" title="Permanent link">&para;</a></h3>
 <div class="admonition example">
-<p class="admonition-title">📘 PPO Mathematical Formulation</p>
-<h4 id="51-probability-ratio">5.1. Probability Ratio<a class="headerlink" href="#51-probability-ratio" title="Permanent link">&para;</a></h4>
+<p class="admonition-title">📘 DRPO Mathematical Formulation</p>
+<h4 id="51-probability-ratio">5.1 Probability Ratio<a class="headerlink" href="#51-probability-ratio" title="Permanent link">&para;</a></h4>
+<p>Measures how much the new policy’s likelihood of an action changes compared to the old policy:</p>
 <div class="arithmatex">\[
-r_t(\theta) = \frac{π_θ(a_t | s_t)}{π_{θ_{old}}(a_t | s_t)}
+rₜ(πₜ) = \frac{πₜ(aₜ | sₜ)}{πₜₒₗᵈ(aₜ | sₜ)}
 \]</div>
-<p>The ratio measures how much the new policy’s likelihood of an action changes compared to the old policy.
-This ratio quantifies the magnitude and direction of policy change for each sampled token or action.</p>
-<hr />
-<h3 id="52-clipped-ppo-objective">5.2. Clipped PPO Objective<a class="headerlink" href="#52-clipped-ppo-objective" title="Permanent link">&para;</a></h3>
-<p>The clipped surrogate loss ensures stable updates by penalizing large deviations in <span class="arithmatex">\(r_t(\theta)\)</span>:</p>
+<h4 id="52-decoupled-surrogate-loss">5.2 Decoupled Surrogate Loss<a class="headerlink" href="#52-decoupled-surrogate-loss" title="Permanent link">&para;</a></h4>
+<p>Ensures stable updates while rewarding correct reasoning lengths:</p>
 <div class="arithmatex">\[
-L^{PPO}(\theta) = \mathbb{E}_t \left[\min\left(r_t(\theta) A_t,\ \text{clip}(r_t(\theta),\ 1-\epsilon,\ 1+\epsilon)\ A_t\right)\right]
+L^{DRPO}(πₜ) = \mathbb{E}[ \min(rₜ(πₜ) Aₜ, \text{clip}(rₜ(πₜ), 1 - ε, 1 + ε) Aₜ)]
 \]</div>
 <p>Where:</p>
 <ul>
-<li><span class="arithmatex">\(A_t\)</span>: <strong>Advantage function</strong> — how much better an action is than expected.  </li>
-<li><span class="arithmatex">\(ε\)</span>: <strong>Clipping threshold</strong> (typically 0.1–0.3).  </li>
-<li>The <code>min</code> operation limits large, destabilizing updates.</li>
+<li><span class="arithmatex">\(A_t\)</span>: Advantage function — how much better an action is than expected.  </li>
+<li><span class="arithmatex">\(\epsilon\)</span>: Clipping threshold (typically 0.1–0.3).  </li>
 </ul>
 </div>
-<blockquote>
-<p>For computing <span class="arithmatex">\(A_t\)</span> (advantage), <span class="arithmatex">\(V_θ(s_t)\)</span> (value), and rewards, refer to the next section on <em>Value Function and Reward Computation.</em></p>
-</blockquote>
 <hr />
 <h3 id="6-value-function-advantage-and-reward-computation">6. Value Function, Advantage, and Reward Computation<a class="headerlink" href="#6-value-function-advantage-and-reward-computation" title="Permanent link">&para;</a></h3>
-<p>The PPO algorithm relies on several auxiliary components — <strong>value function</strong>, <strong>advantage estimation</strong>, and <strong>entropy regularization</strong> — that ensure stable and meaningful policy updates.</p>
 <div class="admonition example">
 <p class="admonition-title">📗 Supporting Mathematical Components</p>
-<h4 id="61-cumulative-reward-return">6.1. Cumulative Reward (Return)<a class="headerlink" href="#61-cumulative-reward-return" title="Permanent link">&para;</a></h4>
-<p>The <strong>cumulative reward</strong> (or <em>return</em>) represents the total discounted reward starting from time <span class="arithmatex">\(t\)</span>:</p>
+<h4 id="61-cumulative-reward-return">6.1 Cumulative Reward (Return)<a class="headerlink" href="#61-cumulative-reward-return" title="Permanent link">&para;</a></h4>
 <div class="arithmatex">\[
-R_t = \sum_{k=0}^{\infty} \gamma^k r_{t+k}
+Rₜ = \sum_{k=0}^{∞} γ^k rₜ₊ₖ
 \]</div>
 <ul>
-<li><span class="arithmatex">\(r_t\)</span>: reward received at time <span class="arithmatex">\(t\)</span> (from the reward model in RLHF).  </li>
-<li><span class="arithmatex">\(\gamma\)</span>: discount factor (typically 0.95–0.99).  </li>
+<li><span class="arithmatex">\(rₜ\)</span>: reward received at time <span class="arithmatex">\(t\)</span> (from reward model).  </li>
+<li><span class="arithmatex">\(γ\)</span>: discount factor (typically 0.95–0.99).  </li>
 </ul>
-<p>In RLHF, this is often simplified since responses are short (e.g., one reward per sequence).</p>
-<details class="info">
-<summary>Reward Simplification in RLHF</summary>
-<p>In <strong>Reinforcement Learning from Human Feedback (RLHF)</strong> — especially in <strong>language model fine-tuning</strong> — the setup is simplified because responses are short and discrete.</p>
-<ul>
-<li>A <strong>prompt</strong> acts as the state <span class="arithmatex">\( s \)</span>.  </li>
-<li>The <strong>model's response</strong> (a sequence of tokens) is treated as the action <span class="arithmatex">\( a \)</span>.  </li>
-<li>A <strong>reward model (RM)</strong> assigns <strong>a single scalar reward</strong> <span class="arithmatex">\( r(s, a) \)</span> for the <em>entire sequence</em>, not per token.</li>
-</ul>
-<p>Therefore:
-$$
-R = r(s, a)
-$$</p>
-<p>The <strong>advantage</strong> and <strong>value function</strong> are computed at the sequence level rather than stepwise.<br />
-This eliminates the need to sum discounted rewards across timesteps — simplifying PPO training in RLHF.<br />
-The loss functions remain structurally similar but are applied to <strong>sequence-level rewards</strong>.</p>
-</details>
-<hr />
-<h4 id="62-value-function">6.2. Value Function<a class="headerlink" href="#62-value-function" title="Permanent link">&para;</a></h4>
-<p>The <strong>value function</strong> estimates the expected return given a state (or prompt context):</p>
+<p>In RLHF, responses are often short, so sequence-level rewards are used.</p>
+<h4 id="62-value-function">6.2 Value Function<a class="headerlink" href="#62-value-function" title="Permanent link">&para;</a></h4>
 <div class="arithmatex">\[
-V_\theta(s_t) \approx \mathbb{E}[R_t \mid s_t]
+Vₜ(sₜ) ≈ \mathbb{E}[Rₜ | sₜ]
 \]</div>
-<p>The <strong>value loss</strong> penalizes inaccurate predictions:</p>
+<p>Value loss:</p>
 <div class="arithmatex">\[
-L^{value}(\theta) = \frac{1}{2} \left(V_θ(s_t) - R_t\right)^2
+L^{value}(πₜ) = \frac{1}{2} (Vₜ(sₜ) - Rₜ)^2
 \]</div>
-<p>This helps the model learn accurate value estimates for better advantage computation.</p>
-<details class="info">
-<summary>Value Function in Practice</summary>
-<p>In practice, the <strong>value function</strong> is implemented as a <strong>learned neural network head</strong> attached to the policy model.<br />
-During training:</p>
-<ol>
-<li>The environment (or reward model, in RLHF) provides rewards <span class="arithmatex">\( r_t \)</span> for each step or sequence.  </li>
-<li>The <strong>cumulative discounted reward</strong> <span class="arithmatex">\( R_t = \sum_k \gamma^k r_{t+k} \)</span> is computed for each state <span class="arithmatex">\( s_t \)</span>.  </li>
-<li>The network learns to predict <span class="arithmatex">\( V_θ(s_t) \)</span> such that it <strong>matches the observed return</strong> <span class="arithmatex">\( R_t \)</span>.</li>
-</ol>
-<p>There are two common approaches:</p>
-<ul>
-<li><strong>Monte Carlo estimate:</strong> directly use full episode returns <span class="arithmatex">\( R_t \)</span> (common in RLHF since responses are short).  </li>
-<li><strong>Bootstrapped estimate:</strong> use <span class="arithmatex">\( r_t + \gamma V_θ(s_{t+1}) \)</span> to reduce variance (used in continuous RL environments).</li>
-</ul>
-<p>Over time, the model minimizes:
-$$
-L^{value}(\theta) = \frac{1}{2} (V_θ(s_t) - R_t)^2
-$$
-making <span class="arithmatex">\( V_θ(s_t) \)</span> a reliable <strong>baseline</strong> for computing the advantage:
-$$
-A_t = R_t - V_θ(s_t)
-$$</p>
-</details>
-<hr />
-<h4 id="63-advantage-function">6.3. Advantage Function<a class="headerlink" href="#63-advantage-function" title="Permanent link">&para;</a></h4>
-<p>The <strong>advantage</strong> quantifies how much better an action <span class="arithmatex">\(a_t\)</span> was compared to the expected baseline:</p>
+<h4 id="63-advantage-function">6.3 Advantage Function<a class="headerlink" href="#63-advantage-function" title="Permanent link">&para;</a></h4>
 <div class="arithmatex">\[
-A_t = R_t - V_θ(s_t)
+Aₜ = Rₜ - Vₜ(sₜ)
 \]</div>
-<p>In practice, PPO often uses <strong>Generalized Advantage Estimation (GAE)</strong> for smoother and lower-variance estimates:</p>
+<p>Optionally, <strong>Generalized Advantage Estimation (GAE)</strong>:</p>
 <div class="arithmatex">\[
-A_t = \sum_{l=0}^{\infty} (\gamma \lambda)^l \delta_{t+l}
-\]</div>
-<p>where<br />
-<span class="arithmatex">\(\delta_t = r_t + \gamma V_θ(s_{t+1}) - V_θ(s_t)\)</span>,<br />
-and <span class="arithmatex">\(\lambda\)</span> is the <em>GAE smoothing factor</em> (typically 0.9–0.97).</p>
-<details class="info">
-<summary>Advantage in Practice for LLMs</summary>
-<p>In <strong>LLM fine-tuning with PPO</strong>, the <strong>advantage</strong> is typically computed at the <strong>sequence level</strong> rather than per-token, since the reward model provides a <strong>single scalar reward</strong> for the entire generated response.</p>
-<h4 id="practical-computation-steps">🧩 Practical Computation Steps<a class="headerlink" href="#practical-computation-steps" title="Permanent link">&para;</a></h4>
-<ol>
-<li>For each prompt <span class="arithmatex">\(s\)</span>, the model generates a sequence <span class="arithmatex">\(a = (a_1, a_2, ..., a_T)\)</span>.  </li>
-<li>The <strong>reward model</strong> provides a scalar reward <span class="arithmatex">\(r(s, a)\)</span> for the whole sequence.  </li>
-<li>The <strong>value head</strong> of the policy predicts <span class="arithmatex">\(V_θ(s)\)</span>, estimating the expected reward before generation.  </li>
-<li>The <strong>advantage</strong> is then computed as:
-   $$
-   A = r(s, a) - V_θ(s)
-   $$
-   representing how much better or worse the actual outcome was compared to the model’s expectation.</li>
-</ol>
-<h4 id="when-token-level-advantages-are-used">🧮 When Token-Level Advantages Are Used<a class="headerlink" href="#when-token-level-advantages-are-used" title="Permanent link">&para;</a></h4>
-<ul>
-<li>Some PPO implementations for LLMs compute <strong>token-level advantages</strong> to better attribute credit across the generated sequence.  </li>
-<li>This is achieved by assigning the same scalar reward to all tokens in a sequence and using GAE to smooth the signal:
-  $$
-  A_t = \text{GAE}(r_t, V_θ(s_t))
-  $$</li>
-<li>This provides more stable gradients and allows finer control during backpropagation.</li>
-</ul>
-<h4 id="summary">⚖️ Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h4>
-<ul>
-<li><strong>Sequence-level PPO (common in RLHF):</strong><br />
-<span class="arithmatex">\(A = r(s, a) - V_θ(s)\)</span><br />
-  → simpler and effective when rewards are sparse (one per output).</li>
-<li><strong>Token-level PPO (advanced setups):</strong><br />
-  Uses GAE to propagate reward information across tokens, reducing variance in updates.</li>
-</ul>
-<p>Overall, the advantage serves as the <strong>direction and strength</strong> of the policy gradient update — guiding PPO to reinforce actions that outperform the model’s baseline expectations.</p>
-</details>
-<h4 id="64-entropy-bonus-exploration-term">6.4. Entropy Bonus (Exploration Term)<a class="headerlink" href="#64-entropy-bonus-exploration-term" title="Permanent link">&para;</a></h4>
-<p>The <strong>entropy loss</strong> encourages the policy to explore rather than prematurely converge:</p>
-<div class="arithmatex">\[
-L^{entropy}(\theta) = - \sum_a π_θ(a|s_t) \log π_θ(a|s_t)
-\]</div>
-<p>Higher entropy = more exploration and diversity in generated responses.</p>
-<hr />
-<h4 id="65-combined-ppo-loss">6.5. Combined PPO Loss<a class="headerlink" href="#65-combined-ppo-loss" title="Permanent link">&para;</a></h4>
-<p>The full training objective combines all three components — PPO loss, value loss, and entropy term:</p>
-<div class="arithmatex">\[
-L_{total}(\theta) = -L^{PPO}(\theta) + c_1 \cdot L^{value}(\theta) - c_2 \cdot H[π_θ]
+Aₜ = \sum_{l=0}^{∞} (γλ)^l δₜ₊ₗ
 \]</div>
 <p>Where:</p>
 <ul>
-<li><span class="arithmatex">\(H[π_θ]\)</span>: entropy term promoting exploration.  </li>
-<li><span class="arithmatex">\(c_1, c_2\)</span>: coefficients controlling relative weighting of the losses.  </li>
+<li><span class="arithmatex">\(δₜ = rₜ + γ Vₜ(sₜ₊₁) − Vₜ(sₜ)\)</span>  </li>
+<li><span class="arithmatex">\(λ\)</span> = GAE smoothing factor (0.9–0.97)</li>
 </ul>
-<p>This total loss balances <strong>policy improvement</strong>, <strong>value estimation accuracy</strong>, and <strong>exploration</strong>.</p>
+<h4 id="64-entropy-bonus">6.4 Entropy Bonus<a class="headerlink" href="#64-entropy-bonus" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+L^{entropy}(πₜ) = - \sum_a πₜ(a|sₜ) \log πₜ(a|sₜ)
+\]</div>
+<p>Promotes exploration and diversity in responses.</p>
+<h4 id="65-combined-drpo-loss">6.5 Combined DRPO Loss<a class="headerlink" href="#65-combined-drpo-loss" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+L_{total}(πₜ) = -L^{DRPO}(πₜ) + c₁ \cdot L^{value}(πₜ) - c₂ \cdot H[πₜ]
+\]</div>
+<p>Where <span class="arithmatex">\(H[πₜ]\)</span> is the entropy term; <span class="arithmatex">\(c₁, c₂\)</span> control loss weighting.</p>
 </div>
-<h3 id="7-iterative-ppo-update">7. Iterative PPO Update<a class="headerlink" href="#7-iterative-ppo-update" title="Permanent link">&para;</a></h3>
+<hr />
+<h3 id="7-iterative-drpo-update">7. Iterative DRPO Update<a class="headerlink" href="#7-iterative-drpo-update" title="Permanent link">&para;</a></h3>
 <ol>
-<li>Generate response with policy model.</li>
-<li>Compute reward using reward model.</li>
-<li>Compute log probabilities (old vs new policy).</li>
-<li>Estimate value using value head.</li>
-<li>Compute advantage.</li>
-<li>Update policy using <strong>clipped surrogate loss</strong>.</li>
-<li>Update value function.</li>
-<li>Apply entropy bonus.</li>
-<li>Update reference model for next iteration.</li>
+<li>Generate response with policy model.  </li>
+<li>Compute reward using reward model.  </li>
+<li>Compute log probabilities (old vs new policy).  </li>
+<li>Estimate value using value head.  </li>
+<li>Compute advantage.  </li>
+<li>Update policy using <strong>clipped surrogate loss</strong>.  </li>
+<li>Update value function.  </li>
+<li>Apply entropy bonus.  </li>
+<li>Update reference model.</li>
 </ol>
 <blockquote>
-<p>✅ <strong>Intuition:</strong> PPO updates only when new behavior is better and within a controlled region.</p>
+<p>✅ DRPO updates only when new behavior is better and within a controlled region, ensuring valid reasoning lengths are rewarded.</p>
 </blockquote>
 <hr />
 <h3 id="8-implementation-example-pseudocode">8. Implementation Example (Pseudocode)<a class="headerlink" href="#8-implementation-example-pseudocode" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">prompt</span> <span class="ow">in</span> <span class="n">prompts</span><span class="p">:</span>
-    <span class="c1"># 1. Generate response</span>
     <span class="n">response</span> <span class="o">=</span> <span class="n">policy_model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span>
-
-    <span class="c1"># 2. Compute reward from reward model (sequence-level reward)</span>
     <span class="n">reward</span> <span class="o">=</span> <span class="n">reward_model</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span>
 
-    <span class="c1"># 3. Compute log probabilities from old and new policies</span>
     <span class="n">logprobs_old</span> <span class="o">=</span> <span class="n">ref_model</span><span class="o">.</span><span class="n">logprobs</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span>
     <span class="n">logprobs_new</span> <span class="o">=</span> <span class="n">policy_model</span><span class="o">.</span><span class="n">logprobs</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span>
 
-    <span class="c1"># 4. Compute value estimate from value head</span>
-    <span class="n">value</span> <span class="o">=</span> <span class="n">value_head</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span>  <span class="c1"># V_theta(s)</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">value_head</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span>
 
-    <span class="c1"># 5. Compute advantage</span>
-    <span class="n">advantage</span> <span class="o">=</span> <span class="n">reward</span> <span class="o">-</span> <span class="n">value</span>  <span class="c1"># sequence-level advantage</span>
-    <span class="c1"># optionally: use GAE for token-level advantages</span>
+    <span class="n">advantage</span> <span class="o">=</span> <span class="n">reward</span> <span class="o">-</span> <span class="n">value</span>  <span class="c1"># sequence-level</span>
 
-    <span class="c1"># 6. Compute PPO ratio and clipped surrogate loss</span>
     <span class="n">ratio</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">logprobs_new</span> <span class="o">-</span> <span class="n">logprobs_old</span><span class="p">)</span>
+
     <span class="n">clipped_ratio</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="n">ratio</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">epsilon</span><span class="p">,</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">epsilon</span><span class="p">)</span>
+
     <span class="n">policy_loss</span> <span class="o">=</span> <span class="o">-</span><span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">ratio</span> <span class="o">*</span> <span class="n">advantage</span><span class="p">,</span> <span class="n">clipped_ratio</span> <span class="o">*</span> <span class="n">advantage</span><span class="p">))</span>
 
-    <span class="c1"># 7. Compute value loss</span>
     <span class="n">value_loss</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">value</span> <span class="o">-</span> <span class="n">reward</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
 
-    <span class="c1"># 8. Compute entropy bonus for exploration</span>
     <span class="n">entropy</span> <span class="o">=</span> <span class="o">-</span><span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">logprobs_new</span><span class="p">)</span> <span class="o">*</span> <span class="n">logprobs_new</span><span class="p">)</span>
-    <span class="n">entropy_coeff</span> <span class="o">=</span> <span class="mf">0.01</span>  <span class="c1"># example weight</span>
+    <span class="n">entropy_coeff</span> <span class="o">=</span> <span class="mf">0.01</span>
 
-    <span class="c1"># 9. Combine losses</span>
     <span class="n">total_loss</span> <span class="o">=</span> <span class="n">policy_loss</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">value_loss</span> <span class="o">-</span> <span class="n">entropy_coeff</span> <span class="o">*</span> <span class="n">entropy</span>
 
-    <span class="c1"># 10. Backpropagate and update model</span>
     <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
     <span class="n">total_loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
     <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-
-    <span class="c1"># 11. Update reference model for next iteration</span>
     <span class="n">ref_model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">policy_model</span><span class="o">.</span><span class="n">state_dict</span><span class="p">())</span>
 </code></pre></div>
-<h3 id="9-limitations-and-challenges-of-ppo-in-llm-training">9. Limitations and Challenges of PPO in LLM Training<a class="headerlink" href="#9-limitations-and-challenges-of-ppo-in-llm-training" title="Permanent link">&para;</a></h3>
-<h4 id="1-kl-divergence-sensitivity">🧩 1. KL Divergence Sensitivity<a class="headerlink" href="#1-kl-divergence-sensitivity" title="Permanent link">&para;</a></h4>
-<p>PPO adds a <strong>KL penalty</strong> to prevent the model from drifting too far:
-$$
-L = L^{PPO} - \beta D_{KL}(\pi_{\theta} || \pi_{\text{ref}})
-$$</p>
-<pre><code>- **Too small β:** model diverges.
-- **Too large β:** slow learning.
-- Adaptive KL control helps adjust automatically.
-</code></pre>
+<h3 id="9-limitations-and-challenges">9. Limitations and Challenges<a class="headerlink" href="#9-limitations-and-challenges" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>KL Divergence Sensitivity</strong>: Requires KL penalty to prevent divergence.  </li>
+<li><strong>High Training Cost</strong>: Multiple models increase compute.  </li>
+<li><strong>Reward Hacking</strong>: LLM may over-optimize for reward model.  </li>
+<li><strong>Sparse/Noisy Rewards</strong>: One reward per sequence can hinder credit assignment.  </li>
+<li><strong>Credit Assignment</strong>: Per-token updates with sequence-level rewards may be ambiguous.  </li>
+<li><strong>Exploration vs Alignment</strong>: Balancing safe exploration is challenging.  </li>
+<li><strong>Implementation Complexity</strong>: Multiple models and hyperparameter tuning required.</li>
+</ol>
 <hr />
-<h4 id="2-high-training-cost">⏳ 2. High Training Cost<a class="headerlink" href="#2-high-training-cost" title="Permanent link">&para;</a></h4>
-<ul>
-<li>Multiple models (policy, reference, reward, value) increase compute.</li>
-<li>Fine-tuning large LLMs can require <strong>thousands of GPU-hours</strong>.</li>
-</ul>
-<hr />
-<h4 id="3-reward-hacking">⚠️ 3. Reward Hacking<a class="headerlink" href="#3-reward-hacking" title="Permanent link">&para;</a></h4>
-<ul>
-<li>LLM may over-optimize for the reward model instead of true human preference.</li>
-<li>Can result in overly polite, verbose, or misleading responses.</li>
-</ul>
-<hr />
-<h4 id="4-sparse-or-noisy-rewards">🧮 4. Sparse or Noisy Rewards<a class="headerlink" href="#4-sparse-or-noisy-rewards" title="Permanent link">&para;</a></h4>
-<ul>
-<li><strong>Sparse:</strong> One reward per sequence makes credit assignment harder.</li>
-<li><strong>Noisy:</strong> Subjective or inconsistent human preferences can lead to unstable updates.<blockquote>
-<p>💡 Sparse/noisy rewards increase variance and slow learning.</p>
-</blockquote>
-</li>
-</ul>
-<hr />
-<h4 id="5-credit-assignment">🔁 5. Credit Assignment<a class="headerlink" href="#5-credit-assignment" title="Permanent link">&para;</a></h4>
-<ul>
-<li>Per-token updates but per-sequence rewards create ambiguity about which tokens contributed most.</li>
-</ul>
-<hr />
-<h4 id="6-exploration-vs-alignment">⚖️ 6. Exploration vs Alignment<a class="headerlink" href="#6-exploration-vs-alignment" title="Permanent link">&para;</a></h4>
-<ul>
-<li>Encouraging exploration may generate unsafe outputs.</li>
-<li>Balancing diversity and alignment is challenging.</li>
-</ul>
-<hr />
-<h4 id="7-implementation-complexity">🔍 7. Implementation Complexity<a class="headerlink" href="#7-implementation-complexity" title="Permanent link">&para;</a></h4>
-<ul>
-<li>Multiple models and careful hyperparameter tuning required.</li>
-<li>Can be unstable if any component is suboptimal.</li>
-</ul>
 <h3 id="10-summary">10. Summary<a class="headerlink" href="#10-summary" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -1561,32 +1228,31 @@ $$</p>
 <tbody>
 <tr>
 <td><strong>Policy Model (LLM)</strong></td>
-<td>Generates responses to prompts</td>
-<td><code>GPT-3</code>, <code>Llama-2</code></td>
+<td>Generates responses</td>
+<td>GPT-3, LLaMA-2</td>
 </tr>
 <tr>
 <td><strong>Reward Model</strong></td>
-<td>Scores how much humans like the output</td>
+<td>Scores outputs based on preferences</td>
 <td>Fine-tuned classifier</td>
 </tr>
 <tr>
-<td><strong>PPO Algorithm</strong></td>
-<td>Updates the policy using rewards</td>
+<td><strong>DRPO Algorithm</strong></td>
+<td>Updates policy with decoupled reward</td>
 <td>Training loop</td>
 </tr>
 <tr>
 <td><strong>KL Penalty</strong></td>
-<td>Prevents over-deviation from base model</td>
+<td>Prevents over-deviation</td>
 <td>Regularization</td>
 </tr>
 <tr>
 <td><strong>Goal</strong></td>
 <td>Align LLM behavior with human intent</td>
-<td>Helpful, safe, and truthful answers</td>
+<td>Helpful, safe, accurate reasoning</td>
 </tr>
 </tbody>
 </table>
-<hr />
 
 
 

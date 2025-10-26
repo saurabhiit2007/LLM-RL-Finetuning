@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Technical documentation and notes on PPO, DPO, and other RL methods for LLM fine-tuning">
+        <meta name="description" content="Technical documentation and notes on RL methods for LLM fine-tuning">
       
       
         <meta name="author" content="Saurabh Goyal">
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#ppo-and-reward-models-in-llm-training" class="md-skip">
+        <a href="#references" class="md-skip">
           Skip to content
         </a>
       
@@ -329,7 +329,7 @@
   
   
   <span class="md-ellipsis">
-    DRPO
+    D(irect)RPO
     
   </span>
   
@@ -347,7 +347,30 @@
   
   
     <li class="md-nav__item">
-      <a href="../methods/g%28uided%29rpo/" class="md-nav__link">
+      <a href="../methods/decoupledrpo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    D(ecoupled)RPO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../methods/guided_rpo/" class="md-nav__link">
         
   
   
@@ -370,12 +393,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../methods/comparison.md" class="md-nav__link">
+      <a href="../methods/grouped_relative_po_deepseek/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Comparison
+    Grouped Relative PO (Deepseek)
     
   </span>
   
@@ -564,159 +587,72 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-overview" class="md-nav__link">
+  <a href="#1-ppo-proximal-policy-optimization" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Overview
+      🧮 1. PPO - Proximal Policy Optimization
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-the-big-picture-rlhf-pipeline" class="md-nav__link">
+  <a href="#2-dpo-direct-preference-optimization" class="md-nav__link">
     <span class="md-ellipsis">
-      2. The Big Picture: RLHF Pipeline
+      🎯 2. DPO - Direct Preference Optimization
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-intuitive-understanding-of-ppo" class="md-nav__link">
+  <a href="#3-grpo-grouped-relative-policy-optimization" class="md-nav__link">
     <span class="md-ellipsis">
-      3. Intuitive Understanding of PPO
+      🔁 3. GRPO - Grouped Relative Policy Optimization
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-ppo-in-simple-terms" class="md-nav__link">
+  <a href="#3-drpo-decoupled-rewards-policy-optimization" class="md-nav__link">
     <span class="md-ellipsis">
-      4. PPO in Simple Terms
+      🔁 3. DRPO - Decoupled Rewards Policy Optimization
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-ppo-objective-function" class="md-nav__link">
+  <a href="#4-kl-penalty" class="md-nav__link">
     <span class="md-ellipsis">
-      5. PPO Objective Function
+      ⚖️ 4. KL Penalty
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#6-example-of-ppo-in-practice" class="md-nav__link">
+  <a href="#5-deepseek-rl-reinforcement-learning-for-reasoning" class="md-nav__link">
     <span class="md-ellipsis">
-      6. Example of PPO in Practice
+      🚀 5. DeepSeek RL — Reinforcement Learning for Reasoning
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#7-why-ppo-instead-of-direct-human-feedback" class="md-nav__link">
+  <a href="#6-reward-hacking-specification-gaming" class="md-nav__link">
     <span class="md-ellipsis">
-      7. Why PPO Instead of Direct Human Feedback?
+      🧠 6. Reward Hacking &amp; Specification Gaming
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#8-limitations-and-challenges-of-ppo-in-llm-training" class="md-nav__link">
+  <a href="#others" class="md-nav__link">
     <span class="md-ellipsis">
-      8. Limitations and Challenges of PPO in LLM Training
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="8. Limitations and Challenges of PPO in LLM Training">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-kl-divergence-penalty-instability" class="md-nav__link">
-    <span class="md-ellipsis">
-      🧩 1. KL Divergence Penalty Instability
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-high-training-time-and-cost" class="md-nav__link">
-    <span class="md-ellipsis">
-      ⏳ 2. High Training Time and Cost
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-reward-hacking" class="md-nav__link">
-    <span class="md-ellipsis">
-      ⚠️ 3. Reward Hacking
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-sparse-or-noisy-rewards" class="md-nav__link">
-    <span class="md-ellipsis">
-      🧮 4. Sparse or Noisy Rewards
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-credit-assignment-problem" class="md-nav__link">
-    <span class="md-ellipsis">
-      🔁 5. Credit Assignment Problem
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#6-trade-off-between-exploration-and-alignment" class="md-nav__link">
-    <span class="md-ellipsis">
-      ⚖️ 6. Trade-off Between Exploration and Alignment
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#7-implementation-complexity" class="md-nav__link">
-    <span class="md-ellipsis">
-      🔍 7. Implementation Complexity
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#9-summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      9. Summary
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#10-alternatives-and-evolutions" class="md-nav__link">
-    <span class="md-ellipsis">
-      10. Alternatives and Evolutions
+      🧩 Others
     </span>
   </a>
   
@@ -757,159 +693,72 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-overview" class="md-nav__link">
+  <a href="#1-ppo-proximal-policy-optimization" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Overview
+      🧮 1. PPO - Proximal Policy Optimization
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-the-big-picture-rlhf-pipeline" class="md-nav__link">
+  <a href="#2-dpo-direct-preference-optimization" class="md-nav__link">
     <span class="md-ellipsis">
-      2. The Big Picture: RLHF Pipeline
+      🎯 2. DPO - Direct Preference Optimization
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-intuitive-understanding-of-ppo" class="md-nav__link">
+  <a href="#3-grpo-grouped-relative-policy-optimization" class="md-nav__link">
     <span class="md-ellipsis">
-      3. Intuitive Understanding of PPO
+      🔁 3. GRPO - Grouped Relative Policy Optimization
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-ppo-in-simple-terms" class="md-nav__link">
+  <a href="#3-drpo-decoupled-rewards-policy-optimization" class="md-nav__link">
     <span class="md-ellipsis">
-      4. PPO in Simple Terms
+      🔁 3. DRPO - Decoupled Rewards Policy Optimization
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-ppo-objective-function" class="md-nav__link">
+  <a href="#4-kl-penalty" class="md-nav__link">
     <span class="md-ellipsis">
-      5. PPO Objective Function
+      ⚖️ 4. KL Penalty
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#6-example-of-ppo-in-practice" class="md-nav__link">
+  <a href="#5-deepseek-rl-reinforcement-learning-for-reasoning" class="md-nav__link">
     <span class="md-ellipsis">
-      6. Example of PPO in Practice
+      🚀 5. DeepSeek RL — Reinforcement Learning for Reasoning
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#7-why-ppo-instead-of-direct-human-feedback" class="md-nav__link">
+  <a href="#6-reward-hacking-specification-gaming" class="md-nav__link">
     <span class="md-ellipsis">
-      7. Why PPO Instead of Direct Human Feedback?
+      🧠 6. Reward Hacking &amp; Specification Gaming
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#8-limitations-and-challenges-of-ppo-in-llm-training" class="md-nav__link">
+  <a href="#others" class="md-nav__link">
     <span class="md-ellipsis">
-      8. Limitations and Challenges of PPO in LLM Training
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="8. Limitations and Challenges of PPO in LLM Training">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-kl-divergence-penalty-instability" class="md-nav__link">
-    <span class="md-ellipsis">
-      🧩 1. KL Divergence Penalty Instability
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-high-training-time-and-cost" class="md-nav__link">
-    <span class="md-ellipsis">
-      ⏳ 2. High Training Time and Cost
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-reward-hacking" class="md-nav__link">
-    <span class="md-ellipsis">
-      ⚠️ 3. Reward Hacking
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-sparse-or-noisy-rewards" class="md-nav__link">
-    <span class="md-ellipsis">
-      🧮 4. Sparse or Noisy Rewards
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-credit-assignment-problem" class="md-nav__link">
-    <span class="md-ellipsis">
-      🔁 5. Credit Assignment Problem
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#6-trade-off-between-exploration-and-alignment" class="md-nav__link">
-    <span class="md-ellipsis">
-      ⚖️ 6. Trade-off Between Exploration and Alignment
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#7-implementation-complexity" class="md-nav__link">
-    <span class="md-ellipsis">
-      🔍 7. Implementation Complexity
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#9-summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      9. Summary
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#10-alternatives-and-evolutions" class="md-nav__link">
-    <span class="md-ellipsis">
-      10. Alternatives and Evolutions
+      🧩 Others
     </span>
   </a>
   
@@ -931,183 +780,54 @@
 
 
 
-<h1 id="ppo-and-reward-models-in-llm-training">🧠 PPO and Reward Models in LLM Training</h1>
-<h2 id="1-overview">1. Overview</h2>
-<p>Proximal Policy Optimization (PPO) is a reinforcement learning algorithm widely used in <strong>fine-tuning Large Language Models (LLMs)</strong> under the Reinforcement Learning from Human Feedback (RLHF) framework. It helps bridge the gap between <strong>human preferences</strong> and <strong>LLM outputs</strong> by optimizing the model’s responses to align with what humans find helpful, safe, or relevant.</p>
-<hr />
-<h2 id="2-the-big-picture-rlhf-pipeline">2. The Big Picture: RLHF Pipeline</h2>
-<p>RLHF typically follows three key stages:</p>
-<ol>
-<li>
-<p><strong>Supervised Fine-Tuning (SFT)</strong><br />
-   Train a base LLM on high-quality human demonstration data (prompt–response pairs).</p>
-</li>
-<li>
-<p><strong>Reward Model (RM) Training</strong><br />
-   Train a separate model to predict a <em>scalar reward</em> from human preference data. For example, given two responses to the same prompt, the model learns which one humans prefer.</p>
-</li>
-<li>
-<p><strong>Reinforcement Learning (e.g., PPO)</strong><br />
-   Use PPO to fine-tune the SFT model (the “policy”) so that it generates outputs that maximize the <em>predicted reward</em> given by the RM.</p>
-</li>
-</ol>
-<hr />
-<h2 id="3-intuitive-understanding-of-ppo">3. Intuitive Understanding of PPO</h2>
-<p>Imagine you have an assistant (the LLM) that gives answers. You ask multiple questions, and a teacher (the reward model) scores how good each answer is. PPO helps you <strong>adjust the assistant’s behavior</strong> to get higher scores <strong>without deviating too far</strong> from its original style (the SFT model).</p>
-<p>The “proximal” in PPO means:  </p>
-<blockquote>
-<p>“Don’t change the model’s behavior too drastically in one update.”</p>
-</blockquote>
-<p>This stability comes from a <em>clipped objective function</em> that penalizes large policy updates.</p>
-<hr />
-<h2 id="4-ppo-in-simple-terms">4. PPO in Simple Terms</h2>
-<ol>
-<li>
-<p><strong>Policy model (the LLM):</strong><br />
-   Generates a response (sequence of tokens) given a prompt.</p>
-</li>
-<li>
-<p><strong>Reward model:</strong><br />
-   Assigns a reward (score) to the response.</p>
-</li>
-<li>
-<p><strong>Old policy (reference model):</strong><br />
-   A frozen snapshot of the model before PPO updates — used to measure how much the new model diverges.</p>
-</li>
-<li>
-<p><strong>PPO update:</strong>  </p>
-</li>
-<li>Compare the <em>new</em> model’s likelihood of the generated tokens to the <em>old</em> model’s likelihood.  </li>
-<li>Compute the reward advantage (how much better the new behavior is).  </li>
-<li>Clip the ratio of new/old probabilities to prevent large steps.</li>
-</ol>
-<hr />
-<h2 id="5-ppo-objective-function">5. PPO Objective Function</h2>
-<div class="arithmatex">\[
-L^{PPO}(\theta) = \mathbb{E}_t \left[\min\left(r_t(\theta) A_t, \text{clip}(r_t(\theta), 1-\epsilon, 1+\epsilon) A_t\right)\right]
-\]</div>
-<p>Where:
-- <span class="arithmatex">\(r_t(\theta)\)</span> = ratio between new and old policy probabilities.
-- <span class="arithmatex">\(A_t\)</span> = advantage function (how much better an action is than expected).
-- <span class="arithmatex">\(\epsilon\)</span> = clipping threshold (often 0.1–0.3).</p>
-<p>This ensures <strong>small but stable</strong> improvements.</p>
-<hr />
-<h2 id="6-example-of-ppo-in-practice">6. Example of PPO in Practice</h2>
-<pre><code class="language-python">for prompt in prompts:
-    # 1. Generate response
-    response = policy_model.generate(prompt)
-
-    # 2. Compute reward from reward model
-    reward = reward_model(prompt, response)
-
-    # 3. Compute log probabilities from old and new policies
-    logprobs_old = ref_model.logprobs(prompt, response)
-    logprobs_new = policy_model.logprobs(prompt, response)
-
-    # 4. Compute advantage and clipped objective
-    ratio = torch.exp(logprobs_new - logprobs_old)
-    clipped_ratio = torch.clamp(ratio, 1 - epsilon, 1 + epsilon)
-    loss = -torch.mean(torch.min(ratio * advantage, clipped_ratio * advantage))
-
-    # 5. Backpropagate and update model
-    optimizer.zero_grad()
-    loss.backward()
-    optimizer.step()
-</code></pre>
-<hr />
-<h2 id="7-why-ppo-instead-of-direct-human-feedback">7. Why PPO Instead of Direct Human Feedback?</h2>
-<p>Because human annotation is limited and noisy:
-- We can’t rate <strong>every</strong> output of a large model.
-- Direct training on human labels doesn’t handle the <em>credit assignment problem</em> — which part of the response caused the high or low rating?
-- PPO allows the model to <em>learn generalizable feedback signals</em> through the reward model, without human labels for every step.</p>
-<hr />
-<h2 id="8-limitations-and-challenges-of-ppo-in-llm-training">8. Limitations and Challenges of PPO in LLM Training</h2>
-<h3 id="1-kl-divergence-penalty-instability">🧩 1. <strong>KL Divergence Penalty Instability</strong></h3>
-<p>To ensure the fine-tuned model doesn’t drift too far from the base model, PPO adds a <strong>KL penalty</strong>:
-[
-L = L^{PPO} - \beta D_{KL}(\pi_{\theta} || \pi_{\text{ref}})
-]
-However:
-- Choosing the right KL coefficient (<span class="arithmatex">\(\beta\)</span>) is tricky.<br />
-- Too small → model diverges, harming coherence/safety.<br />
-- Too large → model learns too little (under-updates).</p>
-<p>Modern techniques (e.g., <strong>adaptive KL control</strong>) try to auto-adjust this balance.</p>
-<hr />
-<h3 id="2-high-training-time-and-cost">⏳ 2. <strong>High Training Time and Cost</strong></h3>
+<h1 id="references">📚 References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h1>
+<h3 id="1-ppo-proximal-policy-optimization">🧮 1. PPO - <em>Proximal Policy Optimization</em><a class="headerlink" href="#1-ppo-proximal-policy-optimization" title="Permanent link">&para;</a></h3>
 <ul>
-<li>PPO fine-tuning is <strong>computationally expensive</strong>, requiring multiple model passes (policy + reference + reward + value models).</li>
-<li>Fine-tuning large models like GPT-3 with PPO can take <strong>thousands of GPU-hours</strong>.</li>
+<li><strong>Schulman et al. (2017)</strong> — <em>Proximal Policy Optimization Algorithms.</em> <a href="https://arxiv.org/abs/1707.06347">[arXiv:1707.06347]</a></li>
+<li><strong>Adaptive-ML Blog (2023)</strong> — <em>From Zero to PPO: Understanding the Path to Helpful AI Models.</em> <a href="https://www.adaptive-ml.com/post/from-zero-to-ppo">[Link]</a></li>
+<li><strong>Secrets of RLHF in LLMs (2023)</strong> — <em>Part I: PPO Explained in Detail.</em> <a href="https://arxiv.org/abs/2307.04964">[arXiv:2307.04964]</a></li>
 </ul>
 <hr />
-<h3 id="3-reward-hacking">⚠️ 3. <strong>Reward Hacking</strong></h3>
-<p>PPO optimizes for the reward model — not <em>true human satisfaction</em>.<br />
-If the reward model is imperfect, the LLM can <strong>“game”</strong> it by producing text that tricks it (e.g., overly polite or verbose responses).</p>
-<p>This is called <strong>reward model over-optimization</strong> or “reward hacking.”</p>
-<hr />
-<h3 id="4-sparse-or-noisy-rewards">🧮 4. <strong>Sparse or Noisy Rewards</strong></h3>
+<h3 id="2-dpo-direct-preference-optimization">🎯 2. DPO - <em>Direct Preference Optimization</em><a class="headerlink" href="#2-dpo-direct-preference-optimization" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Human preference data can be subjective or inconsistent.  </li>
-<li>If rewards are too sparse (few signals per episode), PPO struggles to learn efficiently.</li>
+<li><strong>Rafailov et al. (2023)</strong> — <em>Direct Preference Optimization: Your Language Model is Secretly a Reward Model.</em> <a href="https://arxiv.org/abs/2305.18290">[arXiv:2305.18290]</a></li>
+<li><strong>Hugging Face Blog (2023)</strong> — <em>Simplifying RLHF with DPO.</em> <a href="https://huggingface.co/blog/ariG23498/rlhf-to-dpo">[Blog]</a></li>
+<li><strong>Implementation Repo</strong> — <a href="https://github.com/eric-mitchell/direct-preference-optimization">eric-mitchell/direct-preference-optimization</a></li>
 </ul>
 <hr />
-<h3 id="5-credit-assignment-problem">🔁 5. <strong>Credit Assignment Problem</strong></h3>
-<p>PPO updates are computed per-token, but rewards are given per-sequence. It’s not always clear which token or phrase made the answer better or worse.</p>
-<hr />
-<h3 id="6-trade-off-between-exploration-and-alignment">⚖️ 6. <strong>Trade-off Between Exploration and Alignment</strong></h3>
-<p>PPO encourages exploration (trying new actions) but in LLMs, that may generate toxic or unsafe text. Balancing alignment with diversity remains difficult.</p>
-<hr />
-<h3 id="7-implementation-complexity">🔍 7. <strong>Implementation Complexity</strong></h3>
+<h3 id="3-grpo-grouped-relative-policy-optimization">🔁 3. GRPO - <em>Grouped Relative Policy Optimization</em><a class="headerlink" href="#3-grpo-grouped-relative-policy-optimization" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Requires maintaining multiple models in memory (policy, reward, value, reference).  </li>
-<li>Needs careful hyperparameter tuning (clip range, learning rate, KL coeff., etc.).  </li>
-<li>Often unstable if any component is suboptimal.</li>
+<li><strong>Shao et al. (2024)</strong> — <em>DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models.</em> (Introduces GRPO) <a href="https://arxiv.org/abs/2402.03300">[arXiv:2402.03300]</a></li>
+<li><strong>Mroueh et al. (2025)</strong> — <em>Revisiting Group Relative Policy Optimization.</em> <a href="https://arxiv.org/abs/2505.22257">[arXiv:2505.22257]</a></li>
+<li><strong>Samia Sahin (2025)</strong> — <em>The Math Behind DeepSeek — GRPO Explained.</em> <a href="https://medium.com/@sahin.samia/the-math-behind-deepseek-a-deep-dive-into-group-relative-policy-optimization-grpo-8a75007491ba">[Medium]</a></li>
 </ul>
 <hr />
-<h2 id="9-summary">9. Summary</h2>
-<table>
-<thead>
-<tr>
-<th>Component</th>
-<th>Role</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Policy Model (LLM)</strong></td>
-<td>Generates responses to prompts</td>
-<td><code>GPT-3</code>, <code>Llama-2</code></td>
-</tr>
-<tr>
-<td><strong>Reward Model</strong></td>
-<td>Scores how much humans like the output</td>
-<td>Fine-tuned classifier</td>
-</tr>
-<tr>
-<td><strong>PPO Algorithm</strong></td>
-<td>Updates the policy using rewards</td>
-<td>Training loop</td>
-</tr>
-<tr>
-<td><strong>KL Penalty</strong></td>
-<td>Prevents over-deviation from base model</td>
-<td>Regularization</td>
-</tr>
-<tr>
-<td><strong>Goal</strong></td>
-<td>Align LLM behavior with human intent</td>
-<td>Helpful, safe, and truthful answers</td>
-</tr>
-</tbody>
-</table>
+<h3 id="3-drpo-decoupled-rewards-policy-optimization">🔁 3. DRPO - <em>Decoupled Rewards Policy Optimization</em><a class="headerlink" href="#3-drpo-decoupled-rewards-policy-optimization" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Li et al. (2025)</strong> - <em>DRPO: Efficient Reasoning via Decoupled Reward Policy Optimization.</em> <a href="https://arxiv.org/abs/2510.04474">DRPO Paper</a></li>
+</ul>
 <hr />
-<h2 id="10-alternatives-and-evolutions">10. Alternatives and Evolutions</h2>
-<p>To address PPO’s complexity, several improved methods have emerged:
-- <strong>DPO (Direct Preference Optimization)</strong> — bypasses reward models and RL by directly optimizing log-probabilities from pairwise preferences.
-- <strong>DRPO (Deterministic Regularized PPO)</strong> — a more stable PPO variant that removes stochasticity in updates.
-- <strong>GRPO (Generalized PPO)</strong> — extends PPO to handle richer feedback (e.g., multiple objectives, multi-turn context).
-- <strong>KTO (Kullback-Leibler Trust Optimization)</strong> — simplifies the KL constraint using direct divergence minimization.</p>
+<h3 id="4-kl-penalty">⚖️ 4. KL Penalty<a class="headerlink" href="#4-kl-penalty" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>APXML Guide (2023)</strong> — <em>KL Divergence Penalty in RLHF.</em> <a href="https://apxml.com/courses/how-to-build-a-large-language-model/chapter-26-reinforcement-learning-human-feedback-rlhf/kl-divergence-penalty-rlhf">[Article]</a></li>
+</ul>
 <hr />
+<h3 id="5-deepseek-rl-reinforcement-learning-for-reasoning">🚀 5. DeepSeek RL — <em>Reinforcement Learning for Reasoning</em><a class="headerlink" href="#5-deepseek-rl-reinforcement-learning-for-reasoning" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Guo et al. (2025)</strong> — <em>DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning.</em> <a href="https://arxiv.org/abs/2501.12948">[Link]</a></li>
+<li><strong>Analytics Vidhya (2025)</strong> — <em>LLM Optimization: GRPO, PPO, and DPO.</em> <a href="https://www.analyticsvidhya.com/blog/2025/02/llm-optimization">[Blog]</a></li>
+</ul>
+<hr />
+<h3 id="6-reward-hacking-specification-gaming">🧠 6. Reward Hacking &amp; Specification Gaming<a class="headerlink" href="#6-reward-hacking-specification-gaming" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Amodei et al. (2016)</strong> — <em>Concrete Problems in AI Safety.</em> <a href="https://arxiv.org/abs/1606.06565">[arXiv:1606.06565]</a></li>
+</ul>
+<hr />
+<h3 id="others">🧩 Others<a class="headerlink" href="#others" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Ouyang et al. (2022)</strong> — <em>Training Language Models to Follow Instructions with Human Feedback (InstructGPT).</em> <a href="https://arxiv.org/abs/2203.02155">[arXiv:2203.02155]</a></li>
+<li><strong>Bai et al. (2022)</strong> — <em>Training a Helpful and Harmless Assistant with RLHF.</em> <a href="https://arxiv.org/abs/2204.05862">[arXiv:2204.05862]</a></li>
+</ul>
 
 
 
@@ -1161,7 +881,9 @@ If the reward model is imperfect, the LLM can <strong>“game”</strong> it by 
     
       <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
       
-        <script src="../javascripts/mathjax.js"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

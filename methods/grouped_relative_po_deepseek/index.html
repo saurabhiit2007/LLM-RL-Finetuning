@@ -13,10 +13,10 @@
       
       
       
-        <link rel="prev" href="../dpo/">
+        <link rel="prev" href="../guided_rpo/">
       
       
-        <link rel="next" href="../decoupledrpo/">
+        <link rel="next" href="../../advanced_topics/kl_penalty/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -24,7 +24,7 @@
     
     
       
-        <title>D(irect)RPO - LLM RL Fine-tuning</title>
+        <title>Grouped Relative PO (Deepseek) - LLM RL Fine-tuning</title>
       
     
     
@@ -66,7 +66,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#direct-reward-policy-optimization-drpo-offline-reward-weighted-alignment" class="md-skip">
+        <a href="#grouped-relative-policy-optimization-grpo-reinforcement-learning-for-efficient-llm-alignment" class="md-skip">
           Skip to content
         </a>
       
@@ -102,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              D(irect)RPO
+              Grouped Relative PO (Deepseek)
             
           </span>
         </div>
@@ -325,32 +325,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    D(irect)RPO
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../drpo/" class="md-nav__link">
         
   
   
@@ -361,233 +339,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-overview" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. Overview
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-the-big-picture-from-ppo-to-drpo" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. The Big Picture: From PPO to DRPO
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-intuitive-understanding" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. Intuitive Understanding
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-training-data-and-setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      4. Training Data and Setup
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-drpo-formulation" class="md-nav__link">
-    <span class="md-ellipsis">
-      5. DRPO Formulation
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="5. DRPO Formulation">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#51-objective-function" class="md-nav__link">
-    <span class="md-ellipsis">
-      5.1. Objective Function
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#52-intuition" class="md-nav__link">
-    <span class="md-ellipsis">
-      5.2. Intuition
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#53-practical-implementation-notes-gotchas" class="md-nav__link">
-    <span class="md-ellipsis">
-      5.3. Practical Implementation Notes / Gotchas
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#54-key-takeaways" class="md-nav__link">
-    <span class="md-ellipsis">
-      5.4. Key Takeaways
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-implementation-example-pseudocode" class="md-nav__link">
-    <span class="md-ellipsis">
-      6. Implementation Example (Pseudocode)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#7-drpo-vs-other-methods" class="md-nav__link">
-    <span class="md-ellipsis">
-      7. DRPO vs. Other Methods
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="7. DRPO vs. Other Methods">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#71-drpo-vs-ppo" class="md-nav__link">
-    <span class="md-ellipsis">
-      7.1. DRPO vs. PPO
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#72-drpo-vs-dpo" class="md-nav__link">
-    <span class="md-ellipsis">
-      7.2. DRPO vs. DPO
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#8-limitations-and-challenges" class="md-nav__link">
-    <span class="md-ellipsis">
-      8. Limitations and Challenges
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="8. Limitations and Challenges">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-reward-model-bias" class="md-nav__link">
-    <span class="md-ellipsis">
-      📉 1. Reward Model Bias
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-limited-exploration" class="md-nav__link">
-    <span class="md-ellipsis">
-      🔄 2. Limited Exploration
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-kl-tuning-sensitivity" class="md-nav__link">
-    <span class="md-ellipsis">
-      ⚖️ 3. KL Tuning Sensitivity
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-reward-over-fitting" class="md-nav__link">
-    <span class="md-ellipsis">
-      🧠 4. Reward Over-fitting
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-data-requirement" class="md-nav__link">
-    <span class="md-ellipsis">
-      💾 5. Data Requirement
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#9-summary-table" class="md-nav__link">
-    <span class="md-ellipsis">
-      9. Summary Table
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#10-when-to-use-drpo" class="md-nav__link">
-    <span class="md-ellipsis">
-      10. When to Use DRPO
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -643,10 +394,32 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../grouped_relative_po_deepseek/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Grouped Relative PO (Deepseek)
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -657,6 +430,209 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-big-picture-from-ppo-to-grpo" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. The Big Picture: From PPO to GRPO
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-intuitive-understanding" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Intuitive Understanding
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-training-data-and-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Training Data and Setup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-grpo-formulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. GRPO Formulation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. GRPO Formulation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-objective-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1. Objective Function
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-grouped-advantage" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2. Grouped Advantage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-kl-regularization" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3. KL Regularization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-intuition" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4. Intuition
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-implementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5. Implementation Details
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-implementation-example-pseudocode" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Implementation Example (Pseudocode)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-why-grpo-instead-of-ppo" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Why GRPO Instead of PPO?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-limitations-and-challenges" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Limitations and Challenges
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Limitations and Challenges">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-group-reward-homogeneity" class="md-nav__link">
+    <span class="md-ellipsis">
+      📉 1. Group Reward Homogeneity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-reward-function-quality" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔄 2. Reward Function Quality
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-kl-coefficient-sensitivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚖️ 3. KL Coefficient Sensitivity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-group-size-tradeoff" class="md-nav__link">
+    <span class="md-ellipsis">
+      💡 4. Group Size Tradeoff
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-limited-exploration" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎭 5. Limited Exploration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-summary-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Summary Table
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -841,9 +817,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-the-big-picture-from-ppo-to-drpo" class="md-nav__link">
+  <a href="#2-the-big-picture-from-ppo-to-grpo" class="md-nav__link">
     <span class="md-ellipsis">
-      2. The Big Picture: From PPO to DRPO
+      2. The Big Picture: From PPO to GRPO
     </span>
   </a>
   
@@ -868,13 +844,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-drpo-formulation" class="md-nav__link">
+  <a href="#5-grpo-formulation" class="md-nav__link">
     <span class="md-ellipsis">
-      5. DRPO Formulation
+      5. GRPO Formulation
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="5. DRPO Formulation">
+    <nav class="md-nav" aria-label="5. GRPO Formulation">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -887,27 +863,36 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#52-intuition" class="md-nav__link">
+  <a href="#52-grouped-advantage" class="md-nav__link">
     <span class="md-ellipsis">
-      5.2. Intuition
+      5.2. Grouped Advantage
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#53-practical-implementation-notes-gotchas" class="md-nav__link">
+  <a href="#53-kl-regularization" class="md-nav__link">
     <span class="md-ellipsis">
-      5.3. Practical Implementation Notes / Gotchas
+      5.3. KL Regularization
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#54-key-takeaways" class="md-nav__link">
+  <a href="#54-intuition" class="md-nav__link">
     <span class="md-ellipsis">
-      5.4. Key Takeaways
+      5.4. Intuition
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-implementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5. Implementation Details
     </span>
   </a>
   
@@ -928,35 +913,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#7-drpo-vs-other-methods" class="md-nav__link">
+  <a href="#7-why-grpo-instead-of-ppo" class="md-nav__link">
     <span class="md-ellipsis">
-      7. DRPO vs. Other Methods
+      7. Why GRPO Instead of PPO?
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="7. DRPO vs. Other Methods">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#71-drpo-vs-ppo" class="md-nav__link">
-    <span class="md-ellipsis">
-      7.1. DRPO vs. PPO
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#72-drpo-vs-dpo" class="md-nav__link">
-    <span class="md-ellipsis">
-      7.2. DRPO vs. DPO
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -971,45 +932,45 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-reward-model-bias" class="md-nav__link">
+  <a href="#1-group-reward-homogeneity" class="md-nav__link">
     <span class="md-ellipsis">
-      📉 1. Reward Model Bias
+      📉 1. Group Reward Homogeneity
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-limited-exploration" class="md-nav__link">
+  <a href="#2-reward-function-quality" class="md-nav__link">
     <span class="md-ellipsis">
-      🔄 2. Limited Exploration
+      🔄 2. Reward Function Quality
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-kl-tuning-sensitivity" class="md-nav__link">
+  <a href="#3-kl-coefficient-sensitivity" class="md-nav__link">
     <span class="md-ellipsis">
-      ⚖️ 3. KL Tuning Sensitivity
+      ⚖️ 3. KL Coefficient Sensitivity
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-reward-over-fitting" class="md-nav__link">
+  <a href="#4-group-size-tradeoff" class="md-nav__link">
     <span class="md-ellipsis">
-      🧠 4. Reward Over-fitting
+      💡 4. Group Size Tradeoff
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#5-data-requirement" class="md-nav__link">
+  <a href="#5-limited-exploration" class="md-nav__link">
     <span class="md-ellipsis">
-      💾 5. Data Requirement
+      🎭 5. Limited Exploration
     </span>
   </a>
   
@@ -1024,15 +985,6 @@
   <a href="#9-summary-table" class="md-nav__link">
     <span class="md-ellipsis">
       9. Summary Table
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#10-when-to-use-drpo" class="md-nav__link">
-    <span class="md-ellipsis">
-      10. When to Use DRPO
     </span>
   </a>
   
@@ -1054,19 +1006,20 @@
 
 
 
-<h1 id="direct-reward-policy-optimization-drpo-offline-reward-weighted-alignment">🎯 Direct Reward Policy Optimization (DRPO) — Offline Reward-Weighted Alignment<a class="headerlink" href="#direct-reward-policy-optimization-drpo-offline-reward-weighted-alignment" title="Permanent link">&para;</a></h1>
+<h1 id="grouped-relative-policy-optimization-grpo-reinforcement-learning-for-efficient-llm-alignment">🧮 Grouped Relative Policy Optimization (GRPO) — Reinforcement Learning for Efficient LLM Alignment<a class="headerlink" href="#grouped-relative-policy-optimization-grpo-reinforcement-learning-for-efficient-llm-alignment" title="Permanent link">&para;</a></h1>
 <h3 id="1-overview">1. Overview<a class="headerlink" href="#1-overview" title="Permanent link">&para;</a></h3>
-<p><strong>Direct Reward Policy Optimization (DRPO)</strong> is an algorithm designed to fine-tune <strong>Large Language Models (LLMs)</strong> using reward signals—without requiring an online reinforcement learning (RL) loop.
-It directly leverages reward model scores as weights in a supervised training objective, offering a <strong>simpler and more stable</strong> alternative to <strong>Proximal Policy Optimization (PPO)</strong> while being <strong>more expressive than Direct Preference Optimization (DPO)</strong>.</p>
+<p><strong>Grouped Relative Policy Optimization (GRPO)</strong> is a reinforcement learning algorithm introduced in the <strong>DeepSeek</strong> series (DeepSeekMath, DeepSeek-R1) to fine-tune <strong>Large Language Models (LLMs)</strong> efficiently on reasoning-intensive tasks.<br />
+Unlike traditional PPO, which requires a <strong>critic (value network)</strong>, GRPO eliminates the critic and computes <strong>relative advantages within groups</strong> of sampled outputs.<br />
+This approach reduces computational cost and stabilizes training, making it well-suited for large-scale language model alignment.</p>
 <hr />
-<h3 id="2-the-big-picture-from-ppo-to-drpo">2. The Big Picture: From PPO to DRPO<a class="headerlink" href="#2-the-big-picture-from-ppo-to-drpo" title="Permanent link">&para;</a></h3>
-<p>While <strong>PPO-based RLHF</strong> uses iterative, online reinforcement learning guided by a reward model, <strong>DRPO</strong> turns this process into a <strong>single offline optimization step</strong>.</p>
+<h3 id="2-the-big-picture-from-ppo-to-grpo">2. The Big Picture: From PPO to GRPO<a class="headerlink" href="#2-the-big-picture-from-ppo-to-grpo" title="Permanent link">&para;</a></h3>
+<p>Traditional <strong>RLHF</strong> pipelines (using PPO) require a policy model, a reward model, and a value function. GRPO simplifies this process by using <strong>group-wise relative advantages</strong> instead of an explicit value estimator.</p>
 <table>
 <thead>
 <tr>
 <th>Stage</th>
 <th>PPO-Based RLHF</th>
-<th>DRPO-Based Alignment</th>
+<th>GRPO-Based Alignment</th>
 </tr>
 </thead>
 <tbody>
@@ -1077,198 +1030,178 @@ It directly leverages reward model scores as weights in a supervised training ob
 </tr>
 <tr>
 <td>2️⃣ RM</td>
-<td>Train reward model on preference data</td>
-<td>✅ Same</td>
+<td>Train reward or value model</td>
+<td>❌ Removed (uses reward function directly)</td>
 </tr>
 <tr>
 <td>3️⃣ RL</td>
-<td>Fine-tune using PPO + rewards</td>
-<td>✅ Replaced by DRPO objective</td>
+<td>Fine-tune using PPO updates</td>
+<td>✅ Fine-tune using group-based GRPO objective</td>
 </tr>
 </tbody>
 </table>
-<p>This makes DRPO <strong>computationally cheaper</strong>, <strong>offline</strong>, and <strong>more stable</strong>, while retaining reward sensitivity.</p>
+<p>This design significantly reduces training instability and memory usage while preserving the benefits of policy-gradient fine-tuning.</p>
 <hr />
 <h3 id="3-intuitive-understanding">3. Intuitive Understanding<a class="headerlink" href="#3-intuitive-understanding" title="Permanent link">&para;</a></h3>
-<p>Imagine training an assistant:</p>
+<p>For each prompt, GRPO samples <strong>G</strong> candidate responses from the old policy, evaluates each response using a reward function, and compares them within the group.<br />
+The model then updates its policy to favor responses that outperform others in the same group — a <em>relative</em> rather than <em>absolute</em> improvement process.</p>
+<p>Intuitively:</p>
 <ul>
-<li><strong>PPO:</strong> The assistant generates an answer → a teacher scores it numerically → the model updates using RL.</li>
-<li><strong>DRPO:</strong> The assistant looks at many answers already scored → learns to favor high-reward answers through weighted likelihood training.</li>
+<li>PPO optimizes each response using absolute advantages from a critic.</li>
+<li>GRPO optimizes by ranking multiple sampled responses and pushing the policy toward higher-ranked ones.</li>
 </ul>
-<p>Thus, DRPO bypasses the complex RL loop but still uses explicit reward signals for alignment.</p>
+<p>This allows GRPO to focus on <em>comparative improvement</em> while maintaining diversity and avoiding overfitting to noisy rewards.</p>
 <hr />
 <h3 id="4-training-data-and-setup">4. Training Data and Setup<a class="headerlink" href="#4-training-data-and-setup" title="Permanent link">&para;</a></h3>
-<p>Each DRPO training example consists of <span class="arithmatex">\((x, y, r)\)</span></p>
-<p>where:</p>
+<p>Each GRPO training example includes:</p>
 <ul>
-<li><span class="arithmatex">\(x\)</span>: Prompt or input query</li>
-<li><span class="arithmatex">\(y\)</span>: Candidate response (generated by the base model)</li>
-<li><span class="arithmatex">\(r\)</span>: Scalar reward value from the reward model</li>
+<li><strong>Prompt</strong>: <span class="arithmatex">\( q \)</span></li>
+<li><strong>Group of outputs</strong>: <span class="arithmatex">\( \{o_1, o_2, \dots, o_G\} \)</span> sampled from the old policy <span class="arithmatex">\( \pi_{\text{old}} \)</span></li>
+<li><strong>Reward values</strong>: <span class="arithmatex">\( r_i = r(q, o_i) \)</span> from a scoring or reward function</li>
 </ul>
-<p>The model is fine-tuned to increase the likelihood of high-reward responses while staying close to a <strong>reference model</strong> <span class="arithmatex">\(\pi_{\text{ref}}\)</span> (often the SFT model).</p>
+<p>The policy model <span class="arithmatex">\( \pi_\theta \)</span> is optimized to assign higher probabilities to outputs with higher <em>relative</em> rewards, regularized by a KL penalty with respect to a frozen <strong>reference policy</strong> <span class="arithmatex">\( \pi_{\text{ref}} \)</span>.</p>
 <hr />
-<h3 id="5-drpo-formulation">5. DRPO Formulation<a class="headerlink" href="#5-drpo-formulation" title="Permanent link">&para;</a></h3>
+<h3 id="5-grpo-formulation">5. GRPO Formulation<a class="headerlink" href="#5-grpo-formulation" title="Permanent link">&para;</a></h3>
 <div class="admonition example">
 <p class="admonition-title">📘 Mathematical Formulation</p>
 <h4 id="51-objective-function">5.1. Objective Function<a class="headerlink" href="#51-objective-function" title="Permanent link">&para;</a></h4>
-<p>DRPO formulates offline alignment as a <strong>reward-weighted log-likelihood objective</strong> with KL regularization:</p>
+<p>GRPO generalizes the PPO objective using group-wise normalization:</p>
 <div class="arithmatex">\[
-L_{\mathrm{DRPO}}(\theta)
-= -\mathbb{E}_{(x, y)} \left[
-r(x, y) \, \log \pi_\theta(y|x)
+J_{\mathrm{GRPO}}(\theta)
+= \mathbb{E}_{q, \{o_i\}} \left[
+\frac{1}{G} \sum_{i=1}^G
+\min \Big(
+  \frac{\pi_\theta(o_i|q)}{\pi_{\text{old}}(o_i|q)} A_i,\,
+  \text{clip}\!\left(\frac{\pi_\theta(o_i|q)}{\pi_{\text{old}}(o_i|q)}, 1-\epsilon, 1+\epsilon \right) A_i
+\Big)
+- \beta\, D_{\mathrm{KL}}\!\big(\pi_\theta \| \pi_{\text{ref}}\big)
 \right]
-+ \beta \, D_{\mathrm{KL}}\!\left( \pi_\theta(\cdot|x) \, \| \, \pi_{\text{ref}}(\cdot|x) \right)
 \]</div>
 <p>where:</p>
 <ul>
-<li><span class="arithmatex">\(\pi_\theta\)</span>: Trainable policy model  </li>
-<li><span class="arithmatex">\(\pi_{\text{ref}}\)</span>: Reference (frozen) model  </li>
-<li><span class="arithmatex">\(r(x, y)\)</span>: Reward score from the reward model  </li>
-<li><span class="arithmatex">\(\beta\)</span>: KL regularization coefficient controlling drift from the reference model</li>
+<li><span class="arithmatex">\( \pi_{\text{old}} \)</span>: policy before update  </li>
+<li><span class="arithmatex">\( A_i \)</span>: normalized advantage within the group  </li>
+<li><span class="arithmatex">\( \epsilon \)</span>: PPO clipping coefficient  </li>
+<li><span class="arithmatex">\( \beta \)</span>: KL regularization coefficient  </li>
+<li><span class="arithmatex">\( \pi_{\text{ref}} \)</span>: frozen reference model</li>
 </ul>
 <hr />
-<h4 id="52-intuition">5.2. Intuition<a class="headerlink" href="#52-intuition" title="Permanent link">&para;</a></h4>
-<p>DRPO can be viewed as <strong>reward-weighted maximum likelihood estimation (MLE)</strong> — it learns a distribution that assigns higher probability mass to high-reward samples.</p>
-<p>The KL term maintains stability and prevents the model from overfitting or diverging too far from the reference model.</p>
-<p>Implicitly, this mirrors the PPO objective:
-$$
-L_{\mathrm{PPO}} \approx \mathbb{E}!\left[
-A_t \frac{\pi_\theta(y_t|x_t)}{\pi_{\text{old}}(y_t|x_t)} - \beta \, D_{\mathrm{KL}}(\pi_\theta || \pi_{\text{old}})
-\right]
-$$
-but replaces <em>advantage estimates</em> <span class="arithmatex">\(A_t\)</span> with <em>offline rewards</em> <span class="arithmatex">\(r(x, y)\)</span> and removes the online loop.</p>
+<h4 id="52-grouped-advantage">5.2. Grouped Advantage<a class="headerlink" href="#52-grouped-advantage" title="Permanent link">&para;</a></h4>
+<p>The <em>relative</em> advantage <span class="arithmatex">\(A_i\)</span> is computed within each group:</p>
+<div class="arithmatex">\[
+A_i = \frac{r_i - \mathrm{mean}(r_{1..G})}{\mathrm{std}(r_{1..G})}
+\]</div>
+<p>where <span class="arithmatex">\(r_i\)</span> is the reward for output <span class="arithmatex">\(o_i\)</span>.<br />
+This ensures that updates depend on <em>relative</em> performance rather than absolute reward magnitude.</p>
 <hr />
-<h4 id="53-practical-implementation-notes-gotchas">5.3. Practical Implementation Notes / Gotchas<a class="headerlink" href="#53-practical-implementation-notes-gotchas" title="Permanent link">&para;</a></h4>
+<h4 id="53-kl-regularization">5.3. KL Regularization<a class="headerlink" href="#53-kl-regularization" title="Permanent link">&para;</a></h4>
+<p>The KL term ensures that the updated policy remains close to the reference model:</p>
+<div class="arithmatex">\[
+D_{\mathrm{KL}}(\pi_\theta \| \pi_{\text{ref}}) =
+\frac{\pi_{\text{ref}}(o_i|q)}{\pi_\theta(o_i|q)} -
+\log \frac{\pi_{\text{ref}}(o_i|q)}{\pi_\theta(o_i|q)} - 1
+\]</div>
+<hr />
+<h4 id="54-intuition">5.4. Intuition<a class="headerlink" href="#54-intuition" title="Permanent link">&para;</a></h4>
 <ul>
-<li><strong>Reference model is frozen</strong> — no gradient flow into <span class="arithmatex">\(\pi_{\text{ref}}\)</span>.  </li>
-<li><strong>Reward normalization</strong> — normalize <span class="arithmatex">\(r(x, y)\)</span> across batches to prevent gradient explosion.  </li>
-<li><strong>Sequence log-probabilities</strong> — compute <span class="arithmatex">\(\log \pi(y|x)\)</span> at sequence level (sum or mean over tokens).  </li>
-<li><strong>KL monitoring</strong> — track drift between <span class="arithmatex">\(\pi_\theta\)</span> and <span class="arithmatex">\(\pi_{\text{ref}}\)</span> during training.  </li>
-<li><strong>β (beta)</strong> — higher β keeps the model closer to the base; typical range: 0.1–0.5.  </li>
-<li><strong>Numerical stability</strong> — use stable PyTorch ops like <code>F.kl_div</code> or <code>F.log_softmax</code> to avoid underflow.  </li>
-<li><strong>Dataset quality</strong> — ensure sufficient diversity in reward-labeled responses to avoid overfitting.</li>
+<li><strong>Group-normalized advantages</strong> remove the need for a critic.  </li>
+<li><strong>KL regularization</strong> replaces the explicit PPO penalty term.  </li>
+<li><strong>Clipping</strong> prevents large, unstable policy updates.  </li>
+<li><strong>Efficiency</strong>: GRPO avoids computing value baselines, making it highly scalable for LLMs.</li>
 </ul>
 <hr />
-<h4 id="54-key-takeaways">5.4. Key Takeaways<a class="headerlink" href="#54-key-takeaways" title="Permanent link">&para;</a></h4>
+<h4 id="55-implementation-details">5.5. Implementation Details<a class="headerlink" href="#55-implementation-details" title="Permanent link">&para;</a></h4>
 <ul>
-<li>DRPO avoids online rollouts — all data is precomputed.  </li>
-<li>Retains <strong>reward awareness</strong> (unlike DPO) while remaining <strong>stable</strong> (unlike PPO).  </li>
-<li>Functions as a <strong>bridge</strong> between supervised fine-tuning and reinforcement learning.  </li>
-<li>Efficient for large-scale alignment when PPO is too costly.</li>
+<li><strong>Group size (G)</strong> — Typically 8–16 samples per prompt.  </li>
+<li><strong>β (beta)</strong> — 0.001–0.01 to control KL regularization.  </li>
+<li><strong>ε (epsilon)</strong> — Clipping coefficient, often 0.1–0.2.  </li>
+<li><strong>Reference policy</strong> — Frozen SFT model to anchor learning.  </li>
+<li><strong>Reward function</strong> — Task-specific (e.g., correctness, coherence, reasoning completeness).  </li>
+<li><strong>Advantage normalization</strong> — Essential for stable updates; normalize per group.</li>
 </ul>
 </div>
 <hr />
 <h3 id="6-implementation-example-pseudocode">6. Implementation Example (Pseudocode)<a class="headerlink" href="#6-implementation-example-pseudocode" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">reward</span><span class="p">)</span> <span class="ow">in</span> <span class="n">reward_dataset</span><span class="p">:</span>
-    <span class="n">logp</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">logprobs</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span>
-    <span class="n">logp_ref</span> <span class="o">=</span> <span class="n">ref_model</span><span class="o">.</span><span class="n">logprobs</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">prompt</span> <span class="ow">in</span> <span class="n">dataset</span><span class="p">:</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">policy_old</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">G</span><span class="p">)]</span>
+    <span class="n">rewards</span> <span class="o">=</span> <span class="p">[</span><span class="n">reward_fn</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">o</span><span class="p">)</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">outputs</span><span class="p">]</span>
+    <span class="n">mean_r</span><span class="p">,</span> <span class="n">std_r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">rewards</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">rewards</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1e-8</span>
+    <span class="n">advantages</span> <span class="o">=</span> <span class="p">[(</span><span class="n">r</span> <span class="o">-</span> <span class="n">mean_r</span><span class="p">)</span> <span class="o">/</span> <span class="n">std_r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rewards</span><span class="p">]</span>
 
-    <span class="n">kl</span> <span class="o">=</span> <span class="p">(</span><span class="n">logp</span> <span class="o">-</span> <span class="n">logp_ref</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-    <span class="n">loss</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">reward</span> <span class="o">*</span> <span class="n">logp</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">+</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">kl</span>
+    <span class="n">logp_old</span> <span class="o">=</span> <span class="p">[</span><span class="n">policy_old</span><span class="o">.</span><span class="n">logprob</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">o</span><span class="p">)</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">outputs</span><span class="p">]</span>
+    <span class="n">logp_new</span> <span class="o">=</span> <span class="p">[</span><span class="n">policy</span><span class="o">.</span><span class="n">logprob</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">o</span><span class="p">)</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">outputs</span><span class="p">]</span>
+
+    <span class="n">ratios</span> <span class="o">=</span> <span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">lp_new</span> <span class="o">-</span> <span class="n">lp_old</span><span class="p">)</span> <span class="k">for</span> <span class="n">lp_new</span><span class="p">,</span> <span class="n">lp_old</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">logp_new</span><span class="p">,</span> <span class="n">logp_old</span><span class="p">)]</span>
+    <span class="n">surr</span> <span class="o">=</span> <span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">r</span> <span class="o">*</span> <span class="n">A</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="mi">1</span><span class="o">-</span><span class="n">ε</span><span class="p">,</span> <span class="mi">1</span><span class="o">+</span><span class="n">ε</span><span class="p">)</span> <span class="o">*</span> <span class="n">A</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">A</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ratios</span><span class="p">,</span> <span class="n">advantages</span><span class="p">)]</span>
+
+    <span class="n">loss_policy</span> <span class="o">=</span> <span class="o">-</span><span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">surr</span><span class="p">))</span>
+    <span class="n">kl_loss</span> <span class="o">=</span> <span class="n">β</span> <span class="o">*</span> <span class="n">compute_KL</span><span class="p">(</span><span class="n">policy</span><span class="p">,</span> <span class="n">ref_policy</span><span class="p">,</span> <span class="n">prompt</span><span class="p">,</span> <span class="n">outputs</span><span class="p">)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_policy</span> <span class="o">+</span> <span class="n">kl_loss</span>
 
     <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
     <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
     <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
 </code></pre></div>
-<hr />
-<h3 id="7-drpo-vs-other-methods">7. DRPO vs. Other Methods<a class="headerlink" href="#7-drpo-vs-other-methods" title="Permanent link">&para;</a></h3>
-<h4 id="71-drpo-vs-ppo">7.1. DRPO vs. PPO<a class="headerlink" href="#71-drpo-vs-ppo" title="Permanent link">&para;</a></h4>
+<h3 id="7-why-grpo-instead-of-ppo">7. Why GRPO Instead of PPO?<a class="headerlink" href="#7-why-grpo-instead-of-ppo" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
 <th>Aspect</th>
 <th>PPO</th>
-<th>DRPO</th>
+<th>GRPO</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Training loop</td>
-<td>Online, iterative</td>
-<td>Offline, single-pass</td>
-</tr>
-<tr>
-<td>Reward usage</td>
-<td>Advantage-based, dynamic</td>
-<td>Reward-weighted, static</td>
-</tr>
-<tr>
-<td>Exploration</td>
-<td>Strong (on-policy)</td>
-<td>Limited (SFT data only)</td>
-</tr>
-<tr>
-<td>Stability</td>
-<td>Unstable without tuning</td>
-<td>Very stable</td>
-</tr>
-<tr>
-<td>Cost</td>
-<td>High</td>
-<td>5–20× cheaper</td>
-</tr>
-<tr>
-<td>Performance</td>
-<td>Slightly higher</td>
-<td>~90–95% of PPO</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h4 id="72-drpo-vs-dpo">7.2. DRPO vs. DPO<a class="headerlink" href="#72-drpo-vs-dpo" title="Permanent link">&para;</a></h4>
-<table>
-<thead>
-<tr>
-<th>Aspect</th>
-<th>DPO</th>
-<th>DRPO</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Input</td>
-<td>Preference pairs</td>
-<td>Reward scores</td>
-</tr>
-<tr>
-<td>Feedback</td>
-<td>Binary preferences</td>
-<td>Scalar rewards</td>
-</tr>
-<tr>
-<td>Loss</td>
-<td>Logistic (pairwise)</td>
-<td>Weighted log-likelihood</td>
-</tr>
-<tr>
-<td>Reward model</td>
-<td>Not needed</td>
+<td><strong>Critic / Value Net</strong></td>
 <td>Required</td>
+<td>❌ Removed</td>
 </tr>
 <tr>
-<td>Exploration</td>
-<td>None</td>
-<td>Some (via reward diversity)</td>
+<td><strong>Advantage Computation</strong></td>
+<td>From value estimates (GAE)</td>
+<td>Group-normalized rewards</td>
 </tr>
 <tr>
-<td>Behavior</td>
-<td>Learns which is better</td>
-<td>Learns how much better</td>
+<td><strong>KL Regularization</strong></td>
+<td>Explicit or adaptive penalty</td>
+<td>Included via reference policy</td>
+</tr>
+<tr>
+<td><strong>Training Stability</strong></td>
+<td>Sensitive to critic/value bias</td>
+<td>More stable and memory-efficient</td>
+</tr>
+<tr>
+<td><strong>Data Efficiency</strong></td>
+<td>Uses single rollout per update</td>
+<td>Leverages multiple outputs per prompt</td>
+</tr>
+<tr>
+<td><strong>Compute Cost</strong></td>
+<td>High (policy + value models)</td>
+<td>Low (policy-only)</td>
+</tr>
+<tr>
+<td><strong>Suitability</strong></td>
+<td>General RL tasks</td>
+<td>LLM fine-tuning with verifiable rewards</td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h3 id="8-limitations-and-challenges">8. Limitations and Challenges<a class="headerlink" href="#8-limitations-and-challenges" title="Permanent link">&para;</a></h3>
-<h4 id="1-reward-model-bias">📉 1. Reward Model Bias<a class="headerlink" href="#1-reward-model-bias" title="Permanent link">&para;</a></h4>
-<p>DRPO inherits any biases or inaccuracies from the reward model, which may skew optimization.</p>
-<h4 id="2-limited-exploration">🔄 2. Limited Exploration<a class="headerlink" href="#2-limited-exploration" title="Permanent link">&para;</a></h4>
-<p>Since DRPO is offline, it can only improve on responses generated by the base (SFT) model.</p>
-<h4 id="3-kl-tuning-sensitivity">⚖️ 3. KL Tuning Sensitivity<a class="headerlink" href="#3-kl-tuning-sensitivity" title="Permanent link">&para;</a></h4>
-<p>Improper β settings can lead to over-fitting (low β) or under-fitting (high β).</p>
-<h4 id="4-reward-over-fitting">🧠 4. Reward Over-fitting<a class="headerlink" href="#4-reward-over-fitting" title="Permanent link">&para;</a></h4>
-<p>Over-optimizing for the reward model can cause <strong>reward hacking</strong> — responses that exploit model scoring patterns.</p>
-<h4 id="5-data-requirement">💾 5. Data Requirement<a class="headerlink" href="#5-data-requirement" title="Permanent link">&para;</a></h4>
-<p>Requires a sufficiently large and diverse dataset of reward-labeled responses for robust alignment.</p>
+<h4 id="1-group-reward-homogeneity">📉 1. Group Reward Homogeneity<a class="headerlink" href="#1-group-reward-homogeneity" title="Permanent link">&para;</a></h4>
+<p>If all responses in a group have similar rewards, normalized advantages vanish, yielding weak gradients.</p>
+<h4 id="2-reward-function-quality">🔄 2. Reward Function Quality<a class="headerlink" href="#2-reward-function-quality" title="Permanent link">&para;</a></h4>
+<p>GRPO still relies on reward signal design; noisy or biased rewards can misguide optimization.</p>
+<h4 id="3-kl-coefficient-sensitivity">⚖️ 3. KL Coefficient Sensitivity<a class="headerlink" href="#3-kl-coefficient-sensitivity" title="Permanent link">&para;</a></h4>
+<p>If β is too small, the model may drift from the base; too large, and updates stall.</p>
+<h4 id="4-group-size-tradeoff">💡 4. Group Size Tradeoff<a class="headerlink" href="#4-group-size-tradeoff" title="Permanent link">&para;</a></h4>
+<p>Larger groups improve ranking precision but increase compute cost.</p>
+<h4 id="5-limited-exploration">🎭 5. Limited Exploration<a class="headerlink" href="#5-limited-exploration" title="Permanent link">&para;</a></h4>
+<p>As with PPO, GRPO may struggle to explore novel or diverse outputs if rewards are narrow.</p>
 <hr />
 <h3 id="9-summary-table">9. Summary Table<a class="headerlink" href="#9-summary-table" title="Permanent link">&para;</a></h3>
 <table>
@@ -1282,44 +1215,41 @@ but replaces <em>advantage estimates</em> <span class="arithmatex">\(A_t\)</span
 <tbody>
 <tr>
 <td><strong>Policy Model (LLM)</strong></td>
-<td>Learns weighted preferences</td>
-<td><code>GPT-3</code>, <code>Llama-2</code></td>
+<td>Learns improved policy via group comparison</td>
+<td>DeepSeek-R1, DeepSeekMath</td>
 </tr>
 <tr>
 <td><strong>Reference Model</strong></td>
-<td>Provides baseline probabilities</td>
-<td>SFT model</td>
+<td>Provides KL regularization baseline</td>
+<td>Frozen SFT model</td>
 </tr>
 <tr>
-<td><strong>Reward Model</strong></td>
-<td>Provides scalar scores for responses</td>
-<td>RM trained from human prefs</td>
+<td><strong>Reward Function</strong></td>
+<td>Scores responses</td>
+<td>Correctness, Coherence, Style, etc.</td>
 </tr>
 <tr>
-<td><strong>DRPO Objective</strong></td>
-<td>Reward-weighted log-likelihood + KL penalty</td>
-<td>Offline alignment objective</td>
+<td><strong>Group Size (G)</strong></td>
+<td>Defines sampling granularity</td>
+<td>8–16 outputs</td>
 </tr>
 <tr>
-<td><strong>β Parameter</strong></td>
-<td>Controls proximity to reference</td>
-<td>Tuning hyperparameter</td>
+<td><strong>Advantage <span class="arithmatex">\(A_i\)</span></strong></td>
+<td>Relative performance metric</td>
+<td>Normalized per group</td>
+</tr>
+<tr>
+<td><strong>Objective</strong></td>
+<td>PPO-like surrogate + KL penalty</td>
+<td>Eq. (5.1) above</td>
 </tr>
 <tr>
 <td><strong>Goal</strong></td>
-<td>Efficient reward-based alignment</td>
-<td>Stable, cost-effective tuning</td>
+<td>Efficient RL fine-tuning for LLMs</td>
+<td>Stable, critic-free optimization</td>
 </tr>
 </tbody>
 </table>
-<hr />
-<h3 id="10-when-to-use-drpo">10. When to Use DRPO<a class="headerlink" href="#10-when-to-use-drpo" title="Permanent link">&para;</a></h3>
-<ul>
-<li>You already have a <strong>trained reward model</strong>.</li>
-<li>You need <strong>offline</strong>, <strong>stable</strong>, and <strong>cost-efficient</strong> alignment.</li>
-<li>You want to <strong>bridge</strong> between SFT and PPO without running expensive RL loops.</li>
-<li>Ideal for <strong>intermediate or large-scale pre-alignment</strong> before PPO fine-tuning.</li>
-</ul>
 <hr />
 
 

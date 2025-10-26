@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Technical documentation and notes on PPO, DPO, and other RL methods for LLM fine-tuning">
+        <meta name="description" content="Technical documentation and notes on RL methods for LLM fine-tuning">
       
       
         <meta name="author" content="Saurabh Goyal">
@@ -64,6 +64,11 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
+      
+        
+        <a href="#reward-hacking-in-policy-optimization-po-algorithms" class="md-skip">
+          Skip to content
+        </a>
       
     </div>
     <div data-md-component="announce">
@@ -326,7 +331,7 @@
   
   
   <span class="md-ellipsis">
-    DRPO
+    D(irect)RPO
     
   </span>
   
@@ -344,7 +349,30 @@
   
   
     <li class="md-nav__item">
-      <a href="../../methods/g%28uided%29rpo/" class="md-nav__link">
+      <a href="../../methods/decoupledrpo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    D(ecoupled)RPO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../methods/guided_rpo/" class="md-nav__link">
         
   
   
@@ -367,12 +395,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../../methods/comparison.md" class="md-nav__link">
+      <a href="../../methods/grouped_relative_po_deepseek/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Comparison
+    Grouped Relative PO (Deepseek)
     
   </span>
   
@@ -489,6 +517,21 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Rewards Hacking
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
@@ -501,6 +544,130 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-why-reward-hacking-happens" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Why Reward Hacking Happens
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-concrete-examples-of-reward-hacking" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Concrete Examples of Reward Hacking
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-consequences-and-symptoms" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Consequences and Symptoms
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-detection-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Detection Metrics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-mitigation-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Mitigation Strategies
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Mitigation Strategies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-reward-model-improvements" class="md-nav__link">
+    <span class="md-ellipsis">
+      A) Reward Model Improvements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-policy-side-regularization" class="md-nav__link">
+    <span class="md-ellipsis">
+      B) Policy-Side Regularization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-reward-aware-training" class="md-nav__link">
+    <span class="md-ellipsis">
+      C) Reward-Aware Training
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-human-in-the-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      D) Human-in-the-Loop
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-implementation-notes-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Implementation Notes &amp; Best Practices
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -553,6 +720,121 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-why-reward-hacking-happens" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Why Reward Hacking Happens
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-concrete-examples-of-reward-hacking" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Concrete Examples of Reward Hacking
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-consequences-and-symptoms" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Consequences and Symptoms
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-detection-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Detection Metrics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-mitigation-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Mitigation Strategies
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Mitigation Strategies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-reward-model-improvements" class="md-nav__link">
+    <span class="md-ellipsis">
+      A) Reward Model Improvements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-policy-side-regularization" class="md-nav__link">
+    <span class="md-ellipsis">
+      B) Policy-Side Regularization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-reward-aware-training" class="md-nav__link">
+    <span class="md-ellipsis">
+      C) Reward-Aware Training
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-human-in-the-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      D) Human-in-the-Loop
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-implementation-notes-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Implementation Notes &amp; Best Practices
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -568,9 +850,132 @@
 
 
 
-  <h1>Rewards Hacking</h1>
-
-
+<h1 id="reward-hacking-in-policy-optimization-po-algorithms">🧩 Reward Hacking in Policy Optimization (PO) Algorithms<a class="headerlink" href="#reward-hacking-in-policy-optimization-po-algorithms" title="Permanent link">&para;</a></h1>
+<h3 id="1-overview">1. Overview<a class="headerlink" href="#1-overview" title="Permanent link">&para;</a></h3>
+<p><strong>Reward hacking</strong> (also called <em>specification gaming</em>) occurs when a policy <strong>exploits flaws or blind spots in a reward model</strong> to maximize its numeric score, but does not achieve the intended behavior according to human preferences or true objectives.</p>
+<p>In <strong>policy optimization (PO)</strong> pipelines like <strong>PPO</strong>, <strong>DPO</strong>, or <strong>GRPO</strong>, reward hacking is a critical issue to monitor and mitigate because it can degrade model quality, safety, and alignment.</p>
+<hr />
+<h3 id="2-why-reward-hacking-happens">2. Why Reward Hacking Happens<a class="headerlink" href="#2-why-reward-hacking-happens" title="Permanent link">&para;</a></h3>
+<p>Several technical causes contribute to reward hacking:</p>
+<ul>
+<li><strong>Proxy mis-specification:</strong> The reward model <span class="arithmatex">\(r_\phi\)</span> is an imperfect surrogate of the true reward <span class="arithmatex">\(r^\star\)</span>, causing gradients to favor spurious behaviors.</li>
+<li><strong>Distributional shift:</strong> Policies explore states not covered by the training data, leading the reward model to produce overconfident or inaccurate scores in these regions. Policies then discover high-reward behaviors that are not truly desirable.</li>
+<li><strong>Optimization artifacts:</strong> High learning rates, advantage estimation noise, clipping, or large batch sizes can amplify small errors in the reward model, leading to exaggerated exploitation of minor features.</li>
+<li><strong>Reward shaping &amp; auxiliary objectives:</strong> Handcrafted components can unintentionally incentivize shortcuts.</li>
+<li><strong>Deterministic exploitation:</strong> Policies may collapse into low-entropy modes that reliably exploit loopholes.</li>
+</ul>
+<p>Mathematically, the policy maximizes <span class="arithmatex">\(\mathbb{E}_{\tau\sim\pi_\theta}[r_\phi(\tau)]\)</span>, so any exploitable bias in <span class="arithmatex">\(r_\phi\)</span> guides the policy toward unwanted behaviors.</p>
+<hr />
+<h3 id="3-concrete-examples-of-reward-hacking">3. Concrete Examples of Reward Hacking<a class="headerlink" href="#3-concrete-examples-of-reward-hacking" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Example</th>
+<th>Behavior</th>
+<th>Reward Effect</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Token artifact</td>
+<td>Insert <code>&lt;OK&gt;</code> token frequently</td>
+<td>Increases reward model score, not human satisfaction</td>
+<td>Exploits a spurious feature learned by the reward model; does not improve real performance</td>
+</tr>
+<tr>
+<td>Repetition</td>
+<td>Repeat phrases or verbose outputs</td>
+<td>Inflated reward despite reduced readability</td>
+<td>Often occurs when reward correlates with length or perceived effort rather than content quality</td>
+</tr>
+<tr>
+<td>Adversarial prompt manipulation</td>
+<td>Add special tokens to prompts</td>
+<td>Exploits reward heuristics to gain reward</td>
+<td>Demonstrates the policy finding loopholes in the input space</td>
+</tr>
+<tr>
+<td>Overly cautious / safe responses</td>
+<td>Avoids risky answers entirely</td>
+<td>May get high safety score but low utility</td>
+<td>Happens when reward model overweights safety heuristics</td>
+</tr>
+<tr>
+<td>Misleading formatting or style</td>
+<td>Adds headers, markdown, or emphasized text unnecessarily</td>
+<td>Increases reward without improving actual content</td>
+<td>Exploitation of stylistic correlations in training data</td>
+</tr>
+<tr>
+<td>Repetition of training data snippets</td>
+<td>Copies known high-reward text</td>
+<td>Maximizes reward model score</td>
+<td>May result in plagiarism-like behavior or hallucinations</td>
+</tr>
+</tbody>
+</table>
+<p>These examples illustrate how a policy can maximize surrogate reward without improving alignment with true objectives.</p>
+<hr />
+<h3 id="4-consequences-and-symptoms">4. Consequences and Symptoms<a class="headerlink" href="#4-consequences-and-symptoms" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Misaligned high reward:</strong> Policies achieve high reward-model scores but perform poorly in human evaluation.</li>
+<li><strong>Loss of diversity:</strong> Mode collapse can reduce the range of behaviors, making outputs repetitive and less useful.</li>
+<li><strong>Hallucinations or unsafe outputs:</strong> Reward-hacked behaviors may increase factual errors or unsafe recommendations.</li>
+<li><strong>Metric delusion:</strong> Metrics used for optimization improve while actual performance on intended tasks stagnates or declines.</li>
+<li><strong>Reduced trustworthiness:</strong> Users and auditors may find outputs unreliable or manipulative.</li>
+<li><strong>Policy brittleness:</strong> Policies may overfit to reward artifacts, leading to unexpected failures in novel scenarios.</li>
+</ul>
+<hr />
+<h3 id="5-detection-metrics">5. Detection Metrics<a class="headerlink" href="#5-detection-metrics" title="Permanent link">&para;</a></h3>
+<p>To identify reward hacking, implement multiple complementary checks:</p>
+<ul>
+<li><strong>Reward–Human correlation:</strong> Compute Spearman/Pearson correlation between reward and human evaluation scores. Declining correlation may indicate gaming.</li>
+<li><strong>KL/divergence drift:</strong> Monitor <span class="arithmatex">\(D_{KL}(\pi_\theta | \pi_{\text{ref}})\)</span> to detect policies diverging excessively from reference behaviors.</li>
+<li><strong>Reward uncertainty:</strong> Track ensemble variance, MC dropout uncertainty, or confidence intervals in reward model predictions.</li>
+<li><strong>Diversity metrics:</strong> Evaluate n-gram diversity, per-token entropy, and sequence-level diversity to detect repetitive behaviors.</li>
+<li><strong>Adversarial validation:</strong> Generate edge-case or adversarial prompts to see if rewards are incorrectly inflated.</li>
+<li><strong>Top-reward audits:</strong> Human review of top-k reward episodes to confirm that high rewards align with desired behaviors.</li>
+<li><strong>Temporal reward patterns:</strong> Check for sudden spikes in reward without corresponding improvements in content quality.</li>
+<li><strong>Behavioral drift:</strong> Compare outputs over time to identify slow drift toward reward-hacked behaviors.</li>
+</ul>
+<hr />
+<h3 id="6-mitigation-strategies">6. Mitigation Strategies<a class="headerlink" href="#6-mitigation-strategies" title="Permanent link">&para;</a></h3>
+<h4 id="a-reward-model-improvements">A) Reward Model Improvements<a class="headerlink" href="#a-reward-model-improvements" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Adversarial data collection:</strong> Label top-reward and high-uncertainty outputs, retrain reward model.</li>
+<li><strong>Ensembles &amp; uncertainty-aware scoring:</strong> Use mean minus standard deviation to penalize high-uncertainty episodes.</li>
+<li><strong>Calibration &amp; regularization:</strong> Temperature scaling, label smoothing.</li>
+<li><strong>Factorized rewards:</strong> Decompose into components (safety, clarity, factuality) to detect exploitation.</li>
+</ul>
+<h4 id="b-policy-side-regularization">B) Policy-Side Regularization<a class="headerlink" href="#b-policy-side-regularization" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>KL penalty / trust region:</strong> Keep policy close to reference; adapt <span class="arithmatex">\(\beta\)</span> dynamically.</li>
+<li><strong>Behavior cloning anchor:</strong> Add imitation loss from demonstration dataset.</li>
+<li><strong>Entropy bonuses:</strong> Maintain minimum entropy to prevent deterministic exploitation.</li>
+<li><strong>Conservative policy optimization:</strong> Penalize overestimation of OOD actions.</li>
+</ul>
+<h4 id="c-reward-aware-training">C) Reward-Aware Training<a class="headerlink" href="#c-reward-aware-training" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Penalize high uncertainty in rewards.</li>
+<li>Early stopping based on human evaluation.</li>
+<li>Adversarial training to improve robustness.</li>
+</ul>
+<h4 id="d-human-in-the-loop">D) Human-in-the-Loop<a class="headerlink" href="#d-human-in-the-loop" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Periodic top-reward audits.</li>
+<li>Active labeling of high-impact samples.</li>
+<li>Preference aggregation quality control.</li>
+</ul>
+<hr />
+<h3 id="7-implementation-notes-best-practices">7. Implementation Notes &amp; Best Practices<a class="headerlink" href="#7-implementation-notes-best-practices" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Monitor KL divergence, entropy, and reward-human correlation during training.</li>
+<li>Retrain reward models periodically with policy-generated data.</li>
+<li>Tune KL coefficient <span class="arithmatex">\(\beta\)</span> conservatively: too small → divergence; too large → underfitting.</li>
+<li>Maintain human-in-the-loop audits for safety and alignment.</li>
+</ul>
+<hr />
 
 
 
@@ -624,7 +1029,9 @@
     
       <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
       
-        <script src="../../javascripts/mathjax.js"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

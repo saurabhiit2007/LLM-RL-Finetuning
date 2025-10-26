@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Technical documentation and notes on PPO, DPO, and other RL methods for LLM fine-tuning">
+        <meta name="description" content="Technical documentation and notes on RL methods for LLM fine-tuning">
       
       
         <meta name="author" content="Saurabh Goyal">
@@ -389,7 +389,7 @@
   
   
   <span class="md-ellipsis">
-    DRPO
+    D(irect)RPO
     
   </span>
   
@@ -407,7 +407,30 @@
   
   
     <li class="md-nav__item">
-      <a href="methods/g%28uided%29rpo/" class="md-nav__link">
+      <a href="methods/decoupledrpo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    D(ecoupled)RPO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="methods/guided_rpo/" class="md-nav__link">
         
   
   
@@ -430,12 +453,12 @@
   
   
     <li class="md-nav__item">
-      <a href="methods/comparison.md" class="md-nav__link">
+      <a href="methods/grouped_relative_po_deepseek/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Comparison
+    Grouped Relative PO (Deepseek)
     
   </span>
   
@@ -649,16 +672,16 @@
 
 
 
-<h1 id="welcome-to-mkdocs">Welcome to MkDocs</h1>
+<h1 id="welcome-to-mkdocs">Welcome to MkDocs<a class="headerlink" href="#welcome-to-mkdocs" title="Permanent link">&para;</a></h1>
 <p>For full documentation visit <a href="https://www.mkdocs.org">mkdocs.org</a>.</p>
-<h2 id="commands">Commands</h2>
+<h2 id="commands">Commands<a class="headerlink" href="#commands" title="Permanent link">&para;</a></h2>
 <ul>
 <li><code>mkdocs new [dir-name]</code> - Create a new project.</li>
 <li><code>mkdocs serve</code> - Start the live-reloading docs server.</li>
 <li><code>mkdocs build</code> - Build the documentation site.</li>
 <li><code>mkdocs -h</code> - Print help message and exit.</li>
 </ul>
-<h2 id="project-layout">Project layout</h2>
+<h2 id="project-layout">Project layout<a class="headerlink" href="#project-layout" title="Permanent link">&para;</a></h2>
 <pre><code>mkdocs.yml    # The configuration file.
 docs/
     index.md  # The documentation homepage.
@@ -717,7 +740,9 @@ docs/
     
       <script src="assets/javascripts/bundle.f55a23d4.min.js"></script>
       
-        <script src="javascripts/mathjax.js"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

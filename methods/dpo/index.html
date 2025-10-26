@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Technical documentation and notes on PPO, DPO, and other RL methods for LLM fine-tuning">
+        <meta name="description" content="Technical documentation and notes on RL methods for LLM fine-tuning">
       
       
         <meta name="author" content="Saurabh Goyal">
@@ -66,7 +66,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#direct-preference-optimization-dpo-simplified-overview" class="md-skip">
+        <a href="#direct-preference-optimization-dpo-reinforcement-learning-free-alignment" class="md-skip">
           Skip to content
         </a>
       
@@ -355,37 +355,82 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-is-dpo" class="md-nav__link">
+  <a href="#1-overview" class="md-nav__link">
     <span class="md-ellipsis">
-      🧠 What Is DPO?
+      1. Overview
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#2-the-big-picture-from-rlhf-to-dpo" class="md-nav__link">
     <span class="md-ellipsis">
-      🚀 How It Works
+      2. The Big Picture: From RLHF to DPO
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🚀 How It Works">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-intuitive-understanding" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Intuitive Understanding
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-training-data-and-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Training Data and Setup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-dpo-formulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. DPO Formulation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. DPO Formulation">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-training-inputs" class="md-nav__link">
+  <a href="#51-objective-function" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Training Inputs
+      5.1. Objective Function
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-training-objective" class="md-nav__link">
+  <a href="#52-intuition" class="md-nav__link">
     <span class="md-ellipsis">
-      2. Training Objective
+      5.2. Intuition
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-implementation-details-and-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3. Implementation Details and Best Practices
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4. Key Takeaways
     </span>
   </a>
   
@@ -397,19 +442,73 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#training-vs-inference" class="md-nav__link">
+  <a href="#6-implementation-example-pseudocode" class="md-nav__link">
     <span class="md-ellipsis">
-      ⚙️ Training vs Inference
+      6. Implementation Example (Pseudocode)
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="⚙️ Training vs Inference">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-why-dpo-instead-of-ppo" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Why DPO Instead of PPO?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-limitations-and-challenges" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Limitations and Challenges
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Limitations and Challenges">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#key-takeaway" class="md-nav__link">
+  <a href="#1-limited-preference-data" class="md-nav__link">
     <span class="md-ellipsis">
-      ✅ Key Takeaway
+      📉 1. Limited Preference Data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-generalization-gaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔄 2. Generalization Gaps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-reference-model-sensitivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚖️ 3. Reference Model Sensitivity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-no-explicit-reward-signal" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 4. No Explicit Reward Signal
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-human-noise-amplification" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎭 5. Human Noise Amplification
     </span>
   </a>
   
@@ -421,63 +520,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#analogy" class="md-nav__link">
+  <a href="#9-summary-table" class="md-nav__link">
     <span class="md-ellipsis">
-      🧩 Analogy
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#comparison-dpo-vs-ppo" class="md-nav__link">
-    <span class="md-ellipsis">
-      ⚖️ Comparison: DPO vs PPO
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#limitations-caveats" class="md-nav__link">
-    <span class="md-ellipsis">
-      ⚠️ Limitations &amp; Caveats
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#inference-usage" class="md-nav__link">
-    <span class="md-ellipsis">
-      🧪 Inference Usage
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      💡 Summary
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#optional-code-skeleton-hugging-face-trl" class="md-nav__link">
-    <span class="md-ellipsis">
-      🧰 Optional Code Skeleton (Hugging Face TRL)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
-    <span class="md-ellipsis">
-      📘 References
+      9. Summary Table
     </span>
   </a>
   
@@ -504,7 +549,7 @@
   
   
   <span class="md-ellipsis">
-    DRPO
+    D(irect)RPO
     
   </span>
   
@@ -522,7 +567,30 @@
   
   
     <li class="md-nav__item">
-      <a href="../g%28uided%29rpo/" class="md-nav__link">
+      <a href="../decoupledrpo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    D(ecoupled)RPO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guided_rpo/" class="md-nav__link">
         
   
   
@@ -545,12 +613,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../comparison.md" class="md-nav__link">
+      <a href="../grouped_relative_po_deepseek/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Comparison
+    Grouped Relative PO (Deepseek)
     
   </span>
   
@@ -731,37 +799,82 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-is-dpo" class="md-nav__link">
+  <a href="#1-overview" class="md-nav__link">
     <span class="md-ellipsis">
-      🧠 What Is DPO?
+      1. Overview
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#2-the-big-picture-from-rlhf-to-dpo" class="md-nav__link">
     <span class="md-ellipsis">
-      🚀 How It Works
+      2. The Big Picture: From RLHF to DPO
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🚀 How It Works">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-intuitive-understanding" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Intuitive Understanding
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-training-data-and-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Training Data and Setup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-dpo-formulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. DPO Formulation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. DPO Formulation">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-training-inputs" class="md-nav__link">
+  <a href="#51-objective-function" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Training Inputs
+      5.1. Objective Function
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-training-objective" class="md-nav__link">
+  <a href="#52-intuition" class="md-nav__link">
     <span class="md-ellipsis">
-      2. Training Objective
+      5.2. Intuition
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-implementation-details-and-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3. Implementation Details and Best Practices
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4. Key Takeaways
     </span>
   </a>
   
@@ -773,19 +886,73 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#training-vs-inference" class="md-nav__link">
+  <a href="#6-implementation-example-pseudocode" class="md-nav__link">
     <span class="md-ellipsis">
-      ⚙️ Training vs Inference
+      6. Implementation Example (Pseudocode)
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="⚙️ Training vs Inference">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-why-dpo-instead-of-ppo" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Why DPO Instead of PPO?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-limitations-and-challenges" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Limitations and Challenges
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Limitations and Challenges">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#key-takeaway" class="md-nav__link">
+  <a href="#1-limited-preference-data" class="md-nav__link">
     <span class="md-ellipsis">
-      ✅ Key Takeaway
+      📉 1. Limited Preference Data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-generalization-gaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔄 2. Generalization Gaps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-reference-model-sensitivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚖️ 3. Reference Model Sensitivity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-no-explicit-reward-signal" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 4. No Explicit Reward Signal
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-human-noise-amplification" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎭 5. Human Noise Amplification
     </span>
   </a>
   
@@ -797,63 +964,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#analogy" class="md-nav__link">
+  <a href="#9-summary-table" class="md-nav__link">
     <span class="md-ellipsis">
-      🧩 Analogy
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#comparison-dpo-vs-ppo" class="md-nav__link">
-    <span class="md-ellipsis">
-      ⚖️ Comparison: DPO vs PPO
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#limitations-caveats" class="md-nav__link">
-    <span class="md-ellipsis">
-      ⚠️ Limitations &amp; Caveats
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#inference-usage" class="md-nav__link">
-    <span class="md-ellipsis">
-      🧪 Inference Usage
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      💡 Summary
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#optional-code-skeleton-hugging-face-trl" class="md-nav__link">
-    <span class="md-ellipsis">
-      🧰 Optional Code Skeleton (Hugging Face TRL)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
-    <span class="md-ellipsis">
-      📘 References
+      9. Summary Table
     </span>
   </a>
   
@@ -875,159 +988,235 @@
 
 
 
-<h1 id="direct-preference-optimization-dpo-simplified-overview">🧩 Direct Preference Optimization (DPO) — Simplified Overview</h1>
-<h2 id="what-is-dpo">🧠 What Is DPO?</h2>
-<p><strong>Direct Preference Optimization (DPO)</strong> is a reinforcement learning-free method to fine-tune large language models (LLMs) using human feedback.<br />
-Instead of using a reward model and reinforcement learning (like PPO does), DPO directly learns from <strong>pairs of responses</strong> — one “preferred” and one “rejected” — for the same prompt.</p>
+<h1 id="direct-preference-optimization-dpo-reinforcement-learning-free-alignment">🧩 Direct Preference Optimization (DPO) — Reinforcement Learning-Free Alignment<a class="headerlink" href="#direct-preference-optimization-dpo-reinforcement-learning-free-alignment" title="Permanent link">&para;</a></h1>
+<h3 id="1-overview">1. Overview<a class="headerlink" href="#1-overview" title="Permanent link">&para;</a></h3>
+<p><strong>Direct Preference Optimization (DPO)</strong> is an algorithm designed to fine-tune <strong>Large Language Models (LLMs)</strong> using human preference data — <em>without requiring a separate reward model or reinforcement learning (RL) loop</em>.
+It directly learns from pairs of preferred and rejected responses, offering a simpler and more stable alternative to <strong>Proximal Policy Optimization (PPO)</strong> in the <strong>Reinforcement Learning from Human Feedback (RLHF)</strong> pipeline.</p>
 <hr />
-<h2 id="how-it-works">🚀 How It Works</h2>
-<h3 id="1-training-inputs">1. Training Inputs</h3>
-<p>Each training example consists of:</p>
-<pre><code>(prompt, chosen_answer, rejected_answer)
-</code></pre>
-<ul>
-<li><strong>Prompt (x):</strong> A user query (e.g., “Explain quantum computing simply.”)</li>
-<li><strong>Chosen Answer (y⁺):</strong> The preferred (good) response.</li>
-<li><strong>Rejected Answer (y⁻):</strong> The less preferred (bad) response.</li>
-</ul>
-<h3 id="2-training-objective">2. Training Objective</h3>
-<p>The DPO policy model (πₜ) learns to <strong>increase the likelihood</strong> of generating the chosen answer and <strong>decrease the likelihood</strong> of generating the rejected one — while staying close to a <strong>reference model</strong> (π_ref), which is usually the base model before fine-tuning.</p>
-<p>Unlike PPO, there’s <strong>no reward model</strong> or KL penalty tuning loop.<br />
-DPO directly optimizes a closed-form objective derived from the reward preference formulation.</p>
-<hr />
-<h2 id="training-vs-inference">⚙️ Training vs Inference</h2>
+<h3 id="2-the-big-picture-from-rlhf-to-dpo">2. The Big Picture: From RLHF to DPO<a class="headerlink" href="#2-the-big-picture-from-rlhf-to-dpo" title="Permanent link">&para;</a></h3>
+<p>While traditional RLHF involves three stages — Supervised Fine-Tuning (SFT), Reward Model (RM) Training, and PPO Fine-Tuning — DPO <strong>collapses</strong> the latter two into a single, direct optimization step.</p>
 <table>
 <thead>
 <tr>
-<th>Phase</th>
-<th>What Happens</th>
-<th>Models Involved</th>
+<th>Stage</th>
+<th>PPO-Based RLHF</th>
+<th>DPO-Based Alignment</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Training</strong></td>
-<td>The model sees pairs of responses and learns to prefer the “good” one.</td>
-<td>Policy model (trainable) + Reference model (frozen)</td>
+<td>1️⃣ SFT</td>
+<td>Train base LLM on human demonstrations</td>
+<td>✅ Same</td>
 </tr>
 <tr>
-<td><strong>Inference</strong></td>
-<td>The trained model generates responses directly — no reference or reward model needed.</td>
-<td>Only the fine-tuned policy model</td>
+<td>2️⃣ RM</td>
+<td>Train reward model on preference pairs</td>
+<td>❌ Not needed</td>
+</tr>
+<tr>
+<td>3️⃣ RL</td>
+<td>Fine-tune using PPO + rewards</td>
+<td>✅ Replaced by DPO objective</td>
 </tr>
 </tbody>
 </table>
-<h3 id="key-takeaway">✅ Key Takeaway</h3>
-<p>At inference time, DPO-trained models behave like normal LLMs.<br />
-They “remember” what good answers look like — so no additional machinery (like reward models or RL loops) is needed.</p>
+<p>This makes DPO <strong>computationally lighter</strong>, <strong>easier to implement</strong>, and <strong>more stable</strong>.</p>
 <hr />
-<h2 id="analogy">🧩 Analogy</h2>
-<p>Think of teaching a student to write essays.</p>
+<h3 id="3-intuitive-understanding">3. Intuitive Understanding<a class="headerlink" href="#3-intuitive-understanding" title="Permanent link">&para;</a></h3>
+<p>Imagine training an assistant:</p>
 <ul>
-<li><strong>PPO Way:</strong> The student writes essays, gets a numeric grade (from a reward model), and iteratively improves.  </li>
-<li><strong>DPO Way:</strong> The student is shown two essays for the same topic — one good, one bad — and learns which one is better.</li>
+<li><strong>PPO:</strong> The assistant writes an answer → a teacher scores it numerically (via a reward model) → updates happen using RL.</li>
+<li><strong>DPO:</strong> The assistant sees two answers for the same question — one good, one bad — and learns which is better.</li>
 </ul>
-<p>After training, the DPO student doesn’t need feedback or grades anymore — they’ve internalized what “good” writing looks like.</p>
+<p>Thus, DPO <strong>bypasses numeric rewards</strong> and learns preferences directly.</p>
 <hr />
-<h2 id="comparison-dpo-vs-ppo">⚖️ Comparison: DPO vs PPO</h2>
+<h3 id="4-training-data-and-setup">4. Training Data and Setup<a class="headerlink" href="#4-training-data-and-setup" title="Permanent link">&para;</a></h3>
+<p>Each DPO training example consists of <span class="arithmatex">\((x, y^+, y^-)\)</span></p>
+<p>where:</p>
+<ul>
+<li><span class="arithmatex">\(x\)</span>: Prompt or input query</li>
+<li><span class="arithmatex">\(y^+\)</span>: Preferred (chosen) response</li>
+<li><span class="arithmatex">\(y^-\)</span>: Less preferred (rejected) response</li>
+</ul>
+<p>The model learns to assign higher probability to <span class="arithmatex">\(y^+\)</span> than <span class="arithmatex">\(y^-\)</span>, while staying close to a <strong>reference model</strong> <span class="arithmatex">\(\pi_{\text{ref}}\)</span> (usually the SFT model).</p>
+<hr />
+<h3 id="5-dpo-formulation">5. DPO Formulation<a class="headerlink" href="#5-dpo-formulation" title="Permanent link">&para;</a></h3>
+<div class="admonition example">
+<p class="admonition-title">📘 Mathematical Formulation</p>
+<h4 id="51-objective-function">5.1. Objective Function<a class="headerlink" href="#51-objective-function" title="Permanent link">&para;</a></h4>
+<p>DPO reframes preference optimization as a <strong>direct likelihood-ratio objective</strong>, eliminating the need for an explicit reward model or reinforcement learning loop. The resulting <strong>closed-form objective</strong> is:</p>
+<div class="arithmatex">\[
+L_{\mathrm{DPO}}(\theta)
+= -\mathbb{E}_{(x, y^+, y^-)} \left[
+\log \sigma \left(
+\beta \Big[
+(\log \pi_\theta(y^+|x) - \log \pi_{\text{ref}}(y^+|x)) - (\log \pi_\theta(y^-|x) - \log \pi_{\text{ref}}(y^-|x))
+\Big]
+\right)
+\right]
+\]</div>
+<p>where:</p>
+<ul>
+<li><span class="arithmatex">\(\pi_\theta\)</span>: Trainable policy model</li>
+<li><span class="arithmatex">\(\pi_{\text{ref}}\)</span>: Frozen reference model (often the SFT model)</li>
+<li><span class="arithmatex">\(\sigma\)</span>: Sigmoid function</li>
+<li><span class="arithmatex">\(\beta\)</span>: Inverse temperature hyperparameter controlling the tradeoff between alignment strength and faithfulness to the reference model</li>
+</ul>
+<hr />
+<h4 id="52-intuition">5.2. Intuition<a class="headerlink" href="#52-intuition" title="Permanent link">&para;</a></h4>
+<p>The objective encourages the model to <strong>increase the likelihood</strong> of preferred responses <span class="arithmatex">\(y^+\)</span> relative to dispreferred ones <span class="arithmatex">\(y^-\)</span>, while <strong>regularizing</strong> against divergence from the reference policy.</p>
+<p>This can be interpreted as <strong>implicitly performing reward-based optimization</strong>, with the <em>implicit reward function</em> defined as:</p>
+<div class="arithmatex">\[
+r_\theta(x, y) = \beta \big[ \log \pi_\theta(y|x) - \log \pi_{\text{ref}}(y|x) \big]
+\]</div>
+<p>This formulation shows that DPO optimizes the same relative preferences that PPO would learn from a reward model — but in a <strong>single forward pass</strong>, without explicit reward modeling or KL penalty terms. Hence the popular phrase:</p>
+<blockquote>
+<p>“Your language model is secretly a reward model.”</p>
+</blockquote>
+<hr />
+<h4 id="53-implementation-details-and-best-practices">5.3. Implementation Details and Best Practices<a class="headerlink" href="#53-implementation-details-and-best-practices" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Reference model is frozen</strong> — do not allow gradient flow into <span class="arithmatex">\(\pi_{\text{ref}}\)</span>.</li>
+<li><strong>Sequence-level log-probabilities</strong> — compute <span class="arithmatex">\(\log \pi(y|x)\)</span> as the sum (or mean) of token log-probabilities for the entire response.</li>
+<li><strong>Length normalization</strong> — optional, but useful if <span class="arithmatex">\(y^+\)</span> and <span class="arithmatex">\(y^-\)</span> differ in length.</li>
+<li><strong>Numerical stability</strong> — use stable forms such as <code>-F.logsigmoid(logits)</code> in PyTorch rather than raw <code>log(sigmoid(...))</code>.</li>
+<li><strong>β (beta)</strong> — higher β increases divergence from the reference; small β keeps the model closer to the base. Typical values: 0.1–0.5.</li>
+<li><strong>Training step</strong> —</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">logits</span> <span class="o">=</span> <span class="n">beta</span> <span class="o">*</span> <span class="p">((</span><span class="n">logp_pos</span> <span class="o">-</span> <span class="n">logp_pos_ref</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">logp_neg</span> <span class="o">-</span> <span class="n">logp_neg_ref</span><span class="p">))</span>
+<span class="n">loss</span> <span class="o">=</span> <span class="o">-</span><span class="n">torch</span><span class="o">.</span><span class="n">logsigmoid</span><span class="p">(</span><span class="n">logits</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</code></pre></div>
+<ul>
+<li><strong>Consistent tokenization</strong> — ensure both <span class="arithmatex">\(\pi_\theta\)</span> and <span class="arithmatex">\(\pi_{\text{ref}}\)</span> use the same tokenizer and decoding setup.</li>
+<li><strong>Regularization monitoring</strong> — even though DPO has implicit KL regularization, tracking the KL divergence between <span class="arithmatex">\(\pi_\theta\)</span> and <span class="arithmatex">\(\pi_{\text{ref}}\)</span> helps prevent over-drift.</li>
+</ul>
+<hr />
+<h4 id="54-key-takeaways">5.4. Key Takeaways<a class="headerlink" href="#54-key-takeaways" title="Permanent link">&para;</a></h4>
+<ul>
+<li>DPO avoids explicit reward models and RL optimization loops.</li>
+<li>It implicitly aligns model preferences through likelihood ratios.</li>
+<li>The β parameter provides a smooth knob between <em>faithfulness</em> and <em>alignment strength</em>.</li>
+<li>Simpler, more stable, and often more data-efficient than PPO while achieving comparable alignment.</li>
+</ul>
+</div>
+<h3 id="6-implementation-example-pseudocode">6. Implementation Example (Pseudocode)<a class="headerlink" href="#6-implementation-example-pseudocode" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">neg</span><span class="p">)</span> <span class="ow">in</span> <span class="n">preference_dataset</span><span class="p">:</span>
+    <span class="c1"># Compute log-probabilities for chosen and rejected responses</span>
+    <span class="n">logp_pos</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">logprobs</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">pos</span><span class="p">)</span>
+    <span class="n">logp_neg</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">logprobs</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">neg</span><span class="p">)</span>
+
+    <span class="c1"># Reference model log-probabilities</span>
+    <span class="n">logp_pos_ref</span> <span class="o">=</span> <span class="n">ref_model</span><span class="o">.</span><span class="n">logprobs</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">pos</span><span class="p">)</span>
+    <span class="n">logp_neg_ref</span> <span class="o">=</span> <span class="n">ref_model</span><span class="o">.</span><span class="n">logprobs</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">neg</span><span class="p">)</span>
+
+    <span class="c1"># Compute logits and DPO loss</span>
+    <span class="n">logits</span> <span class="o">=</span> <span class="n">beta</span> <span class="o">*</span> <span class="p">((</span><span class="n">logp_pos</span> <span class="o">-</span> <span class="n">logp_neg</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">logp_pos_ref</span> <span class="o">-</span> <span class="n">logp_neg_ref</span><span class="p">))</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="o">-</span><span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">logits</span><span class="p">))</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+</code></pre></div>
+<hr />
+<h3 id="7-why-dpo-instead-of-ppo">7. Why DPO Instead of PPO?<a class="headerlink" href="#7-why-dpo-instead-of-ppo" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
-<th>Feature</th>
+<th>Aspect</th>
 <th>PPO</th>
 <th>DPO</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Uses Reward Model?</strong></td>
-<td>✅ Yes</td>
-<td>❌ No</td>
+<td><strong>Reward Model</strong></td>
+<td>Requires separate RM</td>
+<td>Not needed</td>
 </tr>
 <tr>
-<td><strong>Needs RL Optimization Loop?</strong></td>
-<td>✅ Yes</td>
-<td>❌ No</td>
+<td><strong>RL Loop</strong></td>
+<td>Yes (policy + value optimization)</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>KL Penalty</strong></td>
+<td>Manually tuned</td>
+<td>Implicitly handled via reference model</td>
 </tr>
 <tr>
 <td><strong>Training Stability</strong></td>
-<td>Can be unstable (KL tuning required)</td>
+<td>Sensitive to hyperparameters</td>
 <td>More stable</td>
 </tr>
 <tr>
-<td><strong>Implementation Complexity</strong></td>
-<td>High (policy gradient, reward normalization, etc.)</td>
-<td>Simple (log-likelihood comparison)</td>
+<td><strong>Complexity</strong></td>
+<td>High (multiple models: policy, RM, value)</td>
+<td>Simple (policy + reference only)</td>
 </tr>
 <tr>
-<td><strong>Scalability</strong></td>
-<td>Expensive — requires rollout generation</td>
-<td>Lightweight and efficient</td>
+<td><strong>Data Efficiency</strong></td>
+<td>Uses scalar rewards</td>
+<td>Uses preference pairs directly</td>
 </tr>
 <tr>
-<td><strong>Interpretability</strong></td>
-<td>Less direct (reward shaping needed)</td>
-<td>More transparent — uses preference data directly</td>
+<td><strong>Computation Cost</strong></td>
+<td>Expensive</td>
+<td>Lightweight</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="limitations-caveats">⚠️ Limitations &amp; Caveats</h2>
-<ol>
-<li>
-<p><strong>Limited Labeled Data:</strong><br />
-   DPO relies on datasets where pairs of responses (good vs. bad) are available. Collecting large, high-quality preference data is expensive.</p>
-</li>
-<li>
-<p><strong>Generalization Challenge:</strong><br />
-   The model only learns preferences within the data distribution it was trained on — performance may drop for unseen domains.</p>
-</li>
-<li>
-<p><strong>Reference Model Dependency:</strong><br />
-   The choice of the reference model (π_ref) affects performance. A poor reference can make optimization harder.</p>
-</li>
-<li>
-<p><strong>No Reward Signal for Exploration:</strong><br />
-   Without a continuous reward, DPO may not explore diverse or novel answers as effectively as PPO.</p>
-</li>
-<li>
-<p><strong>Preference Noise:</strong><br />
-   If human feedback is inconsistent or noisy, DPO can amplify that bias.</p>
-</li>
-</ol>
+<h3 id="8-limitations-and-challenges">8. Limitations and Challenges<a class="headerlink" href="#8-limitations-and-challenges" title="Permanent link">&para;</a></h3>
+<h4 id="1-limited-preference-data">📉 1. Limited Preference Data<a class="headerlink" href="#1-limited-preference-data" title="Permanent link">&para;</a></h4>
+<p>High-quality pairwise preference datasets are expensive to collect at scale.</p>
+<h4 id="2-generalization-gaps">🔄 2. Generalization Gaps<a class="headerlink" href="#2-generalization-gaps" title="Permanent link">&para;</a></h4>
+<p>DPO may overfit to the preference distribution and underperform on unseen prompt styles.</p>
+<h4 id="3-reference-model-sensitivity">⚖️ 3. Reference Model Sensitivity<a class="headerlink" href="#3-reference-model-sensitivity" title="Permanent link">&para;</a></h4>
+<p>If the reference model is too weak or too strong, DPO optimization can become unstable.</p>
+<h4 id="4-no-explicit-reward-signal">🧩 4. No Explicit Reward Signal<a class="headerlink" href="#4-no-explicit-reward-signal" title="Permanent link">&para;</a></h4>
+<p>Without continuous reward signals, DPO can struggle to explore novel or creative answers.</p>
+<h4 id="5-human-noise-amplification">🎭 5. Human Noise Amplification<a class="headerlink" href="#5-human-noise-amplification" title="Permanent link">&para;</a></h4>
+<p>Inconsistent or biased human feedback can directly affect model preference alignment.</p>
 <hr />
-<h2 id="inference-usage">🧪 Inference Usage</h2>
-<p>Once the DPO model is trained, it’s used just like any normal LLM:</p>
-<pre><code>User Prompt → DPO-trained model → Response
-</code></pre>
-<p>There’s no need for a reference or reward model at this stage — all learning has been baked into the weights during training.</p>
+<h3 id="9-summary-table">9. Summary Table<a class="headerlink" href="#9-summary-table" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Role</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Policy Model (LLM)</strong></td>
+<td>Learns preferences directly</td>
+<td><code>GPT-3</code>, <code>Llama-2</code></td>
+</tr>
+<tr>
+<td><strong>Reference Model</strong></td>
+<td>Provides baseline probabilities</td>
+<td>SFT model</td>
+</tr>
+<tr>
+<td><strong>DPO Objective</strong></td>
+<td>Increases likelihood of preferred responses</td>
+<td>Log-sigmoid loss</td>
+</tr>
+<tr>
+<td><strong>β Parameter</strong></td>
+<td>Controls proximity to reference</td>
+<td>Tuning hyperparameter</td>
+</tr>
+<tr>
+<td><strong>Goal</strong></td>
+<td>Align behavior with human preferences</td>
+<td>Stable, lightweight alignment</td>
+</tr>
+</tbody>
+</table>
 <hr />
-<h2 id="summary">💡 Summary</h2>
-<ul>
-<li>DPO is a <strong>direct and efficient</strong> way to align LLMs with human preferences.  </li>
-<li>It <strong>avoids reinforcement learning</strong> while still achieving <strong>preference alignment</strong>.  </li>
-<li>During inference, the model behaves like a standard LLM — just <strong>better aligned</strong>.</li>
-</ul>
-<hr />
-<h2 id="optional-code-skeleton-hugging-face-trl">🧰 Optional Code Skeleton (Hugging Face TRL)</h2>
-<pre><code class="language-python">from trl import DPOTrainer
-
-trainer = DPOTrainer(
-    model=policy_model,
-    ref_model=reference_model,
-    args=training_args,
-    train_dataset=preference_dataset,
-)
-
-trainer.train()
-</code></pre>
-<hr />
-<h2 id="references">📘 References</h2>
-<ul>
-<li>“Direct Preference Optimization: Your Language Model is Secretly a Reward Model” — Rafailov et al., 2023  </li>
-<li>Hugging Face TRL: https://huggingface.co/docs/trl</li>
-<li>Blog: “Simplifying RLHF with DPO” — Hugging Face, 2023</li>
-</ul>
 
 
 
@@ -1081,7 +1270,9 @@ trainer.train()
     
       <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
       
-        <script src="../../javascripts/mathjax.js"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

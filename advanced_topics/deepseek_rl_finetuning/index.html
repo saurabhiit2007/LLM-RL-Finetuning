@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Technical documentation and notes on PPO, DPO, and other RL methods for LLM fine-tuning">
+        <meta name="description" content="Technical documentation and notes on RL methods for LLM fine-tuning">
       
       
         <meta name="author" content="Saurabh Goyal">
@@ -331,7 +331,7 @@
   
   
   <span class="md-ellipsis">
-    DRPO
+    D(irect)RPO
     
   </span>
   
@@ -349,7 +349,30 @@
   
   
     <li class="md-nav__item">
-      <a href="../../methods/g%28uided%29rpo/" class="md-nav__link">
+      <a href="../../methods/decoupledrpo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    D(ecoupled)RPO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../methods/guided_rpo/" class="md-nav__link">
         
   
   
@@ -372,12 +395,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../../methods/comparison.md" class="md-nav__link">
+      <a href="../../methods/grouped_relative_po_deepseek/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Comparison
+    Grouped Relative PO (Deepseek)
     
   </span>
   
@@ -515,19 +538,19 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
+  <a href="#1-overview" class="md-nav__link">
     <span class="md-ellipsis">
-      Overview
+      1. Overview
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Overview">
+    <nav class="md-nav" aria-label="1. Overview">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#key-variants" class="md-nav__link">
+  <a href="#11-key-variants" class="md-nav__link">
     <span class="md-ellipsis">
-      Key Variants
+      1.1 Key Variants
     </span>
   </a>
   
@@ -539,28 +562,28 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#grpo-group-relative-policy-optimization" class="md-nav__link">
+  <a href="#2-the-grpo-algorithm-overview" class="md-nav__link">
     <span class="md-ellipsis">
-      GRPO (Group Relative Policy Optimization)
+      2. The GRPO Algorithm: Overview
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="GRPO (Group Relative Policy Optimization)">
+    <nav class="md-nav" aria-label="2. The GRPO Algorithm: Overview">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#key-features" class="md-nav__link">
+  <a href="#21-intuition" class="md-nav__link">
     <span class="md-ellipsis">
-      Key Features
+      2.1 Intuition
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#grpo-objective-function-simplified" class="md-nav__link">
+  <a href="#22-key-features" class="md-nav__link">
     <span class="md-ellipsis">
-      GRPO Objective Function (simplified)
+      2.2 Key Features
     </span>
   </a>
   
@@ -572,28 +595,28 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#reward-design" class="md-nav__link">
+  <a href="#3-reward-design" class="md-nav__link">
     <span class="md-ellipsis">
-      Reward Design
+      3. Reward Design
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Reward Design">
+    <nav class="md-nav" aria-label="3. Reward Design">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#reasoning-oriented-tasks" class="md-nav__link">
+  <a href="#31-reasoning-oriented-tasks" class="md-nav__link">
     <span class="md-ellipsis">
-      Reasoning-Oriented Tasks
+      3.1 Reasoning-Oriented Tasks
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#general-instruction-following-tasks" class="md-nav__link">
+  <a href="#32-general-instruction-following-tasks" class="md-nav__link">
     <span class="md-ellipsis">
-      General Instruction-Following Tasks
+      3.2 General Instruction-Following Tasks
     </span>
   </a>
   
@@ -605,24 +628,109 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#multi-stage-training-pipeline" class="md-nav__link">
+  <a href="#4-multi-stage-training-pipeline" class="md-nav__link">
     <span class="md-ellipsis">
-      Multi-Stage Training Pipeline
+      4. Multi-Stage Training Pipeline
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Multi-Stage Training Pipeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-pipeline-highlights-additional-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Pipeline Highlights / Additional Details
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-distinctive-features-compared-to-traditional-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Distinctive Features Compared to Traditional Methods
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#distinctions-from-traditional-methods" class="md-nav__link">
+  <a href="#6-technical-training-details-additional-depth" class="md-nav__link">
     <span class="md-ellipsis">
-      Distinctions from Traditional Methods
+      6. Technical &amp; Training Details (Additional Depth)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Technical &amp; Training Details (Additional Depth)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-model-sizes-and-releases" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 Model Sizes and Releases
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-reward-function-sampling-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2 Reward Function &amp; Sampling Details
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-training-and-distillation-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3 Training and Distillation Strategy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-observed-strengths-weaknesses" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.4 Observed Strengths &amp; Weaknesses
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-summary-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Summary Table
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
+  <a href="#8-advantages-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Advantages &amp; Limitations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Advantages &amp; Limitations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#advantages" class="md-nav__link">
     <span class="md-ellipsis">
       Advantages
@@ -630,8 +738,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#limitations" class="md-nav__link">
     <span class="md-ellipsis">
       Limitations
@@ -639,13 +747,9 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
-    <span class="md-ellipsis">
-      References
-    </span>
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -737,19 +841,19 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
+  <a href="#1-overview" class="md-nav__link">
     <span class="md-ellipsis">
-      Overview
+      1. Overview
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Overview">
+    <nav class="md-nav" aria-label="1. Overview">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#key-variants" class="md-nav__link">
+  <a href="#11-key-variants" class="md-nav__link">
     <span class="md-ellipsis">
-      Key Variants
+      1.1 Key Variants
     </span>
   </a>
   
@@ -761,28 +865,28 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#grpo-group-relative-policy-optimization" class="md-nav__link">
+  <a href="#2-the-grpo-algorithm-overview" class="md-nav__link">
     <span class="md-ellipsis">
-      GRPO (Group Relative Policy Optimization)
+      2. The GRPO Algorithm: Overview
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="GRPO (Group Relative Policy Optimization)">
+    <nav class="md-nav" aria-label="2. The GRPO Algorithm: Overview">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#key-features" class="md-nav__link">
+  <a href="#21-intuition" class="md-nav__link">
     <span class="md-ellipsis">
-      Key Features
+      2.1 Intuition
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#grpo-objective-function-simplified" class="md-nav__link">
+  <a href="#22-key-features" class="md-nav__link">
     <span class="md-ellipsis">
-      GRPO Objective Function (simplified)
+      2.2 Key Features
     </span>
   </a>
   
@@ -794,28 +898,28 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#reward-design" class="md-nav__link">
+  <a href="#3-reward-design" class="md-nav__link">
     <span class="md-ellipsis">
-      Reward Design
+      3. Reward Design
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Reward Design">
+    <nav class="md-nav" aria-label="3. Reward Design">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#reasoning-oriented-tasks" class="md-nav__link">
+  <a href="#31-reasoning-oriented-tasks" class="md-nav__link">
     <span class="md-ellipsis">
-      Reasoning-Oriented Tasks
+      3.1 Reasoning-Oriented Tasks
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#general-instruction-following-tasks" class="md-nav__link">
+  <a href="#32-general-instruction-following-tasks" class="md-nav__link">
     <span class="md-ellipsis">
-      General Instruction-Following Tasks
+      3.2 General Instruction-Following Tasks
     </span>
   </a>
   
@@ -827,24 +931,109 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#multi-stage-training-pipeline" class="md-nav__link">
+  <a href="#4-multi-stage-training-pipeline" class="md-nav__link">
     <span class="md-ellipsis">
-      Multi-Stage Training Pipeline
+      4. Multi-Stage Training Pipeline
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Multi-Stage Training Pipeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-pipeline-highlights-additional-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Pipeline Highlights / Additional Details
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-distinctive-features-compared-to-traditional-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Distinctive Features Compared to Traditional Methods
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#distinctions-from-traditional-methods" class="md-nav__link">
+  <a href="#6-technical-training-details-additional-depth" class="md-nav__link">
     <span class="md-ellipsis">
-      Distinctions from Traditional Methods
+      6. Technical &amp; Training Details (Additional Depth)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Technical &amp; Training Details (Additional Depth)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-model-sizes-and-releases" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 Model Sizes and Releases
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-reward-function-sampling-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2 Reward Function &amp; Sampling Details
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-training-and-distillation-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3 Training and Distillation Strategy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-observed-strengths-weaknesses" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.4 Observed Strengths &amp; Weaknesses
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-summary-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Summary Table
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
+  <a href="#8-advantages-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Advantages &amp; Limitations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Advantages &amp; Limitations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#advantages" class="md-nav__link">
     <span class="md-ellipsis">
       Advantages
@@ -852,8 +1041,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#limitations" class="md-nav__link">
     <span class="md-ellipsis">
       Limitations
@@ -861,13 +1050,9 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
-    <span class="md-ellipsis">
-      References
-    </span>
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -887,54 +1072,95 @@
 
 
 
-<h1 id="deepseek-r1-reinforcement-learning-for-fine-tuning-llms">DeepSeek-R1: Reinforcement Learning for Fine-Tuning LLMs</h1>
-<p>This document provides a detailed overview of the DeepSeek-R1 strategy for fine-tuning and preference tuning large language models (LLMs). It covers the RL methods, distinctions from traditional approaches, GRPO optimization, multi-stage training pipeline, reward design, and model distillation.</p>
+<h1 id="deepseek-r1-reinforcement-learning-for-fine-tuning-llms">🧮 DeepSeek-R1: Reinforcement Learning for Fine-Tuning LLMs<a class="headerlink" href="#deepseek-r1-reinforcement-learning-for-fine-tuning-llms" title="Permanent link">&para;</a></h1>
+<p>This document provides a detailed overview of the DeepSeek-R1 strategy for fine-tuning and preference-tuning large language models (LLMs). It covers the RL methods, distinctions from traditional approaches, the optimization algorithm (GRPO) summary, multi-stage training pipeline, reward design, model distillation, and additional technical detail.</p>
 <hr />
-<h2 id="overview">Overview</h2>
-<p>DeepSeek-R1 introduces a novel approach to improving reasoning capabilities and general instruction-following in LLMs using reinforcement learning (RL). Unlike traditional RLHF methods, DeepSeek focuses on verifiable tasks and multi-stage training pipelines to efficiently align models for reasoning and preference tasks.</p>
-<h3 id="key-variants">Key Variants</h3>
+<h3 id="1-overview">1. Overview<a class="headerlink" href="#1-overview" title="Permanent link">&para;</a></h3>
+<p>DeepSeek-R1 introduces a novel approach to improving reasoning capabilities and general instruction-following in large language models using reinforcement learning (RL). Rather than relying solely on large human-annotated supervised fine-tuning datasets and learned reward models, DeepSeek emphasises verifiable tasks (particularly reasoning/maths/code), multi-stage pipelines, and knowledge distillation to smaller models.</p>
+<h4 id="11-key-variants">1.1 Key Variants<a class="headerlink" href="#11-key-variants" title="Permanent link">&para;</a></h4>
 <ul>
-<li><strong>DeepSeek-R1-Zero</strong>: RL-only variant without initial supervised fine-tuning (SFT). Uses verifiable reasoning tasks (math, code, logic) as reward signals.</li>
-<li><strong>DeepSeek-R1</strong>: Multi-stage pipeline starting with cold-start SFT, followed by reasoning-oriented RL, dataset generation, SFT fine-tuning, and a second RL stage for broader instruction-following.</li>
+<li><strong>DeepSeek-R1-Zero</strong>: RL-only variant without initial supervised fine-tuning (SFT). Uses verifiable reasoning tasks (e.g., math, code, logic) with automatically-computable reward signals.  </li>
+<li><strong>DeepSeek-R1</strong>: Multi-stage pipeline starting with a “cold-start” SFT, followed by reasoning-oriented RL, generation of an SFT dataset from high-quality RL outputs, further SFT fine-tuning, and then a second RL stage for broader instruction-following.</li>
 </ul>
 <hr />
-<h2 id="grpo-group-relative-policy-optimization">GRPO (Group Relative Policy Optimization)</h2>
-<p>GRPO is the core RL optimization algorithm used in DeepSeek-R1. It adapts traditional PPO to work with multiple outputs per prompt and relative ranking of outputs.</p>
-<h3 id="key-features">Key Features</h3>
+<h3 id="2-the-grpo-algorithm-overview">2. The GRPO Algorithm: Overview<a class="headerlink" href="#2-the-grpo-algorithm-overview" title="Permanent link">&para;</a></h3>
+<p>This section gives a summary of the core optimisation algorithm used in DeepSeek-R1, namely Grouped Relative Policy Optimization (GRPO).<br />
+<strong>For full mathematical details and derivation see the dedicated <a href="../../methods/grouped_relative_po_deepseek/">GRPO Algorithm</a> .</strong></p>
+<h4 id="21-intuition">2.1 Intuition<a class="headerlink" href="#21-intuition" title="Permanent link">&para;</a></h4>
 <ul>
-<li><strong>Group-based ranking</strong>: For each prompt <span class="arithmatex">\(q\)</span>, sample a group of outputs <span class="arithmatex">\(\{o_i\}_{i=1}^G\)</span> from the current policy.</li>
-<li><strong>Advantage computation</strong>: Compute an advantage score <span class="arithmatex">\(A_i\)</span> for each output.</li>
-<li><strong>Clipped-ratio objective</strong>: Optimizes the policy using a PPO-style clipped ratio but applied to each output in the group, using relative ranks rather than absolute rewards.</li>
-<li><strong>KL penalty</strong>: Ensures the new policy does not deviate significantly from a reference policy.</li>
+<li>Instead of using a value network (critic) as in PPO, GRPO works by sampling multiple candidate outputs for each prompt and comparing their performance <strong>within the group</strong> (via ranking).  </li>
+<li>Encourages responses that outperform peers in the same group, emphasising <strong>relative</strong> improvement rather than absolute reward magnitudes.  </li>
+<li>Offers more stable training for LLMs at scale by avoiding the complexity and instability of critic/value training.</li>
 </ul>
-<h3 id="grpo-objective-function-simplified">GRPO Objective Function (simplified)</h3>
-<pre><code>J_GRPO(θ) = E_{q,{o_i}} [ (1/G) ∑_i min( r_i * A_i, clip(r_i, 1-ε, 1+ε) * A_i ) ] - β * KL(π_θ || π_ref)
-where r_i = π_θ(o_i|q) / π_{θ_old}(o_i|q)
-</code></pre>
-<p>This ensures stable policy updates while leveraging multiple candidate outputs per prompt.</p>
-<hr />
-<h2 id="reward-design">Reward Design</h2>
-<h3 id="reasoning-oriented-tasks">Reasoning-Oriented Tasks</h3>
+<h4 id="22-key-features">2.2 Key Features<a class="headerlink" href="#22-key-features" title="Permanent link">&para;</a></h4>
 <ul>
-<li><strong>Correctness</strong>: Verified automatically via solvers or compilers.</li>
-<li><strong>Language Consistency</strong>: Penalizes multi-language outputs and encourages coherent chain-of-thought.</li>
-<li><strong>Weighted sum</strong>: Overall reward combines correctness and readability/style.</li>
-</ul>
-<h3 id="general-instruction-following-tasks">General Instruction-Following Tasks</h3>
-<ul>
-<li><strong>Preference models</strong>: Mixture of rule-based checks and learned reward models for helpfulness, harmlessness, and style alignment.</li>
+<li>Group-based candidate sampling (group size <span class="arithmatex">\(G\)</span>, e.g., 8–16).  </li>
+<li>Compute advantage<br />
+  $$
+    A_i = \frac{r_i - \mathrm{mean}(r_{1..G})}{\mathrm{std}(r_{1..G})}
+  $$<br />
+  where <span class="arithmatex">\(r_i\)</span> is the reward of candidate <span class="arithmatex">\(o_i\)</span>.  </li>
+<li>Use PPO-style clipped ratio of new policy vs old policy for each candidate, regularised by a KL-penalty to a reference policy.  </li>
+<li>Regularisation ensures the policy does not drift too far from the initial/frozen “reference” model.  </li>
+<li>No explicit value (critic) function required — critical for large-scale LLM fine-tuning.</li>
 </ul>
 <hr />
-<h2 id="multi-stage-training-pipeline">Multi-Stage Training Pipeline</h2>
-<ol>
-<li><strong>Cold-start SFT</strong>: Small curated dataset of chain-of-thought (CoT) reasoning examples.</li>
-<li><strong>Reasoning-oriented RL</strong>: GRPO algorithm applied with verifiable reward signals.</li>
-<li><strong>Rejection Sampling → SFT Dataset</strong>: Filter RL outputs for quality and readability, then fine-tune using SFT.</li>
-<li><strong>Second RL Stage (All Scenarios)</strong>: Broader prompt coverage for general instruction-following using mixed reward signals.</li>
-<li><strong>Distillation to Smaller Models</strong>: Generate dataset from large RL-trained model and fine-tune smaller models via SFT to inherit reasoning capability.</li>
-</ol>
+<h3 id="3-reward-design">3. Reward Design<a class="headerlink" href="#3-reward-design" title="Permanent link">&para;</a></h3>
+<p>DeepSeek splits reward design into two main domains: reasoning-oriented tasks, and general instruction-following tasks.</p>
+<h4 id="31-reasoning-oriented-tasks">3.1 Reasoning-Oriented Tasks<a class="headerlink" href="#31-reasoning-oriented-tasks" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Correctness</strong>: Verified automatically (e.g., solvers verify math answers, compilers/tests verify code solutions).  </li>
+<li><strong>Chain-of-Thought (CoT) / Format Enforcement</strong>: Encourage structured reasoning, for example via tags or designated reasoning segments.  </li>
+<li><strong>Language Consistency / Style</strong>: Penalise language mixing (e.g., mixing English &amp; Mandarin) or incoherent formatting.  </li>
+<li><strong>Weighted Sum</strong>: The overall reward may combine correctness + readability/style metrics.</li>
+</ul>
+<h4 id="32-general-instruction-following-tasks">3.2 General Instruction-Following Tasks<a class="headerlink" href="#32-general-instruction-following-tasks" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Use of preference models or mixtures of rule-based checks (for helpfulness/harmlessness/style) and/or learned reward models for broader tasks.  </li>
+<li>After the reasoning-oriented RL stage, DeepSeek shifts to include these broader tasks so that the model becomes more instruction-capable beyond strictly verifiable reasoning domains.</li>
+</ul>
 <hr />
-<h2 id="distinctions-from-traditional-methods">Distinctions from Traditional Methods</h2>
+<h3 id="4-multi-stage-training-pipeline">4. Multi-Stage Training Pipeline<a class="headerlink" href="#4-multi-stage-training-pipeline" title="Permanent link">&para;</a></h3>
+<p>Here is the step-by-step overview of the training strategy employed by DeepSeek-R1.</p>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Stage 1: Cold-Start SFT</strong></td>
+<td>A small curated dataset of chain-of-thought reasoning examples is used to bootstrap the model. Helps stabilise initial policy before heavy RL.</td>
+</tr>
+<tr>
+<td><strong>Stage 2: Reasoning-Oriented RL</strong></td>
+<td>Using GRPO on verifiable reasoning tasks (math, code, logic) to drive emergent reasoning capability, e.g., using only RL (DeepSeek-R1-Zero) or RL after SFT (DeepSeek-R1).</td>
+</tr>
+<tr>
+<td><strong>Stage 3: Rejection Sampling → SFT Dataset</strong></td>
+<td>Filter RL-generated outputs by quality/readability; this creates a high-quality dataset for SFT fine-tuning. This helps address issues such as language mixing or readability observed in R1-Zero.</td>
+</tr>
+<tr>
+<td><strong>Stage 4: Second RL Stage (General Instruction-Following)</strong></td>
+<td>Expand prompt coverage to include broad instructions and incorporate general reward signals (helpfulness, style, harmlessness). Encourages the model to generalise beyond reasoning tasks.</td>
+</tr>
+<tr>
+<td><strong>Stage 5: Distillation to Smaller Models</strong></td>
+<td>Use the high-capability RL-trained model as a <strong>teacher</strong>, generate reasoning-rich data, then fine-tune smaller student models via SFT on that data (rather than performing full RL on smaller models).</td>
+</tr>
+</tbody>
+</table>
+<h4 id="41-pipeline-highlights-additional-details">4.1 Pipeline Highlights / Additional Details<a class="headerlink" href="#41-pipeline-highlights-additional-details" title="Permanent link">&para;</a></h4>
+<ul>
+<li>The reasoning-only RL variant (R1-Zero) demonstrates that emergent reasoning can arise via RL alone (no SFT) but suffers readability/language consistency issues.  </li>
+<li>For R1 proper, the cold-start SFT acts as a “kick-start” to the policy, improving readability and general language handling before RL.  </li>
+<li>Distillation step: Available models labelled e.g. DeepSeek-R1-Distill-Qwen-7B, 1.5B, 8B, 14B, 32B, 70B based on Qwen or Llama series.  </li>
+<li>According to public sources, R1 achieved reasoning performance comparable to OpenAI o1-1217 model on reasoning/multitask benchmarks.  </li>
+</ul>
+<hr />
+<h3 id="5-distinctive-features-compared-to-traditional-methods">5. Distinctive Features Compared to Traditional Methods<a class="headerlink" href="#5-distinctive-features-compared-to-traditional-methods" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -945,67 +1171,142 @@ where r_i = π_θ(o_i|q) / π_{θ_old}(o_i|q)
 </thead>
 <tbody>
 <tr>
-<td>Initial SFT</td>
-<td>Large human-annotated dataset</td>
-<td>R1-Zero: None; R1: small cold-start SFT</td>
+<td><strong>Initial SFT</strong></td>
+<td>Often uses large human-annotated dataset</td>
+<td>R1-Zero: none; R1: small cold-start SFT</td>
 </tr>
 <tr>
-<td>Reward Source</td>
-<td>Learned reward model from human preference</td>
-<td>Reasoning: rule-based correctness + ranking; General: mixture</td>
+<td><strong>Reward Source</strong></td>
+<td>Learned reward model (often from human preferences)</td>
+<td>Reasoning tasks: rule-based correctness + ranking; General tasks: mixture</td>
 </tr>
 <tr>
-<td>Policy Optimization</td>
-<td>PPO using reward model</td>
+<td><strong>Policy Optimisation</strong></td>
+<td>PPO (with value network / critic, learned rewards)</td>
 <td>GRPO (group ranking + clipped ratio + KL penalty)</td>
 </tr>
 <tr>
-<td>Domain Focus</td>
-<td>Broad instruction-following</td>
-<td>Emphasis on reasoning → general instructions</td>
+<td><strong>Domain Focus</strong></td>
+<td>Broad instruction-following from the start</td>
+<td>Emphasis on reasoning first → then general instructions</td>
 </tr>
 <tr>
-<td>Post-RL Dataset Generation</td>
-<td>Sometimes</td>
-<td>RL outputs → filter → SFT dataset</td>
+<td><strong>Post-RL Dataset Generation</strong></td>
+<td>Sometimes limited</td>
+<td>RL outputs → filtered → SFT dataset then distillation</td>
 </tr>
 <tr>
-<td>Distillation to Smaller Models</td>
-<td>Optional</td>
-<td>Explicit large → dataset → smaller SFT</td>
+<td><strong>Distillation to Smaller Models</strong></td>
+<td>Optional / less emphasised</td>
+<td>Explicit large → dataset → smaller models path</td>
 </tr>
 <tr>
-<td>Emergence of Reasoning</td>
-<td>Through CoT SFT + RLHF</td>
-<td>Emergent via RL alone (R1-Zero)</td>
+<td><strong>Emergence of Reasoning</strong></td>
+<td>Often via SFT + RL; may require large data/human-labelled</td>
+<td>Demonstrated via RL alone (R1-Zero), then refined by SFT + RL</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="advantages">Advantages</h2>
+<h3 id="6-technical-training-details-additional-depth">6. Technical &amp; Training Details (Additional Depth)<a class="headerlink" href="#6-technical-training-details-additional-depth" title="Permanent link">&para;</a></h3>
+<p>Here are deeper details and notes from publicly available sources.</p>
+<h4 id="61-model-sizes-and-releases">6.1 Model Sizes and Releases<a class="headerlink" href="#61-model-sizes-and-releases" title="Permanent link">&para;</a></h4>
 <ul>
-<li>Emergent reasoning via RL alone.</li>
-<li>Efficient multi-stage training combining SFT and RL.</li>
-<li>Verifiable rewards reduce noise and instability.</li>
-<li>GRPO allows stable optimization across multiple outputs.</li>
-<li>Distillation enables smaller, deployable models without expensive RL training.</li>
+<li>The R1 paper describes two main models: R1-Zero and R1, both built on a 37B-activated parameter MoE architecture with total 671B parameters.  </li>
+<li>Distilled variants: 1.5B, 7B, 8B, 14B, 32B, 70B parameters based on Qwen2.5 and Llama3 series.</li>
 </ul>
-<h2 id="limitations">Limitations</h2>
+<h4 id="62-reward-function-sampling-details">6.2 Reward Function &amp; Sampling Details<a class="headerlink" href="#62-reward-function-sampling-details" title="Permanent link">&para;</a></h4>
 <ul>
-<li>Transparency of datasets and hyperparameters is limited.</li>
-<li>Generalization to arbitrary instructions may still be challenging.</li>
-<li>R1-Zero may have readability and language-mixing issues.</li>
-<li>Smaller distilled models rely solely on SFT and may not fully retain RL benefits.</li>
+<li>For reasoning tasks, the reward function is largely rule-based: checking final answers for correctness, format tags for reasoning sections, penalising language mixing.  </li>
+<li>Some commentary notes that weaker signals like process rewards (how many reasoning steps) were less effective than outcome rewards (correct answer) in this context.  </li>
+<li>In sampling / generation for distillation: e.g., for R1-Distill models, generation settings included temperature 0.6, top-p 0.95, 64 responses per query used for pass@1 estimation.</li>
+</ul>
+<h4 id="63-training-and-distillation-strategy">6.3 Training and Distillation Strategy<a class="headerlink" href="#63-training-and-distillation-strategy" title="Permanent link">&para;</a></h4>
+<ul>
+<li>The distillation process uses the high-capability teacher model to generate large “reasoning-rich” datasets. Student models are then fine-tuned via SFT (not full RL) to inherit reasoning patterns.  </li>
+<li>Some sources indicate the smaller models may still underperform the teacher, but give much better cost/efficiency trade-offs.</li>
+</ul>
+<h4 id="64-observed-strengths-weaknesses">6.4 Observed Strengths &amp; Weaknesses<a class="headerlink" href="#64-observed-strengths-weaknesses" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Strength: Emergent reasoning capability via RL, high reasoning benchmark performance.  </li>
+<li>Weaknesses noted: The R1-Zero model had issues with readability and language mixing (because of skipping SFT).  </li>
+<li>Distilled models, while efficient, may have some drop in reasoning performance compared to full model.</li>
 </ul>
 <hr />
-<h2 id="references">References</h2>
+<h3 id="7-summary-table">7. Summary Table<a class="headerlink" href="#7-summary-table" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Role</th>
+<th>Example / Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Policy Model (LLM)</strong></td>
+<td>Learns improved policy via RL</td>
+<td>DeepSeek-R1, DeepSeek-R1-Zero</td>
+</tr>
+<tr>
+<td><strong>Reference Model</strong></td>
+<td>Provides KL regularisation baseline</td>
+<td>Frozen SFT model (in GRPO)</td>
+</tr>
+<tr>
+<td><strong>Reward Function</strong></td>
+<td>Scores responses</td>
+<td>Correctness, readability, chain-of-thought format</td>
+</tr>
+<tr>
+<td><strong>Group Size (G)</strong></td>
+<td>Sampling granularity for GRPO</td>
+<td>8–16 outputs per prompt (typical)</td>
+</tr>
+<tr>
+<td><strong>Advantage <span class="arithmatex">\(A_i\)</span></strong></td>
+<td>Relative performance metric within group</td>
+<td>Normalisation: <span class="arithmatex">\((r_i-\text{mean})/\text{std}\)</span></td>
+</tr>
+<tr>
+<td><strong>Objective (GRPO)</strong></td>
+<td>PPO-style surrogate + KL penalty</td>
+<td>See GRPO doc for full derivation</td>
+</tr>
+<tr>
+<td><strong>Training Pipeline</strong></td>
+<td>Multi-stage (Cold-SFT → RL → SFT → RL → Distill)</td>
+<td>Reasoning first, then broad instruction</td>
+</tr>
+<tr>
+<td><strong>Distillation</strong></td>
+<td>Transfer reasoning to smaller models</td>
+<td>Student models 1.5B–70B params</td>
+</tr>
+<tr>
+<td><strong>Goal</strong></td>
+<td>Efficient reasoning/instruction-fine-tuning</td>
+<td>Stable RL fine-tuning for large LLMs</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="8-advantages-limitations">8. Advantages &amp; Limitations<a class="headerlink" href="#8-advantages-limitations" title="Permanent link">&para;</a></h3>
+<h4 id="advantages">Advantages<a class="headerlink" href="#advantages" title="Permanent link">&para;</a></h4>
 <ul>
-<li><a href="https://liweinlp.com/wp-content/uploads/2025/01/DeepSeek_R1.pdf?utm_source=chatgpt.com">DeepSeek-R1 Paper Summary</a></li>
-<li><a href="https://www.emergentmind.com/articles/2501.12948?utm_source=chatgpt.com">GRPO Explanation</a></li>
-<li><a href="https://queirozf.com/entries/paper-summary-deepseek-r1-incentivizing-reasoning-capability-in-llms-via-reinforcement-learning?utm_source=chatgpt.com">DeepSeek-R1 Analysis</a></li>
-<li><a href="https://st143575.github.io/steppenwolf.github.io/2025/02/02/DeepSeek-R1/?utm_source=chatgpt.com">Training Pipeline &amp; Distillation</a></li>
-<li><a href="https://papers.baulab.info/papers/DeepSeek-2025.pdf?utm_source=chatgpt.com">DeepSeek-R1 Limitations</a></li>
+<li>Emergent reasoning via RL (especially R1-Zero) without relying only on large human-annotated SFT datasets.  </li>
+<li>Efficient multi-stage training strategy combining SFT, RL, filtering, and distillation.  </li>
+<li>Verifiable reward signals (correctness + format) reduce noise and training instability.  </li>
+<li>Distillation path enables smaller, deployable models with reasoning capability — good for cost/production trade-offs.</li>
 </ul>
+<h4 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Transparency of full dataset, hyperparameters, and training cost is limited in public domain.  </li>
+<li>General instruction-following beyond reasoning may still lag (especially in R1-Zero or smaller distilled variants).  </li>
+<li>Because smaller models are SFT-only post-distillation, they may not fully retain RL-derived benefits.  </li>
+<li>Effective reward design and especially filtering of RL outputs remain key; if RL outputs are of low quality, filtering becomes a bottleneck.</li>
+</ul>
+<hr />
 
 
 
@@ -1059,7 +1360,9 @@ where r_i = π_θ(o_i|q) / π_{θ_old}(o_i|q)
     
       <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
       
-        <script src="../../javascripts/mathjax.js"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>
