@@ -1,4 +1,3 @@
-
 # 🧠 PPO and Reward Models in LLM Training
 
 ### 1. Overview
@@ -252,7 +251,7 @@ The PPO algorithm relies on several auxiliary components — **value function**,
 
 ---
 
-### 8. Pseudo-code example of PPO in Practice
+### 8. Implementation Example (Pseudocode)
 
 ```python
 

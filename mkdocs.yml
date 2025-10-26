@@ -25,7 +25,8 @@ nav:
   - Methods:
       - PPO: methods/ppo.md
       - DPO: methods/dpo.md
-      - DRPO: methods/drpo.md
+      - D(irect)RPO: methods/drpo.md
+      - D(ecoupled)RPO: methods/decoupledrpo.md
       - G(uided)RPO: methods/guided_rpo.md
       - Grouped Relative PO (Deepseek): methods/grouped_relative_po_deepseek.md
   - Advanced Topics:
