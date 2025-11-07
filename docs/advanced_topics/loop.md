@@ -149,3 +149,102 @@ while not converged:
 - Models evaluated: 32B instruction-tuned LLMs.
 - Results: LOOP-trained agents outperform larger closed-source models in API correctness, error recovery, and avoiding unwarranted assumptions.
 
+### 9. Experimental Setup
+
+#### Train/Dev/Test Splits
+
+| Split          | #Tasks | Difficulty                             |
+| -------------- | ------ | -------------------------------------- |
+| Train          | 35     | Levels 1–3                             |
+| Dev            | 20     | Levels 1–3                             |
+| Test-Normal    | 20     | Standard tasks                         |
+| Test-Challenge | 10     | Longer-horizon, multi-step, edge cases |
+
+#### Evaluation Metrics
+
+1. **Task Goal Completion (TGC)**: Fraction of tasks fully completed successfully.
+2. **Scenario Goal Completion (SGC)**: Fraction of subgoals completed across multi-step scenarios.
+3. **Behavioral metrics** (analyzed separately):
+    - Frequency of consulting API documentation
+    - Number of placeholder / dummy values used
+    - Frequency of “assuming” or unsupported inferences
+    - Number of code cells submitted per turn
+    - Recovery from API errors
+
+---
+
+## 10. Quantitative Results
+
+### Main Results: Test Sets
+
+| Method   | Test-N (TGC %) | Test-C (TGC %) |
+| -------- | -------------- | -------------- |
+| NFT      | 39.1           | 21.5           |
+| SFT      | 55.6           | 30.2           |
+| DPO      | 58.3           | 32.0           |
+| PPO      | 63.1           | 40.5           |
+| **LOOP** | **71.3**       | **45.7**       |
+
+**Observations:**
+
+- LOOP achieves the highest TGC on both normal and challenge sets.
+- Gains are especially significant on challenging long-horizon tasks.
+- Token-level actions + LOO advantage outperform rollout-level PPO variants.
+
+### Scenario Goal Completion (SGC)
+
+- LOOP increases **subgoal completion** by ~15–20% over SFT.
+- Highlights better structured multi-step reasoning.
+
+---
+
+## 11. Qualitative Behavioral Analysis
+
+LOOP-trained agents exhibit distinct behavior changes compared to NFT/SFT baselines:
+
+| Metric                   | NFT/SFT    | LOOP          | Interpretation                                     |
+| ------------------------ | ---------- | ------------- | -------------------------------------------------- |
+| API doc consultation     | 1x         | 1.6x          | Agents consult docs more often, improving accuracy |
+| Placeholder/dummy usage  | high       | 6x reduction  | Less likely to guess missing values                |
+| "Assuming" statements    | high       | 30x reduction | Fewer unsupported inferences                       |
+| Code cells submitted     | many       | ~6x fewer     | More efficient, fewer unnecessary steps            |
+| Recovery from API errors | low        | 3x higher     | Better robustness to failures                      |
+| Solution diversity       | 80% unique | 94–98% unique | Maintains diversity, avoids collapse               |
+
+**Takeaways:**
+
+- LOOP improves **practical reasoning**, **error recovery**, and **efficiency**.
+- Reward-based RL training reshapes agent strategies beyond simple completion rate.
+- Diversity in solutions suggests better generalization across unseen tasks.
+
+---
+
+## 12. Ablation Studies
+
+### 12.1 Per-Token vs Rollout-Level Advantage
+
+- Per-token advantage (assigning same LOO advantage to each token) outperformed rollout-level or per-turn reward assignment.
+- Reason: finer-grained control improves stability in long sequences.
+
+### 12.2 Reward Normalization
+
+- Normalizing trajectory returns (zero-mean, unit-variance) **hurt performance** in this domain.
+- Likely because long-horizon tasks have sparse rewards; normalization flattens meaningful differences.
+
+### 12.3 Number of Rollouts per Context (K)
+
+| K | TGC Test-N |
+| - | ---------- |
+| 2 | 66.2       |
+| 4 | 71.3       |
+| 6 | 70.8       |
+
+- Small K (<4) underestimates baseline; very large K offers diminishing returns.
+
+**Insights:**
+
+1. **Memory efficiency matters:** single LLM + LOO avoids a separate value network.
+2. **Token-level updates** improve stability in autoregressive sequences.
+3. **Behavioral metrics reveal true gains**, beyond raw task completion.
+4. **LOO baseline** provides low-variance advantage estimates.
+5. **Long-horizon RL works**: large LLMs can learn multi-step reasoning when trained carefully with LOOP.
