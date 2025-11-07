@@ -32,4 +32,5 @@ nav:
       - KL Penalty: advanced_topics/kl_penalty.md
       - Deepseek RL Fine-tuning: advanced_topics/deepseek_rl_finetuning.md
       - Rewards Hacking: advanced_topics/rewards_hacking.md
+      - Loop (Apple 2025): advanced_topics/loop.md
   - References: references.md
